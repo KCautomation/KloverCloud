@@ -2,12 +2,10 @@ import time
 import unittest
 
 from selenium import webdriver
-from selenium.webdriver.common import window
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 
 
-class NamespaceCreation(unittest.TestCase):
+class NamespaceCreationOrganization(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
 
@@ -16,7 +14,6 @@ class NamespaceCreation(unittest.TestCase):
         driver = self.driver
         self.driver.maximize_window()
         self.driver.get(pageUrl)
-        wait = WebDriverWait(driver, 10)
         time.sleep(2)
 
         """ Login """
@@ -76,24 +73,32 @@ class NamespaceCreation(unittest.TestCase):
 
         """
         # input Namespace name
-        driver.find_element(By.CSS_SELECTOR, "input[placeholder='Namespace Name']").send_keys('test44')
+        driver.find_element(By.CSS_SELECTOR, "input[placeholder='Namespace Name']").send_keys('test45')
         time.sleep(3)
 
-        #driver.execute_script(window.scrollBy(0, 500))
+        # driver.execute_script(window.scrollBy(0, 500))
 
-        driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
-        time.sleep(3)
-
-
-
-
-        """
-        #scroll
-
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("document.querySelector('.sidenav-content').scrollTop = 550")
+        # Scroll
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 550")
+        print("Scroll down")
         time.sleep(4)
-          """
+
+        # Choose access organization from Access Group
+        driver.find_element(By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container["
+                                      "1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div["
+                                      "1]/div[3]/div[1]/button[2]/span[1]/div[1]").click()
+        time.sleep(2)
+
+        # click search box and choose a organization
+        driver.find_element(By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container["
+                                      "1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div["
+                                      "1]/div[3]/div[2]/div[1]/mat-form-field[1]/div[1]/div[1]/div[4]").click()
+        time.sleep(2)
+
+        # Organization selection
+        # driver.find_element(By.XPATH, "//body/div[2]/div[1]/div[1]/div[1]/mat-option[2]/div[1]").click()
+        driver.find_element(By.XPATH, "//span[contains(text(),'default')]").click()
+        time.sleep(4)
 
         # CPU selection
         driver.find_element(By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container["
@@ -120,24 +125,17 @@ class NamespaceCreation(unittest.TestCase):
         driver.find_element(By.XPATH, "//div[contains(text(),'Moderate')]").click()
         time.sleep(2)
 
-        driver.execute_script("return document.body.scrollHeight")
-        time.sleep(2)
-
-        #driver.execute_script("window.scrollTo(document.body.scrollHeight,0)")
-        time.sleep(2)
-
-        """
-         //scroll
-		js.executeScript("document.querySelector('.sidenav-content').scrollTop = -700");
-		Thread.sleep(4000);
-
-		"""
+        # Scroll
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = -550")
+        print("Scroll up")
+        time.sleep(4)
 
         # click create button for create
         driver.find_element(By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container["
                                       "1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div["
                                       "2]/div[1]/div[2]/button[1]").click()
         driver.implicitly_wait(10)
+        print("Create Successfully")
         time.sleep(5)
 
 
