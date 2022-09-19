@@ -11,7 +11,7 @@ class NamespaceCreationTeam(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
 
-    def test1(self):
+    def test3(self):
         pageUrl = "https://eks.hkmd7dff3.klovercloud.io/"
         driver = self.driver
         self.driver.maximize_window()

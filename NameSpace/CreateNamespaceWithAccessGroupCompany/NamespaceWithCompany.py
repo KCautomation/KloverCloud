@@ -42,19 +42,21 @@ class NamespaceCreationOnCompany(unittest.TestCase):
                             "4]/button[1]/span[1]/mat-icon[1]/*[1]").click()
         time.sleep(2)
 
-        # click on  SignUp
+        # click on SignUp
         driver.find_element(
             By.XPATH, "//body/kc-root[1]/kc-login[1]/div[1]/div[2]/div[1]/form[1]/button[1]/span[1]/div[1]").click()
         driver.implicitly_wait(10)
-        time.sleep(5)
+        time.sleep(7)
         print("LogIn successfully ")
+
+        print("Welcome to dashboard")
 
         """ Create Namespace """
 
         # Click On Namespace From Side Navigation
         driver.find_element(By.XPATH, "//span[contains(text(),'Namespace')]").click()
-        driver.implicitly_wait(10)
-        time.sleep(6)
+        driver.implicitly_wait(15)
+        time.sleep(7)
 
         # clcik on create button from header
         driver.find_element(By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container["
@@ -62,7 +64,7 @@ class NamespaceCreationOnCompany(unittest.TestCase):
         driver.implicitly_wait(10)
         time.sleep(4)
 
-        # click namespace
+        # click namespace from dropdown frame
         driver.find_element(By.CSS_SELECTOR, "button[role='menuitem']").click()
         driver.implicitly_wait(10)
         time.sleep(4)
@@ -88,7 +90,7 @@ class NamespaceCreationOnCompany(unittest.TestCase):
         time.sleep(3)
         """
 
-        # scroll
+        # scroll down to select Cpu,memory,volume,bandwidth
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 550")
         print("Scroll down")
         time.sleep(4)
@@ -104,14 +106,14 @@ class NamespaceCreationOnCompany(unittest.TestCase):
         driver.find_element(By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container["
                                       "1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div["
                                       "1]/div[4]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/input["
-                                      "1]").send_keys(0)
+                                      "1]").send_keys(2)
         time.sleep(2)
 
         # Persistent Volume seloection
         driver.find_element(By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container["
                                       "1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div["
                                       "1]/div[4]/div[2]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/input["
-                                      "1]").send_keys(0)
+                                      "1]").send_keys(1)
         time.sleep(2)
 
         # Bandwidth selection
