@@ -10,17 +10,53 @@ from selenium.webdriver.support.wait import WebDriverWait
 from NameSpace.Src.Page_object_model.pom_createPage import CreatePage
 
 from NameSpace.Src.base.environment_setup import EnvironmentSetup
+from urllib.request import urlopen
+from urllib.error import *
 
 
-class NamespaceCreateWithCompany(EnvironmentSetup):
+class CreateWithCompany(EnvironmentSetup):
 
     def test1(self):
+
         pageUrl = "https://eks.dev-66.klovercloud.io/auth/login"
         driver = self.driver
+
+        # try block to read URL
+        try:
+            html = urlopen(pageUrl)
+
+        # except block to catch
+        # exception
+        # and identify error
+        except HTTPError as e:
+            print("HTTP error", e)
+
+        except URLError as e:
+            print("Opps ! Page not found!", e)
+
+        else:
+            print('Yeah ! URL found ')
+            self.driver.get(pageUrl)
+            self.driver.implicitly_wait(20)
+            time.sleep(2)
+            """ Login """
+            call = CreatePage(driver)
+            # input email
+            if call.Email_box.is_enabled():
+                print("Email box is enabled")
+                call.Email_box.send_keys('admin@klovercloud.com')
+                time.sleep(2)
+            else:
+                print("Password box is not enable")
+
+        """
+        pageUrl = "https://eks.dev-66.klovercloud.io/auth/login"
         self.driver.get(pageUrl)
         self.driver.implicitly_wait(20)
         time.sleep(2)
-        """ Login """
+        
+
+        #Login
         call = CreatePage(driver)
         # input email
         if call.Email_box.is_enabled():
@@ -29,7 +65,7 @@ class NamespaceCreateWithCompany(EnvironmentSetup):
             time.sleep(2)
         else:
             print("Password box is not enable")
-
+        """
         # input password
 
         if call.Password_box.is_enabled():
