@@ -1,9 +1,12 @@
 import time
 
 from selenium.webdriver.common.by import By
+from webdriver_manager.core import driver
 
 from Src.Page_object_model.pom_loginPage import LogInPage
 from Src.Page_object_model.pom_createPage import CreatePage
+from Src.Page_object_model.pom_dashboardPage import DashboardPage
+from Src.Page_object_model.pom_Header import Header
 
 from Src.base.environment_setup import EnvironmentSetup
 from urllib.request import urlopen
@@ -75,3 +78,24 @@ class CreateWithCompany(EnvironmentSetup):
         else:
             print("Sign In button is not clickable")
             time.sleep(5)
+
+        # test case check
+        das = DashboardPage(driver)
+        status = das.Dashboard_title.is_displayed()
+        if status == True:
+            assert True
+            print("Wellcome to Dashboard")
+        else:
+            assert False
+
+        # click on create new button from header
+        hea = Header(driver)
+        if hea.CreateNew_button_from_header.is_enabled():
+            hea.CreateNew_button_from_header.click()
+            print("Successfully clicked on CreateNew button")
+            time.sleep(2)
+        else:
+            print("CreateNew button is not clickable")
+
+        hea.Namespace_H.click()
+        time.sleep(5)

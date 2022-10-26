@@ -72,6 +72,26 @@ class CreateWithCompany(EnvironmentSetup):
         if log.Sign_In_button.is_enabled():
             print("Sign In button is clickable")
             log.Sign_In_button.click()
-            time.sleep(5)
+            self.driver.implicitly_wait(20)
+            time.sleep(10)
         else:
             print("Sign In button is not clickable")
+
+        status = self.driver.find_element(By.XPATH,
+                                          "/html/body/kc-root/kc-layout/div/mat-sidenav-container/mat-sidenav-content/kc-toolbar/div/h1").is_displayed()
+        if status == True:
+            assert True
+            print("Wellcome to Dashboard")
+        else:
+            assert False
+        """
+        act_title = self.driver.title
+        print(act_title)
+        if act_title == "KloverCloud | Dashboard":
+            self.driver.close()
+            assert True
+        else:
+            self.driver.close()
+            assert False
+
+        """

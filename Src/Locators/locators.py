@@ -8,7 +8,9 @@ class Locator(object):
 
     # Dashboard page
     Namespace_button_from_SideBar = "//span[contains(text(),'Namespace')]"  # XPATH
+    Dashboard_title = "/html/body/kc-root/kc-layout/div/mat-sidenav-container/mat-sidenav-content/kc-toolbar/div/h1"
 
     # header frame
-    CreateNew_button_from_header = "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/kc-toolbar[1]/div[1]/button[2]/span[1]" # XPATH
+    CreateNew_button_from_header = "/html/body/kc-root/kc-layout/div/mat-sidenav-container/mat-sidenav-content/kc-toolbar/div/button[2]"  # XPATH
+    Namespace_H = "button[role='menuitem']"
 
