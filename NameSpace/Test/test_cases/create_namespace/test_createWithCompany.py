@@ -18,7 +18,7 @@ class CreateWithCompany(EnvironmentSetup):
 
     def test1(self):
 
-        pageUrl = "https://eks.dev-66.klovercloud.io/auth/login"
+        pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
 
         # try block to read URL
@@ -36,27 +36,12 @@ class CreateWithCompany(EnvironmentSetup):
 
         else:
             print('Yeah ! URL found ')
-            self.driver.get(pageUrl)
-            self.driver.implicitly_wait(20)
-            time.sleep(2)
-            """ Login """
-            call = CreatePage(driver)
-            # input email
-            if call.Email_box.is_enabled():
-                print("Email box is enabled")
-                call.Email_box.send_keys('admin@klovercloud.com')
-                time.sleep(2)
-            else:
-                print("Password box is not enable")
 
-        """
-        pageUrl = "https://eks.dev-66.klovercloud.io/auth/login"
         self.driver.get(pageUrl)
         self.driver.implicitly_wait(20)
         time.sleep(2)
-        
 
-        #Login
+        # Login
         call = CreatePage(driver)
         # input email
         if call.Email_box.is_enabled():
@@ -65,7 +50,7 @@ class CreateWithCompany(EnvironmentSetup):
             time.sleep(2)
         else:
             print("Password box is not enable")
-        """
+
         # input password
 
         if call.Password_box.is_enabled():
@@ -91,6 +76,15 @@ class CreateWithCompany(EnvironmentSetup):
         if call.Sign_In_button.is_enabled():
             print("Sign In button is clickable")
             call.Sign_In_button.click()
-            time.sleep(10)
+            time.sleep(2)
         else:
             print("Sign In button is not clickable")
+
+        if call.CreateNew_button_from_header.is_enabled():
+            call.CreateNew_button_from_header.click()
+            print("CreateNew_button_from_header is enable")
+            time.sleep(2)
+
+        else:
+            print("CreateNew_button_from_header is not enable")
+            time.sleep(2)

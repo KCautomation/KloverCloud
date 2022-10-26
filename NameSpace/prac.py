@@ -1,6 +1,6 @@
 import time
 import unittest
-
+import urllib.request
 from selenium import webdriver
 from selenium.webdriver import Keys
 from selenium.webdriver.common import window
@@ -40,5 +40,9 @@ class NamespaceCreateWithCompany(EnvironmentSetup):
             self.driver.implicitly_wait(20)
             time.sleep(2)
 
-            self.driver.find_element(By.XPATH, "//body[1]/div[1]/div[3]/form[1]/div[1]/div[1]/div[1]/div[1]/div[2]/input[1]").send_keys("test",Keys.ENTER)
+            self.driver.find_element(By.XPATH,
+                                     "//body[1]/div[1]/div[3]/form[1]/div[1]/div[1]/div[1]/div[1]/div[2]/input[1]").send_keys(
+                "test", Keys.ENTER)
             time.sleep(5)
+
+            print(urllib.request.urlopen("https://www.stackoverflow.com").getcode())
