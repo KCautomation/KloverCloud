@@ -45,6 +45,8 @@ class CreateWithCompany(EnvironmentSetup):
         else:
             print("Password box is not enable")
             time.sleep(2)
+        # driver.find_element(By.XPATH, "//input[@id='mat-input-0']").send_keys("admin@klovercloud.com")
+        time.sleep(2)
 
         # input password
         if log.Password_box.is_enabled():
@@ -70,8 +72,6 @@ class CreateWithCompany(EnvironmentSetup):
         if log.Sign_In_button.is_enabled():
             print("Sign In button is clickable")
             log.Sign_In_button.click()
-            self.driver.implicitly_wait(30)
-            time.sleep(8)
+            time.sleep(5)
         else:
             print("Sign In button is not clickable")
-            time.sleep(5)

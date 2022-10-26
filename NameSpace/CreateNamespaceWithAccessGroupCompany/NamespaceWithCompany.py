@@ -12,7 +12,7 @@ class NamespaceCreationOnCompany(unittest.TestCase):
         self.driver = webdriver.Chrome()
 
     def test1(self):
-        pageUrl = "https://eks.hkmd7dff3.klovercloud.io/"
+        pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
         self.driver.maximize_window()
         self.driver.get(pageUrl)

@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from NameSpace.Src.Locators.locators import Locator
+from Src.Locators.locators import Locator
 
 
 class CreatePage(object):

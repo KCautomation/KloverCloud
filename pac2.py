@@ -1,25 +1,20 @@
-# import module
-import requests
+import time
+from telnetlib import EC
 
-url = "https://www.geeksforgeeks.org/"
+from _pytest import unittest
+from selenium.webdriver.chrome import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from Src.base.environment_setup import EnvironmentSetup
 
 
-# create a function
-# pass the url
-def url_ok(url):
-    # exception block
-    try:
+class NamespaceCreationOnCompany(EnvironmentSetup):
 
-        # pass the url into
-        # request.hear
-        response = requests.head(url)
+    def test1(self):
+        pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
+        driver = self.driver
+        self.driver.maximize_window()
+        self.driver.get(pageUrl)
+        wait = WebDriverWait(driver, 10)
+        time.sleep(2)
 
-        # check the status code
-        if response.status_code == 200:
-            return True
-        else:
-            return False
-    except requests.ConnectionError as e:
-        return e
-
-# driven code
