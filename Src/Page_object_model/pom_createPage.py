@@ -10,7 +10,7 @@ class CreatePage(object):
         self.Password_box = driver.find_element(By.XPATH, Locator.Password_box)
         self.Toggle_Visibility_Button = driver.find_element(By.XPATH, Locator.Toggle_Visibility_Button)
         self.Sign_In_button = driver.find_element(By.XPATH, Locator.Sign_In_button)
-        self.CreateNew_button_from_header = driver.find_element(By.XPATH, Locator.CreateNew_button_from_header)
+
 
     def get_email(self):
         return self.Email_box
@@ -24,5 +24,4 @@ class CreatePage(object):
     def get_Sign_In_button(self):
         return self.Sign_In_button
 
-    def get_CreateNew_button_from_header(self):
-        return self.CreateNew_button_from_header
+

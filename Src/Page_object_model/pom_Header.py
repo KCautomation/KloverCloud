@@ -8,6 +8,7 @@ class Header(object):
 
         self.CreateNew_H = driver.find_element(By.XPATH, Locator.CreateNew_H)
         self.Namespace_H = driver.find_element(By.XPATH, Locator.Namespace_H)
+        self.New_Application_H = driver.find_element(By.XPATH, Locator.New_Application_H)
 
     def get_CreateNew_button_from_header(self):
         return self.CreateNew_H

@@ -7,10 +7,13 @@ from Src.Page_object_model.pom_loginPage import LogInPage
 from Src.Page_object_model.pom_createPage import CreatePage
 from Src.Page_object_model.pom_dashboardPage import DashboardPage
 from Src.Page_object_model.pom_Header import Header
+from NameSpace.screenShots.screen_shots import SS
 
 from Src.base.environment_setup import EnvironmentSetup
 from urllib.request import urlopen
 from urllib.error import *
+
+ss_path = "/company/"
 
 
 class TestWithCompany(EnvironmentSetup):
@@ -82,6 +85,11 @@ class TestWithCompany(EnvironmentSetup):
         else:
             print("Sign In button is not clickable")
             time.sleep(5)
+        # take screenshot
+        ss = SS(driver)
+        file_name = ss_path + "Test-login_screenshot_" + time.asctime().replace(":", "_") + ".png"
+        ss.driver.save_screenshot(file_name)
+        ss.ScreenShot(file_name)
 
         # Create Namespace
         # Click On Namespace From Side Navigation
@@ -179,3 +187,7 @@ class TestWithCompany(EnvironmentSetup):
             print("LogIn failed")
             assert False
         """
+
+        file_name = ss_path + "Test-CreateCompany_screenshot_" + time.asctime().replace(":", "_") + ".png"
+        ss.driver.save_screenshot(file_name)
+        ss.ScreenShot(file_name)
