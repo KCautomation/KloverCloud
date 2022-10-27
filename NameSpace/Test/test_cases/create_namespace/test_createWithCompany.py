@@ -39,8 +39,14 @@ class CreateWithCompany(EnvironmentSetup):
         self.driver.implicitly_wait(20)
         time.sleep(2)
         # ******************************Login**********************************
+
+        # page object
+        log = LogInPage(driver)  # LogIn page
+        das = DashboardPage(driver)  # DashboardPage
+        hea = Header(driver)  # Header frame
+
         # input email
-        log = LogInPage(driver)
+
         if log.Email_box.is_enabled():
             print("Email box is enabled")
             log.Email_box.send_keys('admin@klovercloud.com')
@@ -80,7 +86,7 @@ class CreateWithCompany(EnvironmentSetup):
             time.sleep(5)
 
         # test case check
-        das = DashboardPage(driver)
+
         status = das.Dashboard_title.is_displayed()
         if status == True:
             assert True
@@ -89,7 +95,7 @@ class CreateWithCompany(EnvironmentSetup):
             assert False
 
         # click on create new button from header
-        hea = Header(driver)
+
         if hea.CreateNew_button_from_header.is_enabled():
             hea.CreateNew_button_from_header.click()
             print("Successfully clicked on CreateNew button")
