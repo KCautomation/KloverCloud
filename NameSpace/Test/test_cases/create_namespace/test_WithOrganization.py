@@ -13,7 +13,7 @@ from urllib.request import urlopen
 from urllib.error import *
 
 
-class TestWithCompany(EnvironmentSetup):
+class TestWithOrganization(EnvironmentSetup):
 
     def test1(self):
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
@@ -83,7 +83,8 @@ class TestWithCompany(EnvironmentSetup):
             print("Sign In button is not clickable")
             time.sleep(5)
 
-        # Create Namespace
+        """ Create Namespace """
+
         # Click On Namespace From Side Navigation
         driver.find_element(By.XPATH, "//span[contains(text(),'Namespace')]").click()
         driver.implicitly_wait(10)
@@ -95,32 +96,45 @@ class TestWithCompany(EnvironmentSetup):
         driver.implicitly_wait(10)
         time.sleep(4)
 
-        # click namespace from dropdown frame
+        # click namespace
         driver.find_element(By.CSS_SELECTOR, "button[role='menuitem']").click()
         driver.implicitly_wait(10)
         time.sleep(4)
 
+        """
         # Choose cluster
         driver.find_element(By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container["
                                       "1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div["
                                       "1]/div[1]/div[1]/div[2]/div[1]/button[1]/span[1]/img[1]").click()
         time.sleep(1)
 
+        """
         # input Namespace name
-        driver.find_element(By.CSS_SELECTOR, "input[placeholder='Namespace Name']").send_keys('test44')
+        driver.find_element(By.CSS_SELECTOR, "input[placeholder='Namespace Name']").send_keys('test45')
         time.sleep(3)
 
         # driver.execute_script(window.scrollBy(0, 500))
 
         # Scroll
-        # driver.execute_script("window.scrollBy()0,500", "")
-        driver.execute_script("window.scrollTo(0,document.body.scrollHeight)")
-        print("Scroll down")
-        time.sleep(3)
-
-        # scroll down to select Cpu,memory,volume,bandwidth
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 550")
         print("Scroll down")
+        time.sleep(4)
+
+        # Choose access organization from Access Group
+        driver.find_element(By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container["
+                                      "1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div["
+                                      "1]/div[3]/div[1]/button[2]/span[1]/div[1]").click()
+        time.sleep(2)
+
+        # click search box and choose a organization
+        driver.find_element(By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container["
+                                      "1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div["
+                                      "1]/div[3]/div[2]/div[1]/mat-form-field[1]/div[1]/div[1]/div[4]").click()
+        time.sleep(2)
+
+        # Organization selection
+        # driver.find_element(By.XPATH, "//body/div[2]/div[1]/div[1]/div[1]/mat-option[2]/div[1]").click()
+        driver.find_element(By.XPATH, "//span[contains(text(),'default')]").click()
         time.sleep(4)
 
         # CPU selection
@@ -134,30 +148,23 @@ class TestWithCompany(EnvironmentSetup):
         driver.find_element(By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container["
                                       "1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div["
                                       "1]/div[4]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/input["
-                                      "1]").send_keys(2)
+                                      "1]").send_keys(0)
         time.sleep(2)
 
         # Persistent Volume seloection
         driver.find_element(By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container["
                                       "1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div["
                                       "1]/div[4]/div[2]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/input["
-                                      "1]").send_keys(1)
+                                      "1]").send_keys(0)
         time.sleep(2)
 
         # Bandwidth selection
         driver.find_element(By.XPATH, "//div[contains(text(),'Moderate')]").click()
         time.sleep(2)
 
-        driver.execute_script("return document.body.scrollHeight")
-
-        print("Scroll success")
-
-        # driver.execute_script("window.scrollTo(document.body.scrollHeight,0)")
-        time.sleep(2)
-
-        # scroll
+        # Scroll
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = -550")
-        print("Scroll down")
+        print("Scroll up")
         time.sleep(4)
 
         # click create button for create
@@ -165,17 +172,5 @@ class TestWithCompany(EnvironmentSetup):
                                       "1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div["
                                       "2]/div[1]/div[2]/button[1]").click()
         driver.implicitly_wait(10)
+        print("Create Successfully")
         time.sleep(5)
-
-        """
-        # test case check
-        das = DashboardPage(driver)
-        status = das.Dashboard_title.is_displayed()
-        if status == True:
-            assert True
-            print("Created Successfully")
-            
-        else:
-            print("LogIn failed")
-            assert False
-        """

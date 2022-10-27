@@ -11,6 +11,5 @@ class Locator(object):
     Dashboard_title = "/html/body/kc-root/kc-layout/div/mat-sidenav-container/mat-sidenav-content/kc-toolbar/div/h1"
 
     # header frame
-    CreateNew_button_from_header = "/html/body/kc-root/kc-layout/div/mat-sidenav-container/mat-sidenav-content/kc-toolbar/div/button[2]"  # XPATH
-    Namespace_H = "button[role='menuitem']"
-
+    CreateNew_H = "/html/body/kc-root/kc-layout/div/mat-sidenav-container/mat-sidenav-content/kc-toolbar/div/button[2]"  # XPATH
+    Namespace_H = "button[role='menuitem']"  # xpath
