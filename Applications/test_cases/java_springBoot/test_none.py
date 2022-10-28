@@ -2,6 +2,7 @@ import time
 
 from selenium.webdriver.common.by import By
 from webdriver_manager.core import driver
+from Src.Locators.locators import Locator
 
 from Src.Page_object_model.pom_loginPage import LogInPage
 from Src.Page_object_model.pom_createPage import CreatePage
@@ -98,56 +99,67 @@ class TestCreateJava(EnvironmentSetup):
         driver.implicitly_wait(10)
         time.sleep(4)
 
-        app = CreateApplicationPage(driver)
         # choose spring boot
-        if app.SpringBoot.is_enabled():
-            app.SpringBoot.click()
+        # app = CreateApplicationPage(self.driver)
+        SpringBoot = self.driver.find_element(By.XPATH, "//mat-tab-body/div[1]/div[1]/div[1]")
+        if SpringBoot.is_enabled():
+            SpringBoot.click()
             print("spring boot button is enable")
-            driver.implicitly_wait(10)
+            driver.implicitly_wait(5)
             time.sleep(2)
         else:
             print("spring boot button is not enable")
-            # self.driver.find_element(By.XPATH, "//mat-tab-body/div[1]/div[1]/div[1]").click()
+        time.sleep(1)
 
         # put application name
-        if app.ApplicationName_box.is_enabled():
-            app.ApplicationName_box.click()
+        ApplicationName_box = driver.find_element(By.XPATH, Locator.ApplicationName_box)
+        if ApplicationName_box.is_enabled():
+            ApplicationName_box.send_keys('test44')
             print("ApplicationName_box is enable")
-            driver.implicitly_wait(10)
             time.sleep(2)
         else:
             print("ApplicationName_box is not enable")
             # self.driver.find_element(By.XPATH, "//mat-tab-body/div[1]/div[1]/div[1]").click()
 
         # Click next button
-
-        if app.Next_button.is_enabled():
-            app.Next_button.click()
+        Next_button = self.driver.find_element(By.XPATH, "//*[@id='msgContainer']/div/kc-horizontal-stepper/section/div/div[3]/button[2]")
+        if Next_button.is_enabled():
+            Next_button.click()
             print("Next button is enable")
-            driver.implicitly_wait(10)
-            time.sleep(2)
+            time.sleep(3)
         else:
             print("Next button is not enable")
-            # self.driver.find_element(By.XPATH, "//mat-tab-body/div[1]/div[1]/div[1]").click()
+
         # Again click next button
-        self.driver.find_element(By.XPATH,
-                                 "//*[@id='msgContainer']/div/kc-horizontal-stepper/section/div/div[3]/button[2]").click()
-        print("Next button is enable")
-        time.sleep(2)
+        Next_button_two = self.driver.find_element(By.XPATH, "//*[@id='msgContainer']/div/kc-horizontal-stepper/section/div/div[3]/button[2]")
+        if Next_button_two.is_enabled():
+            Next_button_two.click()
+            print("Next button is enable")
+            time.sleep(5)
+        else:
+            print("Next button is not enable")
 
         # Choose A Namespace for Prod Environment
-        self.driver.find_element(By.XPATH,
-                                 "//mat-tab-body/div[1]/div[1]/div[1]/button[1]/span[1]/div[1]/div[1]").click()
-        print("Namespace is enable")
-        time.sleep(2)
+        Choose_Namespace_one = self.driver.find_element(By.XPATH, "//mat-tab-body/div[1]/div[1]/div[1]/button[1]/span[1]/div[1]/div[1]")
+        if Choose_Namespace_one.is_enabled():
+            Choose_Namespace_one.click()
+            print("Namespace is selected")
+            time.sleep(5)
+        else:
+            print("Namespace is not enable")
 
         # click on save button
-        self.driver.find_element(By.XPATH,
-                                 "//body[1]/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-form[1]/div[1]/div[1]/kc-horizontal-stepper[1]/section[1]/div[1]/mat-tab-group[1]/div[1]/mat-tab-body[1]/div[1]/div[2]/kc-application-resource-selection-form[1]/div[1]/form[1]/div[7]/div[1]/button[2]").click()
-        print("Save button is enable")
-        time.sleep(5)
+        Save_button = self.driver.find_element(By.XPATH, "//body[1]/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-form[1]/div[1]/div[1]/kc-horizontal-stepper[1]/section[1]/div[1]/mat-tab-group[1]/div[1]/mat-tab-body[1]/div[1]/div[2]/kc-application-resource-selection-form[1]/div[1]/form[1]/div[7]/div[1]/button[2]")
+        if Save_button.is_enabled():
+            Save_button.click()
+            print("Save button is enable")
+            time.sleep(2)
+        else:
+            print("Save button is not enable")
+        time.sleep(2)
 
         # click on Create application button
-
         # self.driver.find_element(By.XPATH, "//*[@id='msgContainer']/div/kc-horizontal-stepper/section/div/form/div[3]/button[2]").click()
         print("Create application button is enable")
+        time.sleep(10)
+
