@@ -101,7 +101,7 @@ class TestCreateJava(EnvironmentSetup):
 
         # choose spring boot
         # app = CreateApplicationPage(self.driver)
-        SpringBoot = self.driver.find_element(By.XPATH, "//mat-tab-body/div[1]/div[1]/div[1]")
+        SpringBoot = self.driver.find_element(By.XPATH, Locator.SpringBoot)
         if SpringBoot.is_enabled():
             SpringBoot.click()
             print("spring boot button is enable")
@@ -119,10 +119,9 @@ class TestCreateJava(EnvironmentSetup):
             time.sleep(2)
         else:
             print("ApplicationName_box is not enable")
-            # self.driver.find_element(By.XPATH, "//mat-tab-body/div[1]/div[1]/div[1]").click()
 
         # Click next button
-        Next_button = self.driver.find_element(By.XPATH, "//*[@id='msgContainer']/div/kc-horizontal-stepper/section/div/div[3]/button[2]")
+        Next_button = self.driver.find_element(By.XPATH, Locator.Next_button)
         if Next_button.is_enabled():
             Next_button.click()
             print("Next button is enable")
@@ -131,7 +130,7 @@ class TestCreateJava(EnvironmentSetup):
             print("Next button is not enable")
 
         # Again click next button
-        Next_button_two = self.driver.find_element(By.XPATH, "//*[@id='msgContainer']/div/kc-horizontal-stepper/section/div/div[3]/button[2]")
+        Next_button_two = self.driver.find_element(By.XPATH, Locator.Next_button)
         if Next_button_two.is_enabled():
             Next_button_two.click()
             print("Next button is enable")
@@ -140,7 +139,7 @@ class TestCreateJava(EnvironmentSetup):
             print("Next button is not enable")
 
         # Choose A Namespace for Prod Environment
-        Choose_Namespace_one = self.driver.find_element(By.XPATH, "//mat-tab-body/div[1]/div[1]/div[1]/button[1]/span[1]/div[1]/div[1]")
+        Choose_Namespace_one = self.driver.find_element(By.XPATH, Locator.Choose_Namespace_one)
         if Choose_Namespace_one.is_enabled():
             Choose_Namespace_one.click()
             print("Namespace is selected")
@@ -149,7 +148,7 @@ class TestCreateJava(EnvironmentSetup):
             print("Namespace is not enable")
 
         # click on save button
-        Save_button = self.driver.find_element(By.XPATH, "//body[1]/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-form[1]/div[1]/div[1]/kc-horizontal-stepper[1]/section[1]/div[1]/mat-tab-group[1]/div[1]/mat-tab-body[1]/div[1]/div[2]/kc-application-resource-selection-form[1]/div[1]/form[1]/div[7]/div[1]/button[2]")
+        Save_button = self.driver.find_element(By.XPATH, Locator.Save_button_A)
         if Save_button.is_enabled():
             Save_button.click()
             print("Save button is enable")
@@ -159,7 +158,9 @@ class TestCreateJava(EnvironmentSetup):
         time.sleep(2)
 
         # click on Create application button
-        # self.driver.find_element(By.XPATH, "//*[@id='msgContainer']/div/kc-horizontal-stepper/section/div/form/div[3]/button[2]").click()
-        print("Create application button is enable")
-        time.sleep(10)
+        Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
+        if Create_Application.is_enabled():
+            Create_Application.click()
+            print("Create application button is enable")
+            time.sleep(180)
 
