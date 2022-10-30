@@ -13,12 +13,14 @@ class Locator(object):
     # header frame
     CreateNew_H = "/html/body/kc-root/kc-layout/div/mat-sidenav-container/mat-sidenav-content/kc-toolbar/div/button[2]"  # XPATH
     Namespace_H = "button[role='menuitem']"  # xpath
-    New_Application_H = "//span[contains(text(),'New Application')]"
+    NewApplication_H = "//span[contains(text(),'New Application')]"
 
     # Create Application page
 
     SpringBoot = "//span[contains(text(),'Spring Boot')]"
     ApplicationName_box = "/html[1]/body[1]/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-form[1]/div[1]/div[1]/kc-horizontal-stepper[1]/section[1]/div[1]/div[2]/div[1]/mat-form-field[1]/div[1]/div[1]/div[3]/input[1]"
+    TeamBox_A = "//*[@id='mat-select-2']"
+    Team_Default = "//mat-option[@id='mat-option-1']"
     Next_button = "//*[@id='msgContainer']/div/kc-horizontal-stepper/section/div/div[3]/button[2]"
 
     Choose_Namespace_one = "//mat-tab-body/div[1]/div[1]/div[1]/button[1]/span[1]/div[1]/div[1]"

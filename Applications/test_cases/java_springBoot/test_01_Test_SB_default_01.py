@@ -126,6 +126,36 @@ class TestCreateJava(EnvironmentSetup):
         else:
             print("ApplicationName_box is not enable")
 
+        # scroll below
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
+        print("Scroll down")
+        time.sleep(2)
+
+        # Click on team bar
+        TeamBox_A = self.driver.find_element(By.XPATH, Locator.TeamBox_A)
+        if TeamBox_A.is_enabled():
+            print("Team box is Enable")
+            TeamBox_A.click()
+            time.sleep(1)
+        else:
+            print("Team box is not Enable")
+
+
+
+        # Click on team bar
+        Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
+        if Team_Default.is_displayed():
+            print("Team default is selectable")
+            Team_Default.click()
+            time.sleep(2)
+        else:
+            print("Team box is not Enable")
+
+        # scroll below
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 400")
+        print("Scroll down")
+        time.sleep(2)
+
         # Click next button
         Next_button = self.driver.find_element(By.XPATH, Locator.Next_button)
         if Next_button.is_enabled():
@@ -134,6 +164,11 @@ class TestCreateJava(EnvironmentSetup):
             time.sleep(3)
         else:
             print("Next button is not enable")
+
+        # again scroll below
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 50")
+        print("Scroll down")
+        time.sleep(2)
 
         # Again click next button
         Next_button_two = self.driver.find_element(By.XPATH, Locator.Next_button)
@@ -144,6 +179,11 @@ class TestCreateJava(EnvironmentSetup):
         else:
             print("Next button is not enable")
 
+        # again scroll below
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 250")
+        print("Scroll down to show Namespaces")
+        time.sleep(2)
+
         # Choose A Namespace for Prod Environment
         Choose_Namespace_one = self.driver.find_element(By.XPATH, Locator.Choose_Namespace_one)
         if Choose_Namespace_one.is_enabled():
@@ -152,6 +192,11 @@ class TestCreateJava(EnvironmentSetup):
             time.sleep(5)
         else:
             print("Namespace is not enable")
+
+        # again scroll below
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 1200")
+        print("Scroll down to show Namespaces")
+        time.sleep(2)
 
         # click on save button
         Save_button = self.driver.find_element(By.XPATH, Locator.Save_button_A)
@@ -163,9 +208,12 @@ class TestCreateJava(EnvironmentSetup):
             print("Save button is not enable")
         time.sleep(2)
 
+
+"""
         # click on Create application button
         Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
         if Create_Application.is_enabled():
             Create_Application.click()
             print("Create application button is enable")
             time.sleep(180)
+"""
