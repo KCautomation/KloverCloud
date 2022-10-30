@@ -1,20 +1,26 @@
 import time
-from telnetlib import EC
 
-from _pytest import unittest
-from selenium.webdriver.chrome import webdriver
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
+from webdriver_manager.core import driver
+from Src.Locators.locators import Locator
+
+from Src.Page_object_model.pom_loginPage import LogInPage
+from Src.screen_shots.screen_shots import SS
 from Src.base.environment_setup import EnvironmentSetup
+from urllib.request import urlopen
+from urllib.error import *
+
+ss_path = "/Applications/GoLang/"
 
 
-class NamespaceCreationOnCompany(EnvironmentSetup):
+class TestCreateGolang(EnvironmentSetup):
 
     def test1(self):
-        pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
-        driver = self.driver
-        self.driver.maximize_window()
-        self.driver.get(pageUrl)
-        wait = WebDriverWait(driver, 10)
-        time.sleep(2)
-
+        pageUrl = "https://www.google.com/"
+        try:
+            if driver.title == expected_title:
+                print("WebPage loaded successfully")
+                self.assertEqual(driver.title, expected_title)
+        except Exception as e:
+            print(e + "WebPage Failed to load")
