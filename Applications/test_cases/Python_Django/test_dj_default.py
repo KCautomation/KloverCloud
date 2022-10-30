@@ -10,10 +10,10 @@ from Src.base.environment_setup import EnvironmentSetup
 from urllib.request import urlopen
 from urllib.error import *
 
-ss_path = "/Applications/Java/"
+ss_path = "/Applications/Python/"
 
 
-class TestCreateJava(EnvironmentSetup):
+class TestCreatePython(EnvironmentSetup):
 
     def test1(self):
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
@@ -81,9 +81,9 @@ class TestCreateJava(EnvironmentSetup):
             time.sleep(8)
         else:
             print("Sign In button is not clickable")
-            time.sleep(5)
+            time.sleep(3)
 
-        # ************************************************ Create Application ***********************************
+        # ****************************** Create Python Application ******************************
         # click on create button from header
 
         CreateNew_H = self.driver.find_element(By.XPATH, Locator.CreateNew_H)
@@ -100,21 +100,20 @@ class TestCreateJava(EnvironmentSetup):
             NewApplication_H.click()
             print("New Application button is enable")
             driver.implicitly_wait(10)
-            time.sleep(4)
+            time.sleep(5)
+        else:
+            print("New Application button is not enable")
 
-        # choose spring boot
-        # app = CreateApplicationPage(self.driver)
-        SpringBoot = self.driver.find_element(By.XPATH, Locator.SpringBoot)
-        if SpringBoot.is_enabled():
-            SpringBoot.click()
-            print("spring boot button is enable")
-            driver.implicitly_wait(5)
+        # Choose Django
+        Django = self.driver.find_element(By.XPATH, Locator.Django)
+        if Django.is_displayed():
+            Django.click()
+            print("Choose Django")
             time.sleep(2)
         else:
-            print("spring boot button is not enable")
-        time.sleep(1)
+            print("Django is no displayed")
 
-        # put application name
+        # Put Application Name
         ApplicationName_box = driver.find_element(By.XPATH, Locator.ApplicationName_box)
         if ApplicationName_box.is_enabled():
             ApplicationName_box.send_keys('test44')
@@ -123,47 +122,38 @@ class TestCreateJava(EnvironmentSetup):
         else:
             print("ApplicationName_box is not enable")
 
-        # scroll below
-        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
+        # scroll down
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 100")
         print("Scroll down")
         time.sleep(2)
 
-        # Click on team bar
+        # Click On Team box
         TeamBox_A = self.driver.find_element(By.XPATH, Locator.TeamBox_A)
         if TeamBox_A.is_enabled():
             print("Team box is Enable")
             TeamBox_A.click()
-            time.sleep(1)
+            time.sleep(5)
         else:
             print("Team box is not Enable")
 
-        # Click on team bar
+        # Choose Default from team
         Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
         if Team_Default.is_displayed():
             print("Team default is selectable")
             Team_Default.click()
-            time.sleep(2)
+            time.sleep(3)
         else:
             print("Team box is not Enable")
+            #  click next button
 
-        # scroll below
-        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 400")
-        print("Scroll down")
-        time.sleep(2)
-
-        # Click next button
+        #  click next button
         Next_button = self.driver.find_element(By.XPATH, Locator.Next_button)
         if Next_button.is_enabled():
             Next_button.click()
             print("Next button is enable")
-            time.sleep(3)
+            time.sleep(2)
         else:
             print("Next button is not enable")
-
-        # again scroll below
-        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 50")
-        print("Scroll down")
-        time.sleep(2)
 
         # Again click next button
         Next_button_two = self.driver.find_element(By.XPATH, Locator.Next_button)
@@ -174,7 +164,7 @@ class TestCreateJava(EnvironmentSetup):
         else:
             print("Next button is not enable")
 
-        # again scroll below
+        # again scroll below to show Namespaces
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 250")
         print("Scroll down to show Namespaces")
         time.sleep(2)
@@ -204,12 +194,10 @@ class TestCreateJava(EnvironmentSetup):
         time.sleep(2)
 
         ss = SS(driver)
-        file_name = ss_path + "Java_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
+        file_name = ss_path + "Python_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
-
-
-"""
+        """
         # click on Create application button
         Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
         if Create_Application.is_enabled():
@@ -217,4 +205,3 @@ class TestCreateJava(EnvironmentSetup):
             print("Create application button is enable")
             time.sleep(180)
 """
-
