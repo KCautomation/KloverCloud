@@ -18,9 +18,11 @@ class TestCreateGolang(EnvironmentSetup):
 
     def test1(self):
         pageUrl = "https://www.google.com/"
+        time.sleep(5)
+        expected_title = "Google"
         try:
-            if driver.title == expected_title:
+            if self.driver.title == expected_title:
                 print("WebPage loaded successfully")
-                self.assertEqual(driver.title, expected_title)
+                self.assertEqual(self.driver.title, expected_title)
         except Exception as e:
             print(e + "WebPage Failed to load")
