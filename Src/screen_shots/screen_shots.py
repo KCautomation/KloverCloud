@@ -7,7 +7,7 @@ class SS(object):
         self.driver = driver
 
     def ScreenShot(self, path):
-        directory = "C:/Users/User/PycharmProjects/KloverCloud/NameSpace/screenShots/Files"
+        directory = "C:/Users/User/PycharmProjects/KloverCloud/SS_Files/"
         self.driver.get_screenshot_as_file(directory + path)
 
 

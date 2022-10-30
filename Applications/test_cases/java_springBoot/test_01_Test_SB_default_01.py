@@ -9,11 +9,12 @@ from Src.Page_object_model.pom_createPage import CreatePage
 from Src.Page_object_model.pom_dashboardPage import DashboardPage
 from Src.Page_object_model.pom_Header import Header
 from Src.Page_object_model.pom_ApplicationPage import CreateApplicationPage
-from NameSpace.screenShots.screen_shots import SS
-
+from Src.screen_shots.screen_shots import SS
 from Src.base.environment_setup import EnvironmentSetup
 from urllib.request import urlopen
 from urllib.error import *
+
+ss_path = "/Applications/"
 
 
 class TestCreateJava(EnvironmentSetup):
@@ -140,8 +141,6 @@ class TestCreateJava(EnvironmentSetup):
         else:
             print("Team box is not Enable")
 
-
-
         # Click on team bar
         Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
         if Team_Default.is_displayed():
@@ -208,6 +207,11 @@ class TestCreateJava(EnvironmentSetup):
             print("Save button is not enable")
         time.sleep(2)
 
+        ss = SS(driver)
+        file_name = ss_path + "Java_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
+        ss.driver.save_screenshot(file_name)
+        ss.ScreenShot(file_name)
+
 
 """
         # click on Create application button
@@ -217,3 +221,4 @@ class TestCreateJava(EnvironmentSetup):
             print("Create application button is enable")
             time.sleep(180)
 """
+
