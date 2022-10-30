@@ -193,7 +193,7 @@ class TestCreateDotNet(EnvironmentSetup):
         time.sleep(2)
 
         ss = SS(driver)
-        file_name = ss_path + "Python_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
+        file_name = ss_path + "DotNet_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
         """
