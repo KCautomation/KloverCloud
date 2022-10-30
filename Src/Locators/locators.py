@@ -21,6 +21,10 @@ class Locator(object):
     JavaScript = "//span[contains(text(),'JavaScript')]"
     ExpressJS = "//mat-tab-body/div[1]/div[1]/div[2]"
     Django = "//mat-tab-body/div[1]/div[1]/div[3]"
+    DotNet = "//mat-tab-body/div[1]/div[1]/div[4]"
+    Laravel = "//mat-tab-body/div[1]/div[1]/div[5]"
+    GoLang = "//mat-tab-body/div[1]/div[1]/div[6]"
+
     ApplicationName_box = "/html[1]/body[1]/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-form[1]/div[1]/div[1]/kc-horizontal-stepper[1]/section[1]/div[1]/div[2]/div[1]/mat-form-field[1]/div[1]/div[1]/div[3]/input[1]"
     TeamBox_A = "//*[@id='mat-select-2']"
     Team_Default = "//mat-option[@id='mat-option-1']"
