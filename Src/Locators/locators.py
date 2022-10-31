@@ -27,6 +27,9 @@ class Locator(object):
     GoLang = "//mat-tab-body/div[1]/div[1]/div[6]"
 
     ApplicationName_box = "/html[1]/body[1]/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-form[1]/div[1]/div[1]/kc-horizontal-stepper[1]/section[1]/div[1]/div[2]/div[1]/mat-form-field[1]/div[1]/div[1]/div[3]/input[1]"
+    SpringBoot_Version_box = "//mat-select[@id='mat-select-1']"
+    SpringBoot_Version_2_1_11 = "//span[contains(text(),'2.1.11')]"  # XPATH
+
     TeamBox_A = "//*[@id='mat-select-2']"
     Team_Default = "//mat-option[@id='mat-option-1']"
     Next_button = "//*[@id='msgContainer']/div/kc-horizontal-stepper/section/div/div[3]/button[2]"
