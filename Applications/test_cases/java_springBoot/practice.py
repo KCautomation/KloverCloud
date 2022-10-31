@@ -15,7 +15,7 @@ ss_path = "/Applications/Java/"
 
 class TestCreateJava(EnvironmentSetup):
 
-    def test_SB_default_01(self):
+    def test_SB_default_02(self):
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
 
@@ -135,7 +135,7 @@ class TestCreateJava(EnvironmentSetup):
         SpringBoot_Version_2_1_11 = self.driver.find_element(By.XPATH, Locator.SpringBoot_Version_2_1_11)
         SpringBoot_Version_2_1_11.click()
         time.sleep(2)
-        """
+
         # scroll below
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
         print("Scroll down")
@@ -222,7 +222,7 @@ class TestCreateJava(EnvironmentSetup):
         ss.ScreenShot(file_name)
 
 
-
+        """
         # click on Create application button
         Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
         if Create_Application.is_enabled():
