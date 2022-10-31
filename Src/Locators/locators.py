@@ -1,5 +1,6 @@
 class Locator(object):
     # LogIn Page
+
     Email_box = "//input[@id='mat-input-0']"  # xpath
     Password_box = "//input[@id='mat-input-1']"  # xpath
     Toggle_Visibility_Button = "/html/body/kc-root/kc-login/div/div[2]/div/form/div/mat-form-field[2]/div/div[1]/div[" \
