@@ -1,7 +1,6 @@
 import time
 
 from selenium.webdriver.common.by import By
-from webdriver_manager.core import driver
 from Src.Locators.locators import Locator
 
 from Src.Page_object_model.pom_loginPage import LogInPage
