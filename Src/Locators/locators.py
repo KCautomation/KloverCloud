@@ -25,6 +25,11 @@ class Locator(object):
     ExpressJS = "//mat-tab-body/div[1]/div[1]/div[2]"
     Django = "//mat-tab-body/div[1]/div[1]/div[3]"
     DotNet = "//mat-tab-body/div[1]/div[1]/div[4]"
+    DoNet_v_box = "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-form[1]/div[1]/div[1]/kc-horizontal-stepper[1]/section[1]/div[1]/div[2]/div[1]/mat-form-field[2]/div[1]/div[1]/div[3]/mat-select[1]/div[1]/div[1]"
+    DontNet_V_3_0 = "//span[contains(text(),'3.0')]"
+
+
+
     Laravel = "//mat-tab-body/div[1]/div[1]/div[5]"
 
     # Golang

@@ -15,9 +15,9 @@ from urllib.error import *
 ss_path = "/Applications/GoLang/"
 
 
-class TestCreateGolangAppNone(EnvironmentSetup):
+class TestCreateGolangAppDefault(EnvironmentSetup):
 
-    def test_golang_none_01(self):
+    def test_golang_default_01(self):
         pytest.skip("Skipping test...later I will implement...")
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
@@ -132,9 +132,7 @@ class TestCreateGolangAppNone(EnvironmentSetup):
             print("NoSuchElementException error", e)
         else:
             print('Successfully clicked on NewApplication_H')
-
-        print("\n----------------Create golang application with team: None go echo version 4.1.15------------------\n")
-
+        print("\n----------------Create golang application with go echo version 4.1.15------------------\n")
         # Choose GoLang
         try:
             GoLang = self.driver.find_element(By.XPATH, Locator.GoLang)
@@ -167,32 +165,32 @@ class TestCreateGolangAppNone(EnvironmentSetup):
             print('Successfully inputted application name')
 
         # Click On Team box
-        # try:
-        #     TeamBox_A = driver.find_element(By.XPATH, Locator.TeamBox_A)
-        #     if TeamBox_A.is_enabled():
-        #         TeamBox_A.click()
-        #         time.sleep(1)
-        #         print("TeamBox_A is enable")
-        #     else:
-        #         print("TeamBox_A is not enable")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully clicked on TeamBox')
-        #
-        # # Choose Default from team
-        # try:
-        #     Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
-        #     if Team_Default.is_displayed():
-        #         Team_Default.click()
-        #         time.sleep(2)
-        #         print("Team_Default is displayed")
-        #     else:
-        #         print("Team_Default is not displayed")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully chose on Team_Default')
+        try:
+            TeamBox_A = driver.find_element(By.XPATH, Locator.TeamBox_A)
+            if TeamBox_A.is_enabled():
+                TeamBox_A.click()
+                time.sleep(1)
+                print("TeamBox_A is enable")
+            else:
+                print("TeamBox_A is not enable")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        else:
+            print('Successfully clicked on TeamBox')
+
+        # Choose Default from team
+        try:
+            Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
+            if Team_Default.is_displayed():
+                Team_Default.click()
+                time.sleep(2)
+                print("Team_Default is displayed")
+            else:
+                print("Team_Default is not displayed")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        else:
+            print('Successfully chose on Team_Default')
 
         #  click next button
         try:
@@ -283,7 +281,7 @@ class TestCreateGolangAppNone(EnvironmentSetup):
         # else:
         #     print('Successfully clicked on Create application')
 
-    def test_golang_none_02(self):
+    def test_golang_default_02(self):
         # pytest.skip("Skipping test...later I will implement...")
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
@@ -459,35 +457,35 @@ class TestCreateGolangAppNone(EnvironmentSetup):
         except NoSuchElementException as e:
             print("NoSuchElementException error", e)
         else:
-            print('Successfully chose Go echo_V_4_1_14')
+            print('Successfully chose on Goecho_V_4_1_14')
 
-        # # Click On Team box
-        # try:
-        #     TeamBox_A = driver.find_element(By.XPATH, Locator.TeamBox_A)
-        #     if TeamBox_A.is_enabled():
-        #         TeamBox_A.click()
-        #         time.sleep(1)
-        #         print("TeamBox_A is enable")
-        #     else:
-        #         print("TeamBox_A is not enable")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully clicked on TeamBox')
-        #
-        # # Choose Default from team
-        # try:
-        #     Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
-        #     if Team_Default.is_displayed():
-        #         Team_Default.click()
-        #         time.sleep(2)
-        #         print("Team_Default is displayed")
-        #     else:
-        #         print("Team_Default is not displayed")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully chose on Team_Default')
+        # Click On Team box
+        try:
+            TeamBox_A = driver.find_element(By.XPATH, Locator.TeamBox_A)
+            if TeamBox_A.is_enabled():
+                TeamBox_A.click()
+                time.sleep(1)
+                print("TeamBox_A is enable")
+            else:
+                print("TeamBox_A is not enable")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        else:
+            print('Successfully clicked on TeamBox')
+
+        # Choose Default from team
+        try:
+            Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
+            if Team_Default.is_displayed():
+                Team_Default.click()
+                time.sleep(2)
+                print("Team_Default is displayed")
+            else:
+                print("Team_Default is not displayed")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        else:
+            print('Successfully chose on Team_Default')
 
         #  click next button
         try:
