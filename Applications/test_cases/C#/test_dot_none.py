@@ -17,8 +17,8 @@ ss_path = "/Applications/DotNet/"
 
 class TestCreateDotNet(EnvironmentSetup):
 
-    def test_dot_default_01(self):
-       # pytest.skip("Skipping test...later I will implement...")
+    def test_dot_none_01(self):
+        pytest.skip("Skipping test...later I will implement...")
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
 
@@ -132,7 +132,7 @@ class TestCreateDotNet(EnvironmentSetup):
         else:
             print('Successfully clicked on NewApplication_H')
 
-        print("----------------------Create DotNet app with version 3.1-----------------------------------")
+        print("-----------------Create DotNet app with version 3.1 based on team: None------------------------")
 
         # Choose DotNet
         try:
@@ -153,7 +153,7 @@ class TestCreateDotNet(EnvironmentSetup):
         try:
             ApplicationName_box = driver.find_element(By.XPATH, Locator.ApplicationName_box)
             if ApplicationName_box.is_enabled():
-                ApplicationName_box.send_keys('test44')
+                ApplicationName_box.send_keys('test-dot-none-01')
                 time.sleep(1)
                 print("ApplicationName_box is enable")
             else:
@@ -167,34 +167,6 @@ class TestCreateDotNet(EnvironmentSetup):
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 100")
         print("Scroll down")
         time.sleep(2)
-
-        # Click On Team box
-        try:
-            TeamBox_A = self.driver.find_element(By.XPATH, Locator.TeamBox_A)
-            if TeamBox_A.is_enabled():
-                print("Team box is Enable")
-                TeamBox_A.click()
-                time.sleep(2)
-            else:
-                print("Team box is not Enable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully click on TeamBox_A')
-
-        # Choose Default from team
-        try:
-            Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
-            if Team_Default.is_displayed():
-                print("Team default is selectable")
-                Team_Default.click()
-                time.sleep(2)
-            else:
-                print("Team box is not Enable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully chose Team Default')
 
         #  click next button
         try:
@@ -286,8 +258,8 @@ class TestCreateDotNet(EnvironmentSetup):
         # # else:
         # #     print('Successfully clicked on Create application')
 
-    def test_dot_default_02(self):
-        #pytest.skip("Skipping test...later I will implement...")
+    def test_dot_none_02(self):
+        # pytest.skip("Skipping test...later I will implement...")
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
 
@@ -371,7 +343,7 @@ class TestCreateDotNet(EnvironmentSetup):
         else:
             print('Successfully logged in')
 
-        # ****************************** Create Dotnet Application with dotnet version 3.0 *****************************
+        # ****************** Create Dotnet Application with dotnet version 3.0 based on None*******************
         # click on create button from header
         try:
             CreateNew_H = self.driver.find_element(By.XPATH, Locator.CreateNew_H)
@@ -464,35 +436,6 @@ class TestCreateDotNet(EnvironmentSetup):
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 100")
         print("Scroll down")
         time.sleep(2)
-
-        # Click On Team box
-        try:
-            TeamBox_A = self.driver.find_element(By.XPATH, Locator.TeamBox_A)
-            if TeamBox_A.is_enabled():
-                print("Team box is Enable")
-                TeamBox_A.click()
-                time.sleep(2)
-            else:
-                print("Team box is not Enable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully click on TeamBox_A')
-
-        # Choose Default from team
-        try:
-            Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
-            if Team_Default.is_displayed():
-                print("Team default is selectable")
-                Team_Default.click()
-                time.sleep(2)
-            else:
-                print("Team box is not Enable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully chose Team Default')
-
         #  click next button
         try:
             Next_button = self.driver.find_element(By.XPATH, Locator.Next_button)
@@ -583,7 +526,7 @@ class TestCreateDotNet(EnvironmentSetup):
         # # else:
         # #     print('Successfully clicked on Create application')
 
-    def test_dot_default_03(self):
+    def test_dot_none_03(self):
         # pytest.skip("Skipping test...later I will implement...")
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
@@ -760,34 +703,6 @@ class TestCreateDotNet(EnvironmentSetup):
         print("Scroll down")
         time.sleep(2)
 
-        # Click On Team box
-        try:
-            TeamBox_A = self.driver.find_element(By.XPATH, Locator.TeamBox_A)
-            if TeamBox_A.is_enabled():
-                print("Team box is Enable")
-                TeamBox_A.click()
-                time.sleep(2)
-            else:
-                print("Team box is not Enable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully click on TeamBox_A')
-
-        # Choose Default from team
-        try:
-            Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
-            if Team_Default.is_displayed():
-                print("Team default is selectable")
-                Team_Default.click()
-                time.sleep(2)
-            else:
-                print("Team box is not Enable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully chose Team Default')
-
         #  click next button
         try:
             Next_button = self.driver.find_element(By.XPATH, Locator.Next_button)
@@ -878,7 +793,7 @@ class TestCreateDotNet(EnvironmentSetup):
         # # else:
         # #     print('Successfully clicked on Create application')
 
-    def test_dot_default_04(self):
+    def test_dot_none_04(self):
         # pytest.skip("Skipping test...later I will implement...")
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
@@ -1054,34 +969,6 @@ class TestCreateDotNet(EnvironmentSetup):
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 100")
         print("Scroll down")
         time.sleep(2)
-
-        # Click On Team box
-        try:
-            TeamBox_A = self.driver.find_element(By.XPATH, Locator.TeamBox_A)
-            if TeamBox_A.is_enabled():
-                print("Team box is Enable")
-                TeamBox_A.click()
-                time.sleep(2)
-            else:
-                print("Team box is not Enable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully click on TeamBox_A')
-
-        # Choose Default from team
-        try:
-            Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
-            if Team_Default.is_displayed():
-                print("Team default is selectable")
-                Team_Default.click()
-                time.sleep(2)
-            else:
-                print("Team box is not Enable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully chose Team Default')
 
         #  click next button
         try:
