@@ -21,6 +21,12 @@ class Locator(object):
     # Create Application page
 
     SpringBoot = "//span[contains(text(),'Spring Boot')]"
+    SpringBoot_Version_box = "//mat-select[@id='mat-select-1']"
+    SpringBoot_Version_2_1_11 = "//span[contains(text(),'2.1.11')]"  # XPATH
+    Java_Version_box = "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-form[1]/div[1]/div[1]/kc-horizontal-stepper[1]/section[1]/div[1]/div[2]/div[1]/mat-form-field[2]"
+    Java_Version_11 = "//span[contains(text(),'11')]"
+    Java_Version_8 = "//span[contains(text(),'8')]"
+
     JavaScript = "//span[contains(text(),'JavaScript')]"
     ExpressJS = "//mat-tab-body/div[1]/div[1]/div[2]"
     Express_Js_Version_box = "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-form[1]/div[1]/div[1]/kc-horizontal-stepper[1]/section[1]/div[1]/div[2]/div[1]/mat-form-field[2]/div[1]/div[1]/div[3]"  # Xpath
@@ -44,9 +50,6 @@ class Locator(object):
     Goecho_V_4_1_14 = "//span[contains(text(),'4.1.14')]"
 
     ApplicationName_box = "/html[1]/body[1]/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-form[1]/div[1]/div[1]/kc-horizontal-stepper[1]/section[1]/div[1]/div[2]/div[1]/mat-form-field[1]/div[1]/div[1]/div[3]/input[1]"
-    SpringBoot_Version_box = "//mat-select[@id='mat-select-1']"
-    SpringBoot_Version_2_1_11 = "//span[contains(text(),'2.1.11')]"  # XPATH
-
     TeamBox_A = "//*[@id='mat-select-2']"
     Team_Default = "//mat-option[@id='mat-option-1']"
     Next_button = "//*[@id='msgContainer']/div/kc-horizontal-stepper/section/div/div[3]/button[2]"
