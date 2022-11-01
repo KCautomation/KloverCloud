@@ -15,9 +15,9 @@ from urllib.error import *
 ss_path = "/Applications/GoLang/"
 
 
-class TestCreateGolangAppDefault(EnvironmentSetup):
+class TestCreateGolangApp(EnvironmentSetup):
 
-    def test_golang_default_01(self):
+    def test_golang_none_01(self):
         pytest.skip("Skipping test...later I will implement...")
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
@@ -104,23 +104,23 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
             print('Successfully logged in')
 
         # click on create button from header
+        CreateNew_H = self.driver.find_element(By.XPATH, Locator.CreateNew_H)
         try:
-            CreateNew_H = self.driver.find_element(By.XPATH, Locator.CreateNew_H)
             if CreateNew_H.is_enabled():
                 CreateNew_H.click()
-                self.driver.implicitly_wait(5)
+                self.driver.implicitly_wait(10)
                 print("CreateNew_H button is clickable")
                 time.sleep(2)
             else:
                 print("CreateNew_H In button is not clickable")
         except NoSuchElementException as e:
-            print("NoSuchElementException error :\n", e, "\n")
+            print("NoSuchElementException error", e)
         else:
             print('Successfully clicked on CreateNew_H')
 
         # click on "New Application" button from dropdown
+        NewApplication_H = self.driver.find_element(By.XPATH, Locator.NewApplication_H)
         try:
-            NewApplication_H = self.driver.find_element(By.XPATH, Locator.NewApplication_H)
             if NewApplication_H.is_enabled():
                 NewApplication_H.click()
                 self.driver.implicitly_wait(10)
@@ -132,10 +132,10 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
             print("NoSuchElementException error", e)
         else:
             print('Successfully clicked on NewApplication_H')
-        print("\n----------------Create golang application with go echo version 4.1.15------------------\n")
+
         # Choose GoLang
+        GoLang = self.driver.find_element(By.XPATH, Locator.GoLang)
         try:
-            GoLang = self.driver.find_element(By.XPATH, Locator.GoLang)
             if GoLang.is_enabled():
                 GoLang.click()
                 self.driver.implicitly_wait(10)
@@ -150,8 +150,8 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
             print('Successfully chose on GoLang')
 
         # Put Application Name
+        ApplicationName_box = driver.find_element(By.XPATH, Locator.ApplicationName_box)
         try:
-            ApplicationName_box = driver.find_element(By.XPATH, Locator.ApplicationName_box)
             if ApplicationName_box.is_enabled():
                 ApplicationName_box.send_keys("testGo")
                 self.driver.implicitly_wait(10)
@@ -165,8 +165,8 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
             print('Successfully inputted application name')
 
         # Click On Team box
+        TeamBox_A = driver.find_element(By.XPATH, Locator.TeamBox_A)
         try:
-            TeamBox_A = driver.find_element(By.XPATH, Locator.TeamBox_A)
             if TeamBox_A.is_enabled():
                 TeamBox_A.click()
                 time.sleep(1)
@@ -179,8 +179,8 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
             print('Successfully clicked on TeamBox')
 
         # Choose Default from team
+        Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
         try:
-            Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
             if Team_Default.is_displayed():
                 Team_Default.click()
                 time.sleep(2)
@@ -193,8 +193,8 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
             print('Successfully chose on Team_Default')
 
         #  click next button
+        Next_button = self.driver.find_element(By.XPATH, Locator.Next_button)
         try:
-            Next_button = self.driver.find_element(By.XPATH, Locator.Next_button)
             if Next_button.is_enabled():
                 Next_button.click()
                 self.driver.implicitly_wait(10)
@@ -208,8 +208,8 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
             print('Successfully clicked on Next_button')
 
         #  again click next button
+        Next_button_two = self.driver.find_element(By.XPATH, Locator.Next_button)
         try:
-            Next_button_two = self.driver.find_element(By.XPATH, Locator.Next_button)
             if Next_button_two.is_enabled():
                 Next_button_two.click()
                 self.driver.implicitly_wait(10)
@@ -228,8 +228,8 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
         time.sleep(2)
 
         # Choose A Namespace for Prod Environment
+        Choose_Namespace_one = self.driver.find_element(By.XPATH, Locator.Choose_Namespace_one)
         try:
-            Choose_Namespace_one = self.driver.find_element(By.XPATH, Locator.Choose_Namespace_one)
             if Choose_Namespace_one.is_enabled():
                 Choose_Namespace_one.click()
                 print("Choose_Namespace_one is selected")
@@ -247,8 +247,8 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
         time.sleep(2)
 
         # click on save button
+        Save_button = self.driver.find_element(By.XPATH, Locator.Save_button_A)
         try:
-            Save_button = self.driver.find_element(By.XPATH, Locator.Save_button_A)
             if Save_button.is_enabled():
                 Save_button.click()
                 print("Save button is enable")
@@ -268,21 +268,20 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
         ss.ScreenShot(file_name)
 
         # click on Create application button
-        # try:
-        #     Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
-        #     if Create_Application.is_enabled():
-        #         Create_Application.click()
-        #         print("Create application button is enable")
-        #         time.sleep(180)
-        #     else:
-        #         print("Create application button is not enable")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully clicked on Create application')
+        try:
+            Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
+            if Create_Application.is_enabled():
+                Create_Application.click()
+                print("Create application button is enable")
+                time.sleep(180)
+            else:
+                print("Create application button is not enable")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        else:
+            print('Successfully clicked on Create application')
 
-    def test_golang_default_02(self):
-        # pytest.skip("Skipping test...later I will implement...")
+    def test_golang_none_02(self):
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
 
@@ -367,26 +366,24 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
         else:
             print('Successfully logged in')
 
-    # *****************Create golang application with go echo version 4.1.15*************************
-
         # click on create button from header
+        CreateNew_H = self.driver.find_element(By.XPATH, Locator.CreateNew_H)
         try:
-            CreateNew_H = self.driver.find_element(By.XPATH, Locator.CreateNew_H)
             if CreateNew_H.is_enabled():
                 CreateNew_H.click()
-                self.driver.implicitly_wait(5)
+                self.driver.implicitly_wait(10)
                 print("CreateNew_H button is clickable")
                 time.sleep(2)
             else:
                 print("CreateNew_H In button is not clickable")
         except NoSuchElementException as e:
-            print("NoSuchElementException error :\n", e, "\n")
+            print("NoSuchElementException error", e)
         else:
             print('Successfully clicked on CreateNew_H')
 
         # click on "New Application" button from dropdown
+        NewApplication_H = self.driver.find_element(By.XPATH, Locator.NewApplication_H)
         try:
-            NewApplication_H = self.driver.find_element(By.XPATH, Locator.NewApplication_H)
             if NewApplication_H.is_enabled():
                 NewApplication_H.click()
                 self.driver.implicitly_wait(10)
@@ -399,10 +396,9 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
         else:
             print('Successfully clicked on NewApplication_H')
 
-        print("\n----------------Create golang application with go echo version 4.1.15------------------\n")
         # Choose GoLang
+        GoLang = self.driver.find_element(By.XPATH, Locator.GoLang)
         try:
-            GoLang = self.driver.find_element(By.XPATH, Locator.GoLang)
             if GoLang.is_enabled():
                 GoLang.click()
                 self.driver.implicitly_wait(10)
@@ -417,12 +413,11 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
             print('Successfully chose on GoLang')
 
         # Put Application Name
+        ApplicationName_box = driver.find_element(By.XPATH, Locator.ApplicationName_box)
         try:
-            ApplicationName_box = driver.find_element(By.XPATH, Locator.ApplicationName_box)
             if ApplicationName_box.is_enabled():
                 ApplicationName_box.send_keys("testGo")
-                self.driver.implicitly_wait(10)
-                time.sleep(2)
+                time.sleep(1)
                 print("ApplicationName_box is enable")
             else:
                 print("ApplicationName_box is not enable")
@@ -432,8 +427,8 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
             print('Successfully inputted application name')
 
         # click on go echo box to show all versions
+        Goecho_box = driver.find_element(By.XPATH, Locator.Goecho_box)
         try:
-            Goecho_box = driver.find_element(By.XPATH, Locator.Goecho_box)
             if Goecho_box.is_enabled():
                 Goecho_box.click()
                 time.sleep(1)
@@ -446,8 +441,8 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
             print('Successfully clicked on Goecho_box')
 
         # Choose go eco version 4.1.14
+        Goecho_V_4_1_14 = driver.find_element(By.XPATH, Locator.Goecho_V_4_1_14)
         try:
-            Goecho_V_4_1_14 = driver.find_element(By.XPATH, Locator.Goecho_V_4_1_14)
             if Goecho_V_4_1_14.is_enabled():
                 Goecho_V_4_1_14.click()
                 time.sleep(1)
@@ -460,11 +455,12 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
             print('Successfully chose on Goecho_V_4_1_14')
 
         # Click On Team box
+        TeamBox_A = driver.find_element(By.XPATH, Locator.TeamBox_A)
         try:
-            TeamBox_A = driver.find_element(By.XPATH, Locator.TeamBox_A)
             if TeamBox_A.is_enabled():
                 TeamBox_A.click()
-                time.sleep(1)
+                self.driver.implicitly_wait(10)
+                time.sleep(2)
                 print("TeamBox_A is enable")
             else:
                 print("TeamBox_A is not enable")
@@ -474,10 +470,11 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
             print('Successfully clicked on TeamBox')
 
         # Choose Default from team
+        Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
         try:
-            Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
             if Team_Default.is_displayed():
                 Team_Default.click()
+                self.driver.implicitly_wait(10)
                 time.sleep(2)
                 print("Team_Default is displayed")
             else:
@@ -488,8 +485,8 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
             print('Successfully chose on Team_Default')
 
         #  click next button
+        Next_button = self.driver.find_element(By.XPATH, Locator.Next_button)
         try:
-            Next_button = self.driver.find_element(By.XPATH, Locator.Next_button)
             if Next_button.is_enabled():
                 Next_button.click()
                 self.driver.implicitly_wait(10)
@@ -503,8 +500,8 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
             print('Successfully clicked on Next_button')
 
         #  again click next button
+        Next_button_two = self.driver.find_element(By.XPATH, Locator.Next_button)
         try:
-            Next_button_two = self.driver.find_element(By.XPATH, Locator.Next_button)
             if Next_button_two.is_enabled():
                 Next_button_two.click()
                 self.driver.implicitly_wait(10)
@@ -523,8 +520,8 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
         time.sleep(2)
 
         # Choose A Namespace for Prod Environment
+        Choose_Namespace_one = self.driver.find_element(By.XPATH, Locator.Choose_Namespace_one)
         try:
-            Choose_Namespace_one = self.driver.find_element(By.XPATH, Locator.Choose_Namespace_one)
             if Choose_Namespace_one.is_enabled():
                 Choose_Namespace_one.click()
                 print("Choose_Namespace_one is selected")
@@ -542,8 +539,8 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
         time.sleep(2)
 
         # click on save button
+        Save_button = self.driver.find_element(By.XPATH, Locator.Save_button_A)
         try:
-            Save_button = self.driver.find_element(By.XPATH, Locator.Save_button_A)
             if Save_button.is_enabled():
                 Save_button.click()
                 print("Save button is enable")
@@ -562,16 +559,18 @@ class TestCreateGolangAppDefault(EnvironmentSetup):
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
 
-        # click on Create application button
-        # try:
-        #     Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
-        #     if Create_Application.is_enabled():
-        #         Create_Application.click()
-        #         print("Create application button is enable")
-        #         time.sleep(180)
-        #     else:
-        #         print("Create application button is not enable")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully clicked on Create application')
+    """
+            # click on Create application button
+            try:
+                Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
+                if Create_Application.is_enabled():
+                    Create_Application.click()
+                    print("Create application button is enable")
+                    time.sleep(180)
+                else:
+                    print("Create application button is not enable")
+            except NoSuchElementException as e:
+                print("NoSuchElementException error", e)
+            else:
+                print('Successfully clicked on Create application')
+    """

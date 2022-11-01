@@ -2,6 +2,7 @@ class Locator(object):
     # LogIn Page
 
     Email_box = "//input[@id='mat-input-0']"  # xpath
+    Email_box_test = "//input[@id='mat-inpu-0']"  # xpath
     Password_box = "//input[@id='mat-input-1']"  # xpath
     Toggle_Visibility_Button = "/html/body/kc-root/kc-login/div/div[2]/div/form/div/mat-form-field[2]/div/div[1]/div[" \
                                "4]/button "  # xpath
@@ -13,6 +14,7 @@ class Locator(object):
 
     # header frame
     CreateNew_H = "/html/body/kc-root/kc-layout/div/mat-sidenav-container/mat-sidenav-content/kc-toolbar/div/button[2]"  # XPATH
+    CreateNew_H_test = "/html/body/kc-root/kc-layout/div/mat-sidenav-container/mat-sidenav-content/kc-toolbar/div/buttn[2]"
     Namespace_H = "button[role='menuitem']"  # xpath
     NewApplication_H = "//span[contains(text(),'New Application')]"
 
@@ -24,7 +26,11 @@ class Locator(object):
     Django = "//mat-tab-body/div[1]/div[1]/div[3]"
     DotNet = "//mat-tab-body/div[1]/div[1]/div[4]"
     Laravel = "//mat-tab-body/div[1]/div[1]/div[5]"
+
+    # Golang
     GoLang = "//mat-tab-body/div[1]/div[1]/div[6]"
+    Goecho_box = "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-form[1]/div[1]/div[1]/kc-horizontal-stepper[1]/section[1]/div[1]/div[2]/div[1]/mat-form-field[3]/div[1]/div[1]/div[3]"
+    Goecho_V_4_1_14 = "//span[contains(text(),'4.1.14')]"
 
     ApplicationName_box = "/html[1]/body[1]/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-form[1]/div[1]/div[1]/kc-horizontal-stepper[1]/section[1]/div[1]/div[2]/div[1]/mat-form-field[1]/div[1]/div[1]/div[3]/input[1]"
     SpringBoot_Version_box = "//mat-select[@id='mat-select-1']"

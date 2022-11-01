@@ -5,12 +5,10 @@ from selenium import webdriver
 from selenium.webdriver.common import window
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
+from Src.base.environment_setup import EnvironmentSetup
 
 
-class NamespaceCreationOnCompany(unittest.TestCase):
-    def setUp(self):
-        self.driver = webdriver.Chrome()
-
+class NamespaceCreationOnCompany(EnvironmentSetup, unittest.TestCase):
     def test1(self):
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
