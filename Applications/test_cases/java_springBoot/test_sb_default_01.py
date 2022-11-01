@@ -12,12 +12,12 @@ from Src.base.environment_setup import EnvironmentSetup
 from urllib.request import urlopen
 from urllib.error import *
 
-ss_path = "/Applications/JavaScript/"
+ss_path = "/Applications/Java/"
 
 
-class TestCreateJavascript(EnvironmentSetup):
+class TestCreateJava(EnvironmentSetup):
 
-    def test_eJs_default_01(self):
+    def test_sb_default_01(self):
         pytest.skip("Skipping test...later I will implement...")
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
@@ -102,7 +102,9 @@ class TestCreateJavascript(EnvironmentSetup):
         else:
             print('Successfully logged in')
 
-        # ****************************** Create Express JS Application ******************************
+        # ************************ Create Java Application based on Team: Default ************************
+
+        print("-----------------------Header frame----------------------------------------")
         # click on create button from header
         try:
             CreateNew_H = self.driver.find_element(By.XPATH, Locator.CreateNew_H)
@@ -132,22 +134,25 @@ class TestCreateJavascript(EnvironmentSetup):
         else:
             print('Successfully clicked on NewApplication_H')
 
-        print("----------------------Create DotNet app with version 3.1-----------------------------------")
+        print("-----------------------Create Application Page----------------------------------------")
+        print("----------------------Create Express JS app with version 4.17.0-----------------------------------")
 
-        # click on ExpressJS
+        # choose spring boot
+        # app = CreateApplicationPage(self.driver)
         try:
-            ExpressJS = self.driver.find_element(By.XPATH, Locator.ExpressJS)
-            if ExpressJS.is_enabled():
-                ExpressJS.click()
-                print("ExpressJS button is enable")
-                driver.implicitly_wait(10)
-                time.sleep(3)
+            SpringBoot = self.driver.find_element(By.XPATH, Locator.SpringBoot)
+            if SpringBoot.is_displayed():
+                SpringBoot.click()
+                driver.implicitly_wait(8)
+                time.sleep(2)
+                print("spring boot button is displayed")
             else:
-                print("ExpressJS button is not enable")
+                print("spring boot is not displayed below")
+            time.sleep(1)
         except NoSuchElementException as e:
             print("NoSuchElementException error", e)
         else:
-            print('Successfully chose ExpressJS')
+            print('Successfully chose on SpringBoot')
 
         # put application name
         try:
@@ -195,6 +200,11 @@ class TestCreateJavascript(EnvironmentSetup):
             print("NoSuchElementException error", e)
         else:
             print('Successfully chose on Team Default')
+
+        # scroll below
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 400")
+        print("Scroll down")
+        time.sleep(2)
 
         #  click next button
         try:
@@ -278,8 +288,8 @@ class TestCreateJavascript(EnvironmentSetup):
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
 
-    def test_eJs_default_02(self):
-        # pytest.skip("Skipping test...later I will implement...")
+    def test_sb_default_02(self):
+        pytest.skip("Skipping test...later I will implement...")
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
 
@@ -363,9 +373,9 @@ class TestCreateJavascript(EnvironmentSetup):
         else:
             print('Successfully logged in')
 
-        # **************** Create Express Js  Application with Version: 4.17.0 ********************
+        # ************************ Create Java Application based on Team: Default ************************
 
-        print("--------------------Go to Create Application  Page----------------------")
+        print("-----------------------Header frame----------------------------------------")
         # click on create button from header
         try:
             CreateNew_H = self.driver.find_element(By.XPATH, Locator.CreateNew_H)
@@ -395,22 +405,25 @@ class TestCreateJavascript(EnvironmentSetup):
         else:
             print('Successfully clicked on NewApplication_H')
 
-        print("--------------------Create Express Js  Application with Version: 4.17.0----------------------")
+        print("-----------------------Create Application Page----------------------------------------")
+        print("----------------Create Java Version: 13 && Spring Boot Version: 2.1.11--------------------------")
 
-        # click on ExpressJS
+        # choose spring boot
+        # app = CreateApplicationPage(self.driver)
         try:
-            ExpressJS = self.driver.find_element(By.XPATH, Locator.ExpressJS)
-            if ExpressJS.is_enabled():
-                ExpressJS.click()
-                print("ExpressJS button is enable")
-                driver.implicitly_wait(10)
-                time.sleep(3)
+            SpringBoot = self.driver.find_element(By.XPATH, Locator.SpringBoot)
+            if SpringBoot.is_displayed():
+                SpringBoot.click()
+                driver.implicitly_wait(8)
+                time.sleep(2)
+                print("spring boot button is displayed")
             else:
-                print("ExpressJS button is not enable")
+                print("spring boot is not displayed below")
+            time.sleep(1)
         except NoSuchElementException as e:
             print("NoSuchElementException error", e)
         else:
-            print('Successfully chose ExpressJS')
+            print('Successfully chose on SpringBoot')
 
         # put application name
         try:
@@ -425,34 +438,32 @@ class TestCreateJavascript(EnvironmentSetup):
             print("NoSuchElementException error", e)
         else:
             print('Successfully put ApplicationName')
-
-        # click on Express Js Version box to show all versions
+        # click on spring boot version
         try:
-            Express_Js_Version_box = driver.find_element(By.XPATH, Locator.Express_Js_Version_box)
-            if Express_Js_Version_box.is_enabled():
-                Express_Js_Version_box.click()
-                time.sleep(1)
-                print("Express Js Version box is enable")
+            SpringBoot_Version_box = self.driver.find_element(By.XPATH, Locator.SpringBoot_Version_box)
+            if SpringBoot_Version_box.is_enabled():
+                print("SpringBoot version box is enable")
+                SpringBoot_Version_box.click()
+                time.sleep(2)
             else:
-                print("Express Js Version box is not enable")
+                print("SpringBoot version box is not enable")
         except NoSuchElementException as e:
             print("NoSuchElementException error", e)
         else:
-            print('Successfully clicked on Express Js Version box & shown all versions')
-
-        # Choose Express version 4.17.1 version 3.0
+            print('Successfully Click On SpringBoot Version box')
+        # Choose springBoot version 2.1.11
         try:
-            JS_V_4_17_1 = driver.find_element(By.XPATH, Locator.JS_V_4_17_1)
-            if JS_V_4_17_1.is_displayed():
-                JS_V_4_17_1.click()
-                time.sleep(1)
-                print("JS_V_4_17_1 is enable")
+            SpringBoot_Version_2_1_11 = self.driver.find_element(By.XPATH, Locator.SpringBoot_Version_2_1_11)
+            if SpringBoot_Version_2_1_11.is_displayed():
+                SpringBoot_Version_2_1_11.click()
+                time.sleep(2)
+                print("SpringBoot version 2.1.11 is displayed")
             else:
-                print("JS Version 4.17.1 is not displayed")
+                print("SpringBoot version box is not displayed")
         except NoSuchElementException as e:
             print("NoSuchElementException error", e)
         else:
-            print('Successfully chose JS Version 4.17.1')
+            print('Successfully chose SpringBoot Version 2.1.11')
 
         # scroll down
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
@@ -473,19 +484,24 @@ class TestCreateJavascript(EnvironmentSetup):
         else:
             print('Successfully clicked on TeamBox_A')
 
-        # Choose Default from team
+        # choose Default from team box
         try:
             Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
             if Team_Default.is_displayed():
                 print("Team default is selectable")
                 Team_Default.click()
-                time.sleep(2)
+                time.sleep(3)
             else:
-                print("Team box is not Enable")
+                print("Team: Default is displayed")
         except NoSuchElementException as e:
             print("NoSuchElementException error", e)
         else:
-            print('Successfully chose Team Default')
+            print('Successfully chose on Team Default')
+
+        # scroll below
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 400")
+        print("Scroll down")
+        time.sleep(2)
 
         #  click next button
         try:
