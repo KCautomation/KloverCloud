@@ -46,7 +46,12 @@ class Locator(object):
     DotNet_V_2_2 = "//span[contains(text(),'2.2')]"
     DotNet_V_2_1 = "//span[contains(text(),'2.1')]"
 
-    Laravel = "//mat-tab-body/div[1]/div[1]/div[5]"
+    Laravel = "//span[contains(text(),'Laravel')]"
+    Laravel_version_box = "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-form[1]/div[1]/div[1]/kc-horizontal-stepper[1]/section[1]/div[1]/div[2]/div[1]/mat-form-field[3]/div[1]/div[1]/div[3]"  # XPATH
+    Laravel_version_6_0 = "//span[contains(text(),'6.0')]"
+    Laravel_version_5_8 = "//span[contains(text(),'5.8')]"
+    Laravel_version_5_7 = "//span[contains(text(),'5.7')]"
+    Laravel_version_5_6 = "//span[contains(text(),'5.6')]"
 
     # Golang
     GoLang = "//mat-tab-body/div[1]/div[1]/div[6]"
