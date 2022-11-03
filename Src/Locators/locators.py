@@ -39,7 +39,6 @@ class Locator(object):
     Django_version_box = "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-form[1]/div[1]/div[1]/kc-horizontal-stepper[1]/section[1]/div[1]/div[2]/div[1]/mat-form-field[3]/div[1]/div[1]/div[3]"  # XPATH
     Django_Version_2_2_14 = "//span[contains(text(),'2.2.14')]"  # XPATH
 
-
     DotNet = "//mat-tab-body/div[1]/div[1]/div[4]"
     DoNet_v_box = "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-form[1]/div[1]/div[1]/kc-horizontal-stepper[1]/section[1]/div[1]/div[2]/div[1]/mat-form-field[2]/div[1]/div[1]/div[3]/mat-select[1]/div[1]/div[1]"
     DontNet_V_3_0 = "//span[contains(text(),'3.0')]"
@@ -66,3 +65,7 @@ class Locator(object):
     Choose_Namespace_one = "//mat-tab-body/div[1]/div[1]/div[1]/button[1]/span[1]/div[1]/div[1]"
     Save_button_A = "//span[contains(text(),'Save')]"
     Create_Application = "//*[@id='msgContainer']/div/kc-horizontal-stepper/section/div/form/div[3]/button[2]"
+
+    # Http failure response for https://api.eks.rakibefs'
+    # message: Http failure response for https://api.eks.rakibefstestmaincluster782.klovercloud.io/api/application/create: 0 Unknown Error
+    Http_failure_response = "//span[contains(text(),'Http failure response for https://api.eks.rakibefs')]"

@@ -23,7 +23,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 ss_path = "/Applications/PHP/"
 
 
-class TestCreatePHP(EnvironmentSetup):
+class TestCreateAppPHP(EnvironmentSetup):
     def test_Laravel_default_01(self):
         # pytest.skip("Skipping test...later I will implement...")
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
