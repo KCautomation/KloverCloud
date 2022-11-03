@@ -285,7 +285,7 @@ class TestCreatePHP(EnvironmentSetup):
         ss.ScreenShot(file_name)
 
     def test_Laravel_default_02(self):
-        # pytest.skip("Skipping test...later I will implement...")
+        pytest.skip("Skipping test...later I will implement...")
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
 
@@ -581,7 +581,7 @@ class TestCreatePHP(EnvironmentSetup):
         ss.ScreenShot(file_name)
 
     def test_Laravel_default_03(self):
-        # pytest.skip("Skipping test...later I will implement...")
+        pytest.skip("Skipping test...later I will implement...")
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
 
@@ -877,7 +877,7 @@ class TestCreatePHP(EnvironmentSetup):
         ss.ScreenShot(file_name)
 
     def test_Laravel_default_04(self):
-        # pytest.skip("Skipping test...later I will implement...")
+        pytest.skip("Skipping test...later I will implement...")
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
 
@@ -1173,7 +1173,7 @@ class TestCreatePHP(EnvironmentSetup):
         ss.ScreenShot(file_name)
 
     def test_Laravel_default_05(self):
-        # pytest.skip("Skipping test...later I will implement...")
+        pytest.skip("Skipping test...later I will implement...")
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
 

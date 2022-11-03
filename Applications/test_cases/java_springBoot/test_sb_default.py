@@ -1504,7 +1504,7 @@ class TestCreateJava(EnvironmentSetup):
         ss.ScreenShot(file_name)
 
     def test_sb_default_06(self):
-        # pytest.skip("Skipping test...later I will implement...")
+        pytest.skip("Skipping test...later I will implement...")
         pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
 
