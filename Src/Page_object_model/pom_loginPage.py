@@ -10,6 +10,7 @@ class LogInPage(object):
         self.Password_box = driver.find_element(By.XPATH, Locator.Password_box)
         self.Toggle_Visibility_Button = driver.find_element(By.XPATH, Locator.Toggle_Visibility_Button)
         self.Sign_In_button = driver.find_element(By.XPATH, Locator.Sign_In_button)
+        self.LogIn_Authentication_Error = driver.find_element(By.XPATH, Locator.LogIn_Authentication_Error)
 
     def get_email(self):
         return self.Email_box
@@ -22,3 +23,6 @@ class LogInPage(object):
 
     def get_Sign_In_button(self):
         return self.Sign_In_button
+
+    def LogIn_Authentication_Error(self):
+        return self.LogIn_Authentication_Error

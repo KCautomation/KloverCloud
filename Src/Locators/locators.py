@@ -8,7 +8,10 @@ class Locator(object):
                                "4]/button "  # xpath
     Sign_In_button = "//body/kc-root[1]/kc-login[1]/div[1]/div[2]/div[1]/form[1]/button[1]/span[1]/div[1]"
 
+    LogIn_Authentication_Error = "//body[1]/kc-toastr[1]/div[1]/div[1]"
+
     # Dashboard page
+    Dashboard_button = "//span[contains(text(),'Dashboard')]"
     Namespace_button_from_SideBar = "//span[contains(text(),'Namespace')]"  # XPATH
     Dashboard_title = "/html/body/kc-root/kc-layout/div/mat-sidenav-container/mat-sidenav-content/kc-toolbar/div/h1"
 
@@ -66,6 +69,13 @@ class Locator(object):
     Save_button_A = "//span[contains(text(),'Save')]"
     Create_Application = "//*[@id='msgContainer']/div/kc-horizontal-stepper/section/div/form/div[3]/button[2]"
 
+    # For create validation
     # Http failure response for https://api.eks.rakibefs'
     # message: Http failure response for https://api.eks.rakibefstestmaincluster782.klovercloud.io/api/application/create: 0 Unknown Error
-    Http_failure_response = "//span[contains(text(),'Http failure response for https://api.eks.rakibefs')]"
+    # Http_failure_response = "//span[contains(text(),'Http failure response for https://api.eks.rakibefs')]"
+
+    New_Git_Commit_Pushed_msg = "//body/div[2]/div[1]/div[1]/snack-bar-container[1]/simple-snack-bar[1]"
+    Application_build_finished_successfully_msg = "//span[contains(text(),'Application build finished successfully!')]"
+
+    # Repository already exists with 'test-laravel = "//span[contains(text(),"Repository already exists with 'test-laravel' name")]"
+    Live_Pipeline_Logs = "//h5[contains(text(),'Live Pipeline Logs')]"

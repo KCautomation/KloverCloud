@@ -97,12 +97,14 @@ class TestLogIn(EnvironmentSetup):
         else:
             print('Successfully click on Sign In button')
 
-    # def test1(self):
-    #     pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
-    #     username = "admin@klovercloud.com"
-    #     password = "Hello@1234"
-    #
-    #     self.cluster_login(pageUrl, username, password)
+        # return self.cluster_login(pageUrl, username, password)
+
+    def test1(self):
+        pageUrl = "eks.alpha.klovercloud.io"
+        username = "admin@klovercloud.com"
+        password = "Hello@1234"
+
+        self.cluster_login(pageUrl, username, password)
 
     # # ******************************Login**********************************
     #
