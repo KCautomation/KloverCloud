@@ -17,7 +17,7 @@ from urllib.request import urlopen
 from urllib.error import *
 
 
-def test_cluster_login(self):
+def cluster_login(self):
     driver = self.driver
     pageUrl = "https://eks.alpha.klovercloud.io/"
     username = "admin@klovercloud.com"
