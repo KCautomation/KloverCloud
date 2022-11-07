@@ -79,3 +79,8 @@ class Locator(object):
 
     # Repository already exists with 'test-laravel = "//span[contains(text(),"Repository already exists with 'test-laravel' name")]"
     Live_Pipeline_Logs = "//h5[contains(text(),'Live Pipeline Logs')]"
+
+    # To deploy application
+    # Deployment is now in pending. It will take a moment to start = "//span[contains(text(),'Deployment is now in pending. It will take a momen')]"
+    # Now we are deploying your application. Please wait for a while. It may take upto 3 minutes = "//span[contains(text(),'Now we are deploying your application. Please wait')]"
+    # Application Deployed! = "//body/div[3]/div[1]/div[1]/snack-bar-container[1]/simple-snack-bar[1]"
