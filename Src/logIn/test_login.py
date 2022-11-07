@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from Src.Locators.locators import Locator
-
+from Src.screen_shots.screen_shots import SS
 from Src.Page_object_model.pom_loginPage import LogInPage
 from Src.Page_object_model.pom_ApplicationPage import CreateApplicationPage
 from Src.screen_shots.screen_shots import SS
@@ -15,6 +15,8 @@ from Src.base.environment_setup import EnvironmentSetup
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, InvalidSessionIdException
 from urllib.request import urlopen
 from urllib.error import *
+
+ss_path = "/Applications/LogIn"
 
 
 def test_cluster_login(self):
@@ -108,7 +110,11 @@ def test_cluster_login(self):
             print('Shown a error message: ',
                   simple_colors.red(LogIn_Authentication_Error.text, ['bold', 'underlined']))
             print("\n")
-            return FileExistsError
+            self.driver.close()
+            self.driver.stop()
+            # return FileExistsError
+        else:
+            pass
 
     except NoSuchElementException as e:
         print("NoSuchElementException error", e)
@@ -127,19 +133,10 @@ def test_cluster_login(self):
             print("Successfully logged in && Welcome to", Dashboard_title)
         else:
             print("Login Failed")
+            assert False
     except NoSuchElementException as e:
         print("NoSuchElementException error", e)
     except TimeoutException as e:
         print("TimeoutException error", e)
     except InvalidSessionIdException as e:
         print("InvalidSessionIdException error", e)
-
-    # return self.cluster_login(pageUrl, username, password)
-
-
-# def test1(self):
-#     pageUrl = "eks.alpha.klovercloud.io"
-#     username = "admin@klovercloud.com"
-#     password = "Hello@1234"
-#
-#     self.cluster_login(pageUrl, username, password)

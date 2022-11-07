@@ -26,7 +26,7 @@ ss_path = "/Applications/PHP/"
 
 class TestCreateAppPHP(EnvironmentSetup):
     def test_Laravel_default_01(self):
-
+        driver = self.driver
         print("****************** Test Cluster Login *********************")
         test_cluster_login(self)
 
