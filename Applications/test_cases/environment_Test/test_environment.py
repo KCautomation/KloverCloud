@@ -1,14 +1,5 @@
-import time
-
-from selenium.webdriver.common.by import By
-from Src.Locators.locators import Locator
-
-from Src.screen_shots.screen_shots import SS
 from Src.base.environment_setup import EnvironmentSetup
-from selenium.common.exceptions import NoSuchElementException
-from urllib.request import urlopen
-from urllib.error import *
-from Src.logIn.test_login import TestLogIn
+from Src.function.logIn.test_login import TestLogIn
 ss_path = "/Applications/GoLang/"
 
 

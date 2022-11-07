@@ -1,26 +1,17 @@
 import time
 from telnetlib import EC
 
-import pytest
 import simple_colors
 from selenium.common import NoSuchElementException, TimeoutException, InvalidSessionIdException
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from webdriver_manager.core import driver
 from Src.Locators.locators import Locator
+from Src.function.go_application.go_to_application_page import go_create_app_page
 
-from Src.Page_object_model.pom_loginPage import LogInPage
 from Src.screen_shots.screen_shots import SS
 from Src.base.environment_setup import EnvironmentSetup
-from urllib.request import urlopen
-from urllib.error import *
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from Src.logIn.test_login import test_cluster_login
+from Src.function.logIn.test_login import test_cluster_login
 
 ss_path = "/Applications/PHP/"
 
@@ -28,9 +19,9 @@ ss_path = "/Applications/PHP/"
 class TestCreateAppPHP(EnvironmentSetup):
 
     def test_Laravel_default_01(self):
-
+        # pytest.skip("Skipping test...later I will implement...")
         driver = self.driver
-        ApplicationName = "test-22"
+        ApplicationName = "test_Laravel_default_01"
         print("****************** Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -41,53 +32,16 @@ class TestCreateAppPHP(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException", e)
 
-        print("****************** Create PHP Laravel Application based on Team: default *********************")
-        # click on create button from header
-
-        print("-----------------------Header frame----------------------------------------")
-        # click on create button from header
+        print("****************** Go to Create Application Page *********************")
         try:
-            CreateNew_H = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.CreateNew_H)))
-            print("CreateNew_H button is clickable")
-            CreateNew_H.click()
-            time.sleep(2)
-            # if CreateNew_H.is_enabled():
-            #     print("CreateNew_H button is enable")
-            #     CreateNew_H.click()
-            #     time.sleep(2)
-            # else:
-            #     print("CreateNew_H In button is not enable")
+            go_create_app_page(self)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
             print("TimeoutException error", e)
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException", e)
-        else:
-            print('Successfully clicked on CreateNew')
 
-        # click on "New Application" button from dropdown
-        try:
-            NewApplication_H = WebDriverWait(driver, 20).until(
-                EC.element_to_be_clickable((By.XPATH, Locator.NewApplication_H)))
-            print("NewApplication_H button is clickable")
-            NewApplication_H.click()
-            time.sleep(5)
-            # if NewApplication_H.is_enabled():
-            #     print("NewApplication_H button is enable")
-            #     NewApplication_H.click()
-            #     self.driver.implicitly_wait(30)
-            #     driver.refresh()
-            #     time.sleep(1)
-            # else:
-            #     print("NewApplication_H In button is not clickable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully clicked on NewApplication_H')
-        print("-----------------------Welcome Create Application Page----------------------------------------")
         print("----Create Python app with PHP Version: 7.3 &  Laravel version : 7.0--------")
         # choose Django
         # app = CreateApplicationPage(self.driver)
@@ -322,141 +276,27 @@ class TestCreateAppPHP(EnvironmentSetup):
 
     def test_Laravel_default_02(self):
         # pytest.skip("Skipping test...later I will implement...")
-        pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
-
-        # try block to read URL
+        ApplicationName = "test_Laravel_default_02"
+        print("****************** Test Cluster Login *********************")
         try:
-            html = urlopen(pageUrl)
-
-        # except block to catch
-        # exception
-        # and identify error
-        except HTTPError as e:
-            print("HTTP error", e)
-
-        except URLError as e:
-            print("Opps ! Page not found!", e)
-
-        else:
-            print('Yeah ! URL found ')
-
-        self.driver.get(pageUrl)
-        self.driver.implicitly_wait(20)
-        time.sleep(2)
-        # ******************************Login**********************************
-        print("----------------------Cluster LogIn-----------------------------------")
-        # page object
-        log = LogInPage(driver)  # LogIn page
-
-        # input email
-        try:
-            if log.Email_box.is_enabled():
-                print("Email box is enabled")
-                log.Email_box.send_keys('admin@klovercloud.com')
-                time.sleep(1)
-            else:
-                print("Email box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-
-        else:
-            print('Successfully inputted email')
-
-        # input pass
-        try:
-            if log.Password_box.is_enabled():
-                print("Password box is enabled")
-                log.Password_box.send_keys('Hello@1234')
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully inputted Password')
-
-        # To show password
-        try:
-            if log.Toggle_Visibility_Button.is_enabled():
-                print("Toggle Visibility Button box is enabled")
-                log.Toggle_Visibility_Button.click()
-                time.sleep(1)
-                log.Toggle_Visibility_Button.click()
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully showed & hided Password')
-
-        # Click On SignIn button
-        try:
-            if log.Sign_In_button.is_enabled():
-                print("Sign In button is clickable")
-                log.Sign_In_button.click()
-                self.driver.implicitly_wait(10)
-                time.sleep(7)
-            else:
-                print("Sign In button is not clickable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully logged in')
-
-        print("****************** Create PHP Laravel Application based on Team: default *********************")
-        # click on create button from header
-
-        print("-----------------------Header frame----------------------------------------")
-        # click on create button from header
-        try:
-            CreateNew_H = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.CreateNew_H)))
-            print("CreateNew_H button is clickable")
-            CreateNew_H.click()
-            time.sleep(2)
-            # if CreateNew_H.is_enabled():
-            #     print("CreateNew_H button is enable")
-            #     CreateNew_H.click()
-            #     time.sleep(2)
-            # else:
-            #     print("CreateNew_H In button is not enable")
+            test_cluster_login(self)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
             print("TimeoutException error", e)
-        else:
-            print('Successfully clicked on CreateNew')
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
 
-        # click on "New Application" button from dropdown
+        print("****************** Go to Create Application Page *********************")
         try:
-            NewApplication_H = WebDriverWait(driver, 20).until(
-                EC.element_to_be_clickable((By.XPATH, Locator.NewApplication_H)))
-            print("NewApplication_H button is clickable")
-            NewApplication_H.click()
-            time.sleep(5)
-            # if NewApplication_H.is_enabled():
-            #     print("NewApplication_H button is enable")
-            #     NewApplication_H.click()
-            #     self.driver.implicitly_wait(30)
-            #     driver.refresh()
-            #     time.sleep(1)
-            # else:
-            #     print("NewApplication_H In button is not clickable")
+            go_create_app_page(self)
         except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
+            print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
             print("TimeoutException error", e)
-        else:
-            print('Successfully clicked on NewApplication_H')
-        print("-----------------------Welcome Create Application Page----------------------------------------")
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
         print("----Create Python app with PHP Version: 7.3 &  Laravel version : 6.0--------")
         # choose Django
         # app = CreateApplicationPage(self.driver)
@@ -483,7 +323,7 @@ class TestCreateAppPHP(EnvironmentSetup):
             ApplicationName_box = WebDriverWait(driver, 20).until(
                 EC.visibility_of_element_located((By.XPATH, Locator.ApplicationName_box)))
             print("ApplicationName_box is visible")
-            ApplicationName_box.send_keys('test_Laravel_default_02')
+            ApplicationName_box.send_keys(ApplicationName)
             time.sleep(2)
             # if ApplicationName_box.is_enabled():
             #     print("ApplicationName_box is enable")
@@ -497,11 +337,6 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("TimeoutException error", e)
         else:
             print('Successfully put ApplicationName')
-
-        # scroll down
-        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
-        print("Scroll down")
-        time.sleep(2)
 
         # click on laravel version box
         try:
@@ -543,6 +378,11 @@ class TestCreateAppPHP(EnvironmentSetup):
         else:
             print('Successfully chose on Laravel version 6.0')
 
+        # scroll down
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
+        print("Scroll down")
+        time.sleep(2)
+
         # Click on team box
         try:
             TeamBox_A = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.TeamBox_A)))
@@ -673,165 +513,85 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("TimeoutException error", e)
         else:
             print('Successfully clicked on Save button')
+
         # click on Create application button
-        # try:
-        #     Create_Application = WebDriverWait(driver, 20).until(
-        #         EC.element_to_be_clickable((By.XPATH, Locator.Create_Application)))
-        #     print("Create_Application button is clickable")
-        #     Create_Application.click()
-        #     time.sleep(180)
-        #     # if Create_Application.is_enabled():
-        #     #     print("Create application button is enable")
-        #     #     Create_Application.click()
-        #     #     time.sleep(180)
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # except TimeoutException as e:
-        #     print("TimeoutException error", e)
-        # else:
-        #     print('Successfully clicked on Create_Application')
+        try:
+            Create_Application = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.Create_Application)))
+            print("Create_Application button is clickable")
+            Create_Application.click()
+            # check success message
+            New_Git_Commit_Pushed_msg = WebDriverWait(driver, 50).until(
+                EC.presence_of_element_located((By.XPATH, Locator.New_Git_Commit_Pushed_msg)))
+            if New_Git_Commit_Pushed_msg.is_displayed():
+
+                print('Shown a message: ',
+                      simple_colors.green(New_Git_Commit_Pushed_msg.text, ['bold', 'underlined']))
+                print("\n")
+                pass
+                Application_build_finished_successfully_msg = WebDriverWait(driver, 120).until(
+                    EC.presence_of_element_located((By.XPATH, Locator.Application_build_finished_successfully_msg)))
+                if Application_build_finished_successfully_msg.is_displayed():
+                    print('Shown a message: ',
+                          simple_colors.green(Application_build_finished_successfully_msg.text, ['bold', 'underlined']))
+                    print("\n")
+                    pass
+                    time.sleep(30)
+                    print("Application_build_finished_successfully")
+            else:
+                assert False
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+
         ss = SS(driver)
         file_name = ss_path + "test_Laravel_default_02_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
 
+        # close log
+        try:
+            Live_Pipeline_Logs = WebDriverWait(driver, 60).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Live_Pipeline_Logs)))
+            Live_Pipeline_Logs.click()
+            time.sleep(5)
+            pass
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+        file_name = ss_path + "success_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
+        ss.driver.save_screenshot(file_name)
+        ss.ScreenShot(file_name)
+
     def test_Laravel_default_03(self):
         # pytest.skip("Skipping test...later I will implement...")
-        pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
-
-        # try block to read URL
+        ApplicationName = "test_Laravel_default_03"
+        print("****************** Test Cluster Login *********************")
         try:
-            html = urlopen(pageUrl)
-
-        # except block to catch
-        # exception
-        # and identify error
-        except HTTPError as e:
-            print("HTTP error", e)
-
-        except URLError as e:
-            print("Opps ! Page not found!", e)
-
-        else:
-            print('Yeah ! URL found ')
-
-        self.driver.get(pageUrl)
-        self.driver.implicitly_wait(20)
-        time.sleep(2)
-        # ******************************Login**********************************
-        print("----------------------Cluster LogIn-----------------------------------")
-        # page object
-        log = LogInPage(driver)  # LogIn page
-
-        # input email
-        try:
-            if log.Email_box.is_enabled():
-                print("Email box is enabled")
-                log.Email_box.send_keys('admin@klovercloud.com')
-                time.sleep(1)
-            else:
-                print("Email box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-
-        else:
-            print('Successfully inputted email')
-
-        # input pass
-        try:
-            if log.Password_box.is_enabled():
-                print("Password box is enabled")
-                log.Password_box.send_keys('Hello@1234')
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully inputted Password')
-
-        # To show password
-        try:
-            if log.Toggle_Visibility_Button.is_enabled():
-                print("Toggle Visibility Button box is enabled")
-                log.Toggle_Visibility_Button.click()
-                time.sleep(1)
-                log.Toggle_Visibility_Button.click()
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully showed & hided Password')
-
-        # Click On SignIn button
-        try:
-            if log.Sign_In_button.is_enabled():
-                print("Sign In button is clickable")
-                log.Sign_In_button.click()
-                self.driver.implicitly_wait(10)
-                time.sleep(7)
-            else:
-                print("Sign In button is not clickable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully logged in')
-
-        print("****************** Create PHP Laravel Application based on Team: default *********************")
-        # click on create button from header
-
-        print("-----------------------Header frame----------------------------------------")
-        # click on create button from header
-        try:
-            CreateNew_H = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.CreateNew_H)))
-            print("CreateNew_H button is clickable")
-            CreateNew_H.click()
-            time.sleep(2)
-            # if CreateNew_H.is_enabled():
-            #     print("CreateNew_H button is enable")
-            #     CreateNew_H.click()
-            #     time.sleep(2)
-            # else:
-            #     print("CreateNew_H In button is not enable")
+            test_cluster_login(self)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
             print("TimeoutException error", e)
-        else:
-            print('Successfully clicked on CreateNew')
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
 
-        # click on "New Application" button from dropdown
+        print("****************** Go to Create Application Page *********************")
         try:
-            NewApplication_H = WebDriverWait(driver, 20).until(
-                EC.element_to_be_clickable((By.XPATH, Locator.NewApplication_H)))
-            print("NewApplication_H button is clickable")
-            NewApplication_H.click()
-            time.sleep(5)
-            # if NewApplication_H.is_enabled():
-            #     print("NewApplication_H button is enable")
-            #     NewApplication_H.click()
-            #     self.driver.implicitly_wait(30)
-            #     driver.refresh()
-            #     time.sleep(1)
-            # else:
-            #     print("NewApplication_H In button is not clickable")
+            go_create_app_page(self)
         except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
+            print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
             print("TimeoutException error", e)
-        else:
-            print('Successfully clicked on NewApplication_H')
-        print("-----------------------Welcome Create Application Page----------------------------------------")
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
         print("----Create Python app with PHP Version: 7.3 &  Laravel version : 5.8--------")
         # choose Django
         # app = CreateApplicationPage(self.driver)
@@ -858,7 +618,7 @@ class TestCreateAppPHP(EnvironmentSetup):
             ApplicationName_box = WebDriverWait(driver, 20).until(
                 EC.visibility_of_element_located((By.XPATH, Locator.ApplicationName_box)))
             print("ApplicationName_box is visible")
-            ApplicationName_box.send_keys('test_Laravel_default_03')
+            ApplicationName_box.send_keys(ApplicationName)
             time.sleep(2)
             # if ApplicationName_box.is_enabled():
             #     print("ApplicationName_box is enable")
@@ -872,11 +632,6 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("TimeoutException error", e)
         else:
             print('Successfully put ApplicationName')
-
-        # scroll down
-        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
-        print("Scroll down")
-        time.sleep(2)
 
         # click on laravel version box
         try:
@@ -902,7 +657,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         try:
             Laravel_version_5_8 = WebDriverWait(driver, 20).until(
                 EC.element_to_be_clickable((By.XPATH, Locator.Laravel_version_5_8)))
-            print("Laravel_version 5.8 button is clickable")
+            print("Laravel_version 6.0 button is clickable")
             Laravel_version_5_8.click()
             time.sleep(2)
             # if TeamBox_A.is_enabled():
@@ -917,6 +672,11 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("TimeoutException error", e)
         else:
             print('Successfully chose on Laravel version 5.8')
+
+        # scroll down
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
+        print("Scroll down")
+        time.sleep(2)
 
         # Click on team box
         try:
@@ -1048,167 +808,87 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("TimeoutException error", e)
         else:
             print('Successfully clicked on Save button')
+
         # click on Create application button
-        # try:
-        #     Create_Application = WebDriverWait(driver, 20).until(
-        #         EC.element_to_be_clickable((By.XPATH, Locator.Create_Application)))
-        #     print("Create_Application button is clickable")
-        #     Create_Application.click()
-        #     time.sleep(180)
-        #     # if Create_Application.is_enabled():
-        #     #     print("Create application button is enable")
-        #     #     Create_Application.click()
-        #     #     time.sleep(180)
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # except TimeoutException as e:
-        #     print("TimeoutException error", e)
-        # else:
-        #     print('Successfully clicked on Create_Application')
+        try:
+            Create_Application = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.Create_Application)))
+            print("Create_Application button is clickable")
+            Create_Application.click()
+            # check success message
+            New_Git_Commit_Pushed_msg = WebDriverWait(driver, 50).until(
+                EC.presence_of_element_located((By.XPATH, Locator.New_Git_Commit_Pushed_msg)))
+            if New_Git_Commit_Pushed_msg.is_displayed():
+
+                print('Shown a message: ',
+                      simple_colors.green(New_Git_Commit_Pushed_msg.text, ['bold', 'underlined']))
+                print("\n")
+                pass
+                Application_build_finished_successfully_msg = WebDriverWait(driver, 120).until(
+                    EC.presence_of_element_located((By.XPATH, Locator.Application_build_finished_successfully_msg)))
+                if Application_build_finished_successfully_msg.is_displayed():
+                    print('Shown a message: ',
+                          simple_colors.green(Application_build_finished_successfully_msg.text, ['bold', 'underlined']))
+                    print("\n")
+                    pass
+                    time.sleep(30)
+                    print("Application_build_finished_successfully")
+            else:
+                assert False
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+
         ss = SS(driver)
         file_name = ss_path + "test_Laravel_default_03_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
 
+        # close log
+        try:
+            Live_Pipeline_Logs = WebDriverWait(driver, 60).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Live_Pipeline_Logs)))
+            Live_Pipeline_Logs.click()
+            time.sleep(5)
+            pass
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+        file_name = ss_path + "success_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
+        ss.driver.save_screenshot(file_name)
+        ss.ScreenShot(file_name)
+
     def test_Laravel_default_04(self):
         # pytest.skip("Skipping test...later I will implement...")
-        pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
-
-        # try block to read URL
+        ApplicationName = "test_Laravel_default_04"
+        print("****************** Test Cluster Login *********************")
         try:
-            html = urlopen(pageUrl)
-
-        # except block to catch
-        # exception
-        # and identify error
-        except HTTPError as e:
-            print("HTTP error", e)
-
-        except URLError as e:
-            print("Opps ! Page not found!", e)
-
-        else:
-            print('Yeah ! URL found ')
-
-        self.driver.get(pageUrl)
-        self.driver.implicitly_wait(20)
-        time.sleep(2)
-        # ******************************Login**********************************
-        print("----------------------Cluster LogIn-----------------------------------")
-        # page object
-        log = LogInPage(driver)  # LogIn page
-
-        # input email
-        try:
-            if log.Email_box.is_enabled():
-                print("Email box is enabled")
-                log.Email_box.send_keys('admin@klovercloud.com')
-                time.sleep(1)
-            else:
-                print("Email box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-
-        else:
-            print('Successfully inputted email')
-
-        # input pass
-        try:
-            if log.Password_box.is_enabled():
-                print("Password box is enabled")
-                log.Password_box.send_keys('Hello@1234')
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully inputted Password')
-
-        # To show password
-        try:
-            if log.Toggle_Visibility_Button.is_enabled():
-                print("Toggle Visibility Button box is enabled")
-                log.Toggle_Visibility_Button.click()
-                time.sleep(1)
-                log.Toggle_Visibility_Button.click()
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully showed & hided Password')
-
-        # Click On SignIn button
-        try:
-            if log.Sign_In_button.is_enabled():
-                print("Sign In button is clickable")
-                log.Sign_In_button.click()
-                self.driver.implicitly_wait(10)
-                time.sleep(7)
-            else:
-                print("Sign In button is not clickable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully logged in')
-
-        print("****************** Create PHP Laravel Application based on Team: default *********************")
-        # click on create button from header
-
-        print("-----------------------Header frame----------------------------------------")
-        # click on create button from header
-        try:
-            CreateNew_H = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.CreateNew_H)))
-            print("CreateNew_H button is clickable")
-            CreateNew_H.click()
-            time.sleep(2)
-            # if CreateNew_H.is_enabled():
-            #     print("CreateNew_H button is enable")
-            #     CreateNew_H.click()
-            #     time.sleep(2)
-            # else:
-            #     print("CreateNew_H In button is not enable")
+            test_cluster_login(self)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
             print("TimeoutException error", e)
-        else:
-            print('Successfully clicked on CreateNew')
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
 
-        # click on "New Application" button from dropdown
+        print("****************** Go to Create Application Page *********************")
         try:
-            NewApplication_H = WebDriverWait(driver, 20).until(
-                EC.element_to_be_clickable((By.XPATH, Locator.NewApplication_H)))
-            print("NewApplication_H button is clickable")
-            NewApplication_H.click()
-            time.sleep(5)
-            # if NewApplication_H.is_enabled():
-            #     print("NewApplication_H button is enable")
-            #     NewApplication_H.click()
-            #     self.driver.implicitly_wait(30)
-            #     driver.refresh()
-            #     time.sleep(1)
-            # else:
-            #     print("NewApplication_H In button is not clickable")
+            go_create_app_page(self)
         except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
+            print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
             print("TimeoutException error", e)
-        else:
-            print('Successfully clicked on NewApplication_H')
-        print("-----------------------Welcome Create Application Page----------------------------------------")
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
         print("----Create Python app with PHP Version: 7.3 &  Laravel version : 5.7--------")
-        # choose laravel
+        # choose Django
         # app = CreateApplicationPage(self.driver)
         try:
             Laravel = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.Laravel)))
@@ -1233,7 +913,7 @@ class TestCreateAppPHP(EnvironmentSetup):
             ApplicationName_box = WebDriverWait(driver, 20).until(
                 EC.visibility_of_element_located((By.XPATH, Locator.ApplicationName_box)))
             print("ApplicationName_box is visible")
-            ApplicationName_box.send_keys('test_Laravel_default_04')
+            ApplicationName_box.send_keys(ApplicationName)
             time.sleep(2)
             # if ApplicationName_box.is_enabled():
             #     print("ApplicationName_box is enable")
@@ -1247,11 +927,6 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("TimeoutException error", e)
         else:
             print('Successfully put ApplicationName')
-
-        # scroll down
-        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
-        print("Scroll down")
-        time.sleep(2)
 
         # click on laravel version box
         try:
@@ -1277,7 +952,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         try:
             Laravel_version_5_7 = WebDriverWait(driver, 20).until(
                 EC.element_to_be_clickable((By.XPATH, Locator.Laravel_version_5_7)))
-            print("Laravel_version 5.7 button is clickable")
+            print("Laravel_version 6.0 button is clickable")
             Laravel_version_5_7.click()
             time.sleep(2)
             # if TeamBox_A.is_enabled():
@@ -1292,6 +967,11 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("TimeoutException error", e)
         else:
             print('Successfully chose on Laravel version 5.7')
+
+        # scroll down
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
+        print("Scroll down")
+        time.sleep(2)
 
         # Click on team box
         try:
@@ -1423,167 +1103,87 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("TimeoutException error", e)
         else:
             print('Successfully clicked on Save button')
+
         # click on Create application button
-        # try:
-        #     Create_Application = WebDriverWait(driver, 20).until(
-        #         EC.element_to_be_clickable((By.XPATH, Locator.Create_Application)))
-        #     print("Create_Application button is clickable")
-        #     Create_Application.click()
-        #     time.sleep(180)
-        #     # if Create_Application.is_enabled():
-        #     #     print("Create application button is enable")
-        #     #     Create_Application.click()
-        #     #     time.sleep(180)
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # except TimeoutException as e:
-        #     print("TimeoutException error", e)
-        # else:
-        #     print('Successfully clicked on Create_Application')
+        try:
+            Create_Application = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.Create_Application)))
+            print("Create_Application button is clickable")
+            Create_Application.click()
+            # check success message
+            New_Git_Commit_Pushed_msg = WebDriverWait(driver, 50).until(
+                EC.presence_of_element_located((By.XPATH, Locator.New_Git_Commit_Pushed_msg)))
+            if New_Git_Commit_Pushed_msg.is_displayed():
+
+                print('Shown a message: ',
+                      simple_colors.green(New_Git_Commit_Pushed_msg.text, ['bold', 'underlined']))
+                print("\n")
+                pass
+                Application_build_finished_successfully_msg = WebDriverWait(driver, 120).until(
+                    EC.presence_of_element_located((By.XPATH, Locator.Application_build_finished_successfully_msg)))
+                if Application_build_finished_successfully_msg.is_displayed():
+                    print('Shown a message: ',
+                          simple_colors.green(Application_build_finished_successfully_msg.text, ['bold', 'underlined']))
+                    print("\n")
+                    pass
+                    time.sleep(30)
+                    print("Application_build_finished_successfully")
+            else:
+                assert False
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+
         ss = SS(driver)
         file_name = ss_path + "test_Laravel_default_04_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
 
+        # close log
+        try:
+            Live_Pipeline_Logs = WebDriverWait(driver, 60).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Live_Pipeline_Logs)))
+            Live_Pipeline_Logs.click()
+            time.sleep(5)
+            pass
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+        file_name = ss_path + "success_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
+        ss.driver.save_screenshot(file_name)
+        ss.ScreenShot(file_name)
+
     def test_Laravel_default_05(self):
         # pytest.skip("Skipping test...later I will implement...")
-        pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
         driver = self.driver
-
-        # try block to read URL
+        ApplicationName = "test_Laravel_default_06"
+        print("****************** Test Cluster Login *********************")
         try:
-            html = urlopen(pageUrl)
-
-        # except block to catch
-        # exception
-        # and identify error
-        except HTTPError as e:
-            print("HTTP error", e)
-
-        except URLError as e:
-            print("Opps ! Page not found!", e)
-
-        else:
-            print('Yeah ! URL found ')
-
-        self.driver.get(pageUrl)
-        self.driver.implicitly_wait(20)
-        time.sleep(2)
-        # ******************************Login**********************************
-        print("----------------------Cluster LogIn-----------------------------------")
-        # page object
-        log = LogInPage(driver)  # LogIn page
-
-        # input email
-        try:
-            if log.Email_box.is_enabled():
-                print("Email box is enabled")
-                log.Email_box.send_keys('admin@klovercloud.com')
-                time.sleep(1)
-            else:
-                print("Email box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-
-        else:
-            print('Successfully inputted email')
-
-        # input pass
-        try:
-            if log.Password_box.is_enabled():
-                print("Password box is enabled")
-                log.Password_box.send_keys('Hello@1234')
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully inputted Password')
-
-        # To show password
-        try:
-            if log.Toggle_Visibility_Button.is_enabled():
-                print("Toggle Visibility Button box is enabled")
-                log.Toggle_Visibility_Button.click()
-                time.sleep(1)
-                log.Toggle_Visibility_Button.click()
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully showed & hided Password')
-
-        # Click On SignIn button
-        try:
-            if log.Sign_In_button.is_enabled():
-                print("Sign In button is clickable")
-                log.Sign_In_button.click()
-                self.driver.implicitly_wait(10)
-                time.sleep(7)
-            else:
-                print("Sign In button is not clickable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully logged in')
-
-        print("****************** Create PHP Laravel Application based on Team: default *********************")
-        # click on create button from header
-
-        print("-----------------------Header frame----------------------------------------")
-        # click on create button from header
-        try:
-            CreateNew_H = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.CreateNew_H)))
-            print("CreateNew_H button is clickable")
-            CreateNew_H.click()
-            time.sleep(2)
-            # if CreateNew_H.is_enabled():
-            #     print("CreateNew_H button is enable")
-            #     CreateNew_H.click()
-            #     time.sleep(2)
-            # else:
-            #     print("CreateNew_H In button is not enable")
+            test_cluster_login(self)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
             print("TimeoutException error", e)
-        else:
-            print('Successfully clicked on CreateNew')
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
 
-        # click on "New Application" button from dropdown
+        print("****************** Go to Create Application Page *********************")
         try:
-            NewApplication_H = WebDriverWait(driver, 20).until(
-                EC.element_to_be_clickable((By.XPATH, Locator.NewApplication_H)))
-            print("NewApplication_H button is clickable")
-            NewApplication_H.click()
-            time.sleep(5)
-            # if NewApplication_H.is_enabled():
-            #     print("NewApplication_H button is enable")
-            #     NewApplication_H.click()
-            #     self.driver.implicitly_wait(30)
-            #     driver.refresh()
-            #     time.sleep(1)
-            # else:
-            #     print("NewApplication_H In button is not clickable")
+            go_create_app_page(self)
         except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
+            print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
             print("TimeoutException error", e)
-        else:
-            print('Successfully clicked on NewApplication_H')
-        print("-----------------------Welcome Create Application Page----------------------------------------")
-        print("----Create Python app with PHP Version: 7.3 &  Laravel version : 5.6--------")
-        # choose laravel
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        print("----Create Python app with PHP Version: 7.3 &  Laravel version : 7.0--------")
+        # choose Django
         # app = CreateApplicationPage(self.driver)
         try:
             Laravel = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.Laravel)))
@@ -1608,7 +1208,7 @@ class TestCreateAppPHP(EnvironmentSetup):
             ApplicationName_box = WebDriverWait(driver, 20).until(
                 EC.visibility_of_element_located((By.XPATH, Locator.ApplicationName_box)))
             print("ApplicationName_box is visible")
-            ApplicationName_box.send_keys('test_Laravel_default_05')
+            ApplicationName_box.send_keys(ApplicationName)
             time.sleep(2)
             # if ApplicationName_box.is_enabled():
             #     print("ApplicationName_box is enable")
@@ -1622,11 +1222,6 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("TimeoutException error", e)
         else:
             print('Successfully put ApplicationName')
-
-        # scroll down
-        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
-        print("Scroll down")
-        time.sleep(2)
 
         # click on laravel version box
         try:
@@ -1652,7 +1247,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         try:
             Laravel_version_5_6 = WebDriverWait(driver, 20).until(
                 EC.element_to_be_clickable((By.XPATH, Locator.Laravel_version_5_6)))
-            print("Laravel_version 5.6 button is clickable")
+            print("Laravel_version 6.0 button is clickable")
             Laravel_version_5_6.click()
             time.sleep(2)
             # if TeamBox_A.is_enabled():
@@ -1667,6 +1262,11 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("TimeoutException error", e)
         else:
             print('Successfully chose on Laravel version 5.6')
+
+        # scroll down
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
+        print("Scroll down")
+        time.sleep(2)
 
         # Click on team box
         try:
@@ -1798,24 +1398,58 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("TimeoutException error", e)
         else:
             print('Successfully clicked on Save button')
+
         # click on Create application button
-        # try:
-        #     Create_Application = WebDriverWait(driver, 20).until(
-        #         EC.element_to_be_clickable((By.XPATH, Locator.Create_Application)))
-        #     print("Create_Application button is clickable")
-        #     Create_Application.click()
-        #     time.sleep(180)
-        #     # if Create_Application.is_enabled():
-        #     #     print("Create application button is enable")
-        #     #     Create_Application.click()
-        #     #     time.sleep(180)
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # except TimeoutException as e:
-        #     print("TimeoutException error", e)
-        # else:
-        #     print('Successfully clicked on Create_Application')
+        try:
+            Create_Application = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.Create_Application)))
+            print("Create_Application button is clickable")
+            Create_Application.click()
+            # check success message
+            New_Git_Commit_Pushed_msg = WebDriverWait(driver, 50).until(
+                EC.presence_of_element_located((By.XPATH, Locator.New_Git_Commit_Pushed_msg)))
+            if New_Git_Commit_Pushed_msg.is_displayed():
+
+                print('Shown a message: ',
+                      simple_colors.green(New_Git_Commit_Pushed_msg.text, ['bold', 'underlined']))
+                print("\n")
+                pass
+                Application_build_finished_successfully_msg = WebDriverWait(driver, 120).until(
+                    EC.presence_of_element_located((By.XPATH, Locator.Application_build_finished_successfully_msg)))
+                if Application_build_finished_successfully_msg.is_displayed():
+                    print('Shown a message: ',
+                          simple_colors.green(Application_build_finished_successfully_msg.text, ['bold', 'underlined']))
+                    print("\n")
+                    pass
+                    time.sleep(30)
+                    print("Application_build_finished_successfully")
+            else:
+                assert False
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+
         ss = SS(driver)
         file_name = ss_path + "test_Laravel_default_05_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
+        ss.driver.save_screenshot(file_name)
+        ss.ScreenShot(file_name)
+
+        # close log
+        try:
+            Live_Pipeline_Logs = WebDriverWait(driver, 60).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Live_Pipeline_Logs)))
+            Live_Pipeline_Logs.click()
+            time.sleep(5)
+            pass
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+        file_name = ss_path + "success_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
