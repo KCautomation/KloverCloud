@@ -1,6 +1,7 @@
 import time
 
 import simple_colors
+from colorama import Fore
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support.ui import WebDriverWait
@@ -32,13 +33,13 @@ def test_cluster_login(self):
     # exception
     # and identify error
     except HTTPError as e:
-        print("HTTP error", e)
+        print(Fore.LIGHTRED_EX + "HTTP error", e)
 
     except URLError as e:
-        print("Opps ! Page not found!", e)
+        print(Fore.LIGHTRED_EX + "Opps ! Page not found!", e)
 
     else:
-        print('Yeah ! URL found ')
+        print(Fore.YELLOW + 'Yeah ! URL found ')
 
     driver.get(pageUrl)
     driver.implicitly_wait(20)
