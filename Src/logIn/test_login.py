@@ -16,7 +16,7 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException,
 from urllib.request import urlopen
 from urllib.error import *
 
-ss_path = "/Applications/LogIn"
+ss_path = "/LogIn"
 
 
 def test_cluster_login(self):

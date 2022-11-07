@@ -30,7 +30,7 @@ class TestCreateAppPHP(EnvironmentSetup):
     def test_Laravel_default_01(self):
 
         driver = self.driver
-        ApplicationName = "test-20"
+        ApplicationName = "test-22"
         print("****************** Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -304,10 +304,18 @@ class TestCreateAppPHP(EnvironmentSetup):
         ss.ScreenShot(file_name)
 
         # close log
-        New_Git_Commit_Pushed_msg = WebDriverWait(driver, 50).until(
-            EC.presence_of_element_located((By.XPATH, Locator.New_Git_Commit_Pushed_msg)))
-        if New_Git_Commit_Pushed_msg.is_displayed():
-            print('Shown a message: ',
-                  simple_colors.green(New_Git_Commit_Pushed_msg.text, ['bold', 'underlined']))
-            print("\n")
+        try:
+            Live_Pipeline_Logs = WebDriverWait(driver, 60).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Live_Pipeline_Logs)))
+            Live_Pipeline_Logs.click()
+            time.sleep(5)
             pass
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+        file_name = ss_path + "success_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
+        ss.driver.save_screenshot(file_name)
+        ss.ScreenShot(file_name)
