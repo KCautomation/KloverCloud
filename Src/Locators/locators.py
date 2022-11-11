@@ -100,3 +100,4 @@ class Locator(object):
     application_Delete = "//span[contains(text(),'Delete')]"
     Application_namebox_D = "//input[@placeholder='Type here...']"
     Delete_permanently_button = "//span[contains(text(),'I understand this, Delete permanently')]"
+    Application_Deleted_Success_msg = "//p[normalize-space()='Application Deleted Successfully']"

@@ -103,7 +103,7 @@ class DeleteApplication(EnvironmentSetup):
             Application_namebox_D = WebDriverWait(driver, 20).until(
                 EC.element_to_be_clickable((By.XPATH, Locator.Application_namebox_D)))
             print("application_Delete is clickable")
-            Application_namebox_D.click()
+            Application_namebox_D.send_keys(ApplicationName)
             print("successfully inputted Application_name ")
             time.sleep(5)
         except NoSuchElementException as e:
@@ -120,6 +120,26 @@ class DeleteApplication(EnvironmentSetup):
             print("application_Delete is clickable")
             Delete_permanently_button.click()
             print("successfully clicked on Delete_permanently_button ")
+            time.sleep(15)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # check msg
+        try:
+            Application_Deleted_Success_msg = WebDriverWait(driver, 120).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Application_Deleted_Success_msg)))
+            if Application_Deleted_Success_msg.is_displayed():
+
+                print('Shown a message: ',
+                      simple_colors.green(Application_Deleted_Success_msg.text, ['bold', 'underlined']))
+                print("\n")
+                pass
+            else:
+                assert False
             time.sleep(15)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
