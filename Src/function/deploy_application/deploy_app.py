@@ -20,7 +20,7 @@ ss_path = "/Applications/PHP/"
 
 class TestCreateAppPHP(EnvironmentSetup):
 
-    def test_Laravel_default_01(self):
+    def deploy_application(self):
         # pytest.skip("Skipping test...later I will implement...")
         driver = self.driver
         ApplicationName = "3-3"
