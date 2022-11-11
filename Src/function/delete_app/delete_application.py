@@ -23,7 +23,7 @@ class DeleteApplication(EnvironmentSetup):
     def test_delete_app(self):
         # pytest.skip("Skipping test...later I will implement...")
         driver = self.driver
-        ApplicationName = "3-3"
+        ApplicationName = input("Enter Application Name: ")
         print("****************** Test Cluster Login *********************")
         try:
             test_cluster_login(self)
