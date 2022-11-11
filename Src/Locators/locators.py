@@ -84,3 +84,12 @@ class Locator(object):
     # Deployment is now in pending. It will take a moment to start = "//span[contains(text(),'Deployment is now in pending. It will take a momen')]"
     # Now we are deploying your application. Please wait for a while. It may take upto 3 minutes = "//span[contains(text(),'Now we are deploying your application. Please wait')]"
     # Application Deployed! = "//body/div[3]/div[1]/div[1]/snack-bar-container[1]/simple-snack-bar[1]"
+
+    # From sidebar
+    Applications = "//span[contains(text(),'Applications')]"
+    Application_name = "//span[contains(text(),'3-1')]"
+    To_deploy = "//li[@id='636ddcfd2c49b30001c32706']//*[name()='svg']//*[name()='rect'][2]"  # XPATH
+    Deploy_button = "//span[normalize-space()='Deploy']"
+    Deployment_Pending_msg = "//span[contains(text(),'Deployment is now in pending. It will take a momen')]"
+    Deployment_Pending_time_msg = "//span[contains(text(),'Now we are deploying your application. Please wait')]"
+    Application_Deployed = "//body/div[3]/div[1]/div[1]/snack-bar-container[1]/simple-snack-bar[1]"
