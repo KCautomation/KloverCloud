@@ -93,3 +93,10 @@ class Locator(object):
     Deployment_Pending_msg = "//span[contains(text(),'Deployment is now in pending. It will take a momen')]"
     Deployment_Pending_time_msg = "//span[contains(text(),'Now we are deploying your application. Please wait')]"
     Application_Deployed = "//body/div[3]/div[1]/div[1]/snack-bar-container[1]/simple-snack-bar[1]"
+
+    # To delete Apllication
+    application_Settings = "(//span[contains(@class,'inline-block py-4 px-4')][normalize-space()='Settings'])[1]"
+    # scroll
+    application_Delete = "//span[contains(text(),'Delete')]"
+    Application_namebox_D = "//input[@placeholder='Type here...']"
+    Delete_permanently_button = "//span[contains(text(),'I understand this, Delete permanently')]"
