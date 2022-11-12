@@ -41,8 +41,8 @@ class DeleteApplication(EnvironmentSetup):
                 EC.element_to_be_clickable((By.XPATH, Locator.Applications)))
             print("Applications button is clickable")
             Applications_list.click()
-            print("Welcome applications list")
-            time.sleep(10)
+            print("Welcome to applications list")
+            time.sleep(5)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
