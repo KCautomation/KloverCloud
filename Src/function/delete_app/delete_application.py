@@ -23,7 +23,8 @@ class DeleteApplication(EnvironmentSetup):
     def test_delete_app(self):
         # pytest.skip("Skipping test...later I will implement...")
         driver = self.driver
-        ApplicationName = input("Enter Application Name: ")
+        # ApplicationName = input("Enter Application Name: ")
+        ApplicationName = "101"
         print("****************** Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -57,10 +58,10 @@ class DeleteApplication(EnvironmentSetup):
         # click on an application
         try:
             Application_name = WebDriverWait(driver, 20).until(
-                EC.element_to_be_clickable((By.XPATH, Locator.Application_name)))
-            print("Applications button is clickable")
+                EC.presence_of_element_located((By.XPATH, Locator.Application_name)))
+            print(ApplicationName, "Application is present in the list")
             Application_name.click()
-            print("Welcome applications list")
+            print("successfully clicked on :", ApplicationName)
             time.sleep(5)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
@@ -113,6 +114,11 @@ class DeleteApplication(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException", e)
 
+        # scroll down
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 20")
+        print("Scroll down")
+        time.sleep(3)
+
         # input application name
         try:
             Delete_permanently_button = WebDriverWait(driver, 20).until(
@@ -120,7 +126,7 @@ class DeleteApplication(EnvironmentSetup):
             print("application_Delete is clickable")
             Delete_permanently_button.click()
             print("successfully clicked on Delete_permanently_button ")
-            time.sleep(15)
+            time.sleep(2)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
