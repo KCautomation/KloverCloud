@@ -54,14 +54,14 @@ class TestDeploy(EnvironmentSetup):
         print("Scroll down")
         time.sleep(3)
 
-        # click on an application
+        # find and click on an application
         try:
             Application_name = WebDriverWait(driver, 20).until(
-                EC.element_to_be_clickable((By.XPATH, Locator.Application_name)))
-            print("Applications button is clickable")
+                EC.presence_of_element_located((By.XPATH, "//span[contains(text(),"+ApplicationName+")]")))
+            print(ApplicationName, "Application is present in the list")
             Application_name.click()
-            print("Welcome applications list")
-            time.sleep(5)
+            print("successfully clicked on :", ApplicationName)
+            time.sleep(10)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:

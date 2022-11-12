@@ -87,7 +87,7 @@ class Locator(object):
 
     # From sidebar
     Applications = "//span[contains(text(),'Applications')]"
-    Application_name = "//span[contains(text(),'101')]"
+    find_Application_tolist = "//span[contains(text(),'101')]"
     To_deploy = "//li[@id='636ddcfd2c49b30001c32706']//*[name()='svg']//*[name()='rect'][2]"  # XPATH
     Deploy_button = "//span[normalize-space()='Deploy']"
     Deployment_Pending_msg = "//span[contains(text(),'Deployment is now in pending. It will take a momen')]"

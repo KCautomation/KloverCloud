@@ -24,7 +24,7 @@ class DeleteApplication(EnvironmentSetup):
         # pytest.skip("Skipping test...later I will implement...")
         driver = self.driver
         # ApplicationName = input("Enter Application Name: ")
-        ApplicationName = "101"
+        ApplicationName = "102"
         print("****************** Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -50,19 +50,19 @@ class DeleteApplication(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException", e)
 
-        # scroll down
-        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 50")
-        print("Scroll down")
-        time.sleep(3)
+        # # scroll down
+        # driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 50")
+        # print("Scroll down")
+        # time.sleep(3)
 
         # click on an application
         try:
             Application_name = WebDriverWait(driver, 20).until(
-                EC.presence_of_element_located((By.XPATH, Locator.Application_name)))
+                EC.presence_of_element_located((By.XPATH, "//span[contains(text(),"+ApplicationName+")]")))
             print(ApplicationName, "Application is present in the list")
             Application_name.click()
             print("successfully clicked on :", ApplicationName)
-            time.sleep(5)
+            time.sleep(10)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
