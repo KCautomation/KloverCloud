@@ -23,7 +23,7 @@ class TestCreateAppPHP(EnvironmentSetup):
     def test_Laravel_default_01(self):
         # pytest.skip("Skipping test...later I will implement...")
         driver = self.driver
-        ApplicationName = "111"
+        ApplicationName = "112"
         print("****************** Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -238,7 +238,7 @@ class TestCreateAppPHP(EnvironmentSetup):
                           simple_colors.green(Application_build_finished_successfully_msg.text, ['bold', 'underlined']))
                     print("\n")
                     print("Application_build_finished_successfully")
-                    time.sleep(6)
+                    time.sleep(10)
             else:
                 assert False
         except NoSuchElementException as e:
@@ -308,17 +308,8 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("Okay_button is clickable")
             Okay_button.click()
             print("successfully clicked on Okay")
-            time.sleep(3)
+            time.sleep(4)
 
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        except InvalidSessionIdException as e:
-            print("InvalidSessionIdException error", e)
-
-            # message validation
-        try:
             Deployment_Pending_msg = WebDriverWait(driver, 120).until(
                 EC.presence_of_element_located((By.XPATH, Locator.Deployment_Pending_msg)))
             if Deployment_Pending_msg.is_displayed():
@@ -326,29 +317,20 @@ class TestCreateAppPHP(EnvironmentSetup):
                 print('Shown a message: ',
                       simple_colors.green(Deployment_Pending_msg.text, ['bold', 'underlined']))
                 print("\n")
-                pass
-                # 2nd msg
-                Deployment_Pending_time_msg = WebDriverWait(driver, 120).until(
-                    EC.presence_of_element_located((By.XPATH, Locator.Deployment_Pending_time_msg)))
-                if Deployment_Pending_time_msg.is_displayed():
-                    print('Shown a message: ',
-                          simple_colors.green(Deployment_Pending_time_msg.text, ['bold', 'underlined']))
-                    print("\n")
-                    pass
-                    time.sleep(3)
-                    print("Application_build_finished_successfully")
+                assert True
+                time.sleep(5)
 
-                    Application_Deployed = WebDriverWait(driver, 120).until(
-                        EC.presence_of_element_located((By.XPATH, Locator.Application_Deployed)))
-                    if Application_Deployed.is_displayed():
-                        print('Shown a message: ',
-                              simple_colors.green(Application_Deployed.text, ['bold', 'underlined']))
-                        print("\n")
-                        pass
-                        time.sleep(3)
-                        print("Application deployed successfully")
-                else:
-                    assert False
+            # error msg
+            deployment_failed = WebDriverWait(driver, 120).until(
+                EC.presence_of_element_located((By.XPATH, Locator.deployment_failed)))
+            if deployment_failed.is_displayed():
+                time.sleep(2)
+                print('Shown a message: ',
+                      simple_colors.green(deployment_failed.text, ['bold', 'underlined']))
+                print("\n")
+                return False
+            else:
+                pass
 
         except NoSuchElementException as e:
             print("NoSuchElementException error", e)
@@ -356,6 +338,54 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("TimeoutException error", e)
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException error", e)
+            # message validation
+        # try:
+        #     Deployment_Pending_msg = WebDriverWait(driver, 120).until(
+        #         EC.presence_of_element_located((By.XPATH, Locator.Deployment_Pending_msg)))
+        #     if Deployment_Pending_msg.is_displayed():
+        #
+        #         print('Shown a message: ',
+        #               simple_colors.green(Deployment_Pending_msg.text, ['bold', 'underlined']))
+        #         print("\n")
+        #         assert True
+        #
+        #         deployment_failed = WebDriverWait(driver, 120).until(
+        #             EC.presence_of_element_located((By.XPATH, Locator.deployment_failed)))
+        #         if deployment_failed.is_displayed():
+        #             print('Shown a message: ',
+        #                   simple_colors.green(deployment_failed.text, ['bold', 'underlined']))
+        #             print("\n")
+        #             assert False
+        #
+        #             # error msg
+        #         Deployment_Pending_time_msg = WebDriverWait(driver, 120).until(
+        #             EC.presence_of_element_located((By.XPATH, Locator.Deployment_Pending_time_msg)))
+        #         if Deployment_Pending_time_msg.is_displayed():
+        #             print('Shown a message: ',
+        #                   simple_colors.green(Deployment_Pending_time_msg.text, ['bold', 'underlined']))
+        #             print("\n")
+        #             assert True
+        #             time.sleep(3)
+        #             print("Application_build_finished_successfully")
+        #
+        #         Application_Deployed = WebDriverWait(driver, 120).until(
+        #             EC.presence_of_element_located((By.XPATH, Locator.Application_Deployed)))
+        #         if Application_Deployed.is_displayed():
+        #             print('Shown a message: ',
+        #                   simple_colors.green(Application_Deployed.text, ['bold', 'underlined']))
+        #             print("\n")
+        #             assert True
+        #             time.sleep(3)
+        #             print("Application deployed successfully")
+        #     else:
+        #         return
+        #
+        # except NoSuchElementException as e:
+        #     print("NoSuchElementException error", e)
+        # except TimeoutException as e:
+        #     print("TimeoutException error", e)
+        # except InvalidSessionIdException as e:
+        #     print("InvalidSessionIdException error", e)
 
         file_name = ss_path + "deploy_success_screenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)

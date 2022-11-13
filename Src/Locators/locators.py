@@ -94,7 +94,7 @@ class Locator(object):
     Deploy_button = "//span[normalize-space()='Deploy']"
     Okay_button = "//span[contains(text(),'Okay')]"
     Deployment_Pending_msg = "//span[contains(text(),'Deployment is now in pending. It will take a momen')]"
-    deployment_failed = "// span[contains(text(), '[Alert] Application deployment failed!"
+    deployment_failed = "//span[contains(text(),'[Alert] Application deployment failed!')]"
     close = "// span[contains(text(), 'close')]"
     Deployment_Pending_time_msg = "//span[contains(text(),'Now we are deploying your application. Please wait')]"
     Application_Deployed = "//body/div[3]/div[1]/div[1]/snack-bar-container[1]/simple-snack-bar[1]"

@@ -25,4 +25,6 @@ class EnvironmentSetup(unittest.TestCase):
             print("Test Environment Destroyed")
             print("Run Completed at :" + str(datetime.datetime.now()))
             self.driver.close()
-            # self.driver.quit()
+            # self.driver.stop()
+            # # self.driver.close()
+            # # self.driver.quit()
