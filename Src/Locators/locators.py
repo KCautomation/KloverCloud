@@ -88,7 +88,8 @@ class Locator(object):
     # From sidebar
     Applications = "//span[contains(text(),'Applications')]"
     find_Application_tolist = "//span[contains(text(),'101')]"
-    To_deploy = "//li[@id='636ddcfd2c49b30001c32706']//*[name()='svg']//*[name()='rect'][2]"  # XPATH
+    # To_deploy = "//li[@id='6367295d806b560001d2dd50']//*[name()='svg']//*[name()='rect']"  # XPATH
+    To_deploy = "/html[1]/body[1]/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-details[1]/div[1]/div[1]/kc-ci-cd-pipeline[1]/div[1]/div[1]/div[2]/div[1]/div[2]/ul[1]/li[1]/*[name()='svg'][1]"
     Deploy_button = "//span[normalize-space()='Deploy']"
     Deployment_Pending_msg = "//span[contains(text(),'Deployment is now in pending. It will take a momen')]"
     Deployment_Pending_time_msg = "//span[contains(text(),'Now we are deploying your application. Please wait')]"

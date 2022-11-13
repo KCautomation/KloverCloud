@@ -3,7 +3,8 @@ from telnetlib import EC
 
 import pytest
 import simple_colors
-from selenium.common import NoSuchElementException, TimeoutException, InvalidSessionIdException
+from selenium.common import NoSuchElementException, TimeoutException, InvalidSessionIdException, \
+    ElementClickInterceptedException
 from Src.Locators.locators import Locator
 from Src.function.go_application.go_to_application_page import go_create_app_page
 
@@ -22,7 +23,7 @@ class TestCreateAppPHP(EnvironmentSetup):
     def test_Laravel_default_01(self):
         # pytest.skip("Skipping test...later I will implement...")
         driver = self.driver
-        ApplicationName = "104"
+        ApplicationName = "106"
         print("****************** Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -197,7 +198,7 @@ class TestCreateAppPHP(EnvironmentSetup):
             print('Successfully Choose Namespace one')
 
         # again scroll below
-        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 1200")
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 1500")
         time.sleep(2)
         print("Scroll down to show Namespaces")
         # click on save button
@@ -220,8 +221,9 @@ class TestCreateAppPHP(EnvironmentSetup):
                 EC.element_to_be_clickable((By.XPATH, Locator.Create_Application)))
             print("Create_Application button is clickable")
             Create_Application.click()
+            time.sleep(3)
             # check success message
-            New_Git_Commit_Pushed_msg = WebDriverWait(driver, 50).until(
+            New_Git_Commit_Pushed_msg = WebDriverWait(driver, 20).until(
                 EC.presence_of_element_located((By.XPATH, Locator.New_Git_Commit_Pushed_msg)))
             if New_Git_Commit_Pushed_msg.is_displayed():
 
@@ -229,7 +231,7 @@ class TestCreateAppPHP(EnvironmentSetup):
                       simple_colors.green(New_Git_Commit_Pushed_msg.text, ['bold', 'underlined']))
                 print("\n")
                 pass
-                Application_build_finished_successfully_msg = WebDriverWait(driver, 120).until(
+                Application_build_finished_successfully_msg = WebDriverWait(driver, 80).until(
                     EC.presence_of_element_located((By.XPATH, Locator.Application_build_finished_successfully_msg)))
                 if Application_build_finished_successfully_msg.is_displayed():
                     print('Shown a message: ',
@@ -268,19 +270,23 @@ class TestCreateAppPHP(EnvironmentSetup):
 
         # deploy application
         print("******************************* Test Try to deploy application******************************")
+        # click on deploy
         try:
-            To_deploy = WebDriverWait(driver, 20).until(
-                EC.element_to_be_clickable((By.XPATH, Locator.To_deploy)))
-            print("deploy button is clickable")
+            To_deploy = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.XPATH, Locator.To_deploy)))
+            print("deploy element is visible")
+            # To_deploy.click()
             To_deploy.click()
-            print("successfully clicked on deploy")
-            time.sleep(2)
+            # print("successfully clicked on deploy")
+            time.sleep(3)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
             print("TimeoutException error", e)
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException", e)
+        except ElementClickInterceptedException as e:
+            print("ElementClickInterceptedException", e)
 
         # click on deploy button
         try:
