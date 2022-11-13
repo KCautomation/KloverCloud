@@ -57,7 +57,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         # click on an application
         try:
             Application_name = WebDriverWait(driver, 20).until(
-                EC.element_to_be_clickable((By.XPATH, Locator.Application_name)))
+                EC.element_to_be_clickable((By.XPATH, Locator.find_Application_tolist)))
             print("Applications button is clickable")
             Application_name.click()
             print("Welcome applications list")
