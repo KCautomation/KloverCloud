@@ -1,14 +1,10 @@
 import time
 
 from selenium.webdriver.common.by import By
-from webdriver_manager.core import driver
 
-from Src.Page_object_model.pom_loginPage import LogInPage
-from Src.Page_object_model.pom_createPage import CreatePage
-from Src.Page_object_model.pom_dashboardPage import DashboardPage
-from Src.Page_object_model.pom_Header import Header
+from src import LogInPage
 
-from Src.base.environment_setup import EnvironmentSetup
+from src.base.environment_setup import EnvironmentSetup
 from urllib.request import urlopen
 from urllib.error import *
 

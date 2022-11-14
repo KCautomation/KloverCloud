@@ -1,6 +1,6 @@
 class Locator(object):
-    # LogIn Page
 
+    # LogIn Page
     Email_box = "//input[@id='mat-input-0']"  # xpath
     Email_box_test = "//input[@id='mat-inpu-0']"  # xpath
     Password_box = "//input[@id='mat-input-1']"  # xpath

@@ -1,11 +1,9 @@
 import time
 import unittest
 
-from selenium import webdriver
-from selenium.webdriver.common import window
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-from Src.base.environment_setup import EnvironmentSetup
+from src.base.environment_setup import EnvironmentSetup
 
 
 class NamespaceCreationOnCompany(EnvironmentSetup, unittest.TestCase):

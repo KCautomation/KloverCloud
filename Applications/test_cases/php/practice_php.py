@@ -6,16 +6,15 @@ import simple_colors
 from selenium.common import NoSuchElementException, TimeoutException, InvalidSessionIdException, \
     ElementClickInterceptedException
 from selenium.webdriver import ActionChains
+from src.Locators.locators import Locator
+from src.function.go_application.go_to_application_page import go_create_app_page
 
-from Src.Locators.locators import Locator
-from Src.function.go_application.go_to_application_page import go_create_app_page
-
-from Src.screen_shots.screen_shots import SS
-from Src.base.environment_setup import EnvironmentSetup
+from src.screen_shots.screen_shots import SS
+from src.base.environment_setup import EnvironmentSetup
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from Src.function.logIn.test_login import test_cluster_login
+from src.function.logIn.test_login import test_cluster_login
 
 ss_path = "/Applications/PHP/"
 
@@ -25,7 +24,7 @@ class TestCreateAppPHP(EnvironmentSetup):
     def test_Laravel_default_01(self):
         # pytest.skip("Skipping test...later I will implement...")
         driver = self.driver
-        ApplicationName = "laravel-20"
+        ApplicationName = "laravel-27"
         print("****************** Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -255,7 +254,8 @@ class TestCreateAppPHP(EnvironmentSetup):
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
 
-        time.sleep(30)
+        time.sleep(120)
+        print("*************************Application Create Validation by SVG icon Visibility**********************")
         # close log
         try:
             Live_Pipeline_Logs = WebDriverWait(driver, 60).until(
@@ -269,17 +269,12 @@ class TestCreateAppPHP(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException error", e)
 
-        # application created validation
+        # check deploy svg file shown or not
+
         try:
             if WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, Locator.To_deploy))):
                 assert True
                 print('deploy SVG is visible, So Application created perfectly')
-                time.sleep(2)
-                action = ActionChains(driver)
-                # click the item
-                action.click()
-                # perform the operation
-                action.perform()
                 time.sleep(2)
             else:
                 print("Application created Failed")
@@ -294,22 +289,6 @@ class TestCreateAppPHP(EnvironmentSetup):
         except ElementClickInterceptedException as e:
             print("ElementClickInterceptedException", e)
         #
-        # try:
-        #     if WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, Locator.Deploy_button))):
-        #         self.assertTrue('deploy button is invisible, So Application deployed perfectly')
-        #         print("deploy button is visible, So Application Created Successfully")
-        #         time.sleep(2)
-        #     else:
-        #         print("Application Deployed Failed")
-        #         time.sleep(2)
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error :\n", e, "\n")
-        # except TimeoutException as e:
-        #     print("TimeoutException error", e)
-        # except InvalidSessionIdException as e:
-        #     print("InvalidSessionIdException", e)
-        # except ElementClickInterceptedException as e:
-        #     print("ElementClickInterceptedException", e)
 
         # deploy application
         print("******************************* Test Try to deploy application******************************")
@@ -440,7 +419,7 @@ class TestCreateAppPHP(EnvironmentSetup):
 
         # check deployed or not
 
-        print("**********Application deployed or not by build button visibility***********")
+        print("**********Application deployed Validation by build button visibility***********")
         time.sleep(120)
         # close log
         try:
@@ -455,44 +434,44 @@ class TestCreateAppPHP(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException error", e)
 
-        # try:
-        #     To_deploy = WebDriverWait(driver, 10).until(
-        #         EC.presence_of_element_located((By.XPATH, Locator.To_deploy)))
-        #     print("deploy element is visible")
-        #     To_deploy.click()
-        #     print("successfully clicked on deploy")
-        #     time.sleep(2)
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error :\n", e, "\n")
-        # except TimeoutException as e:
-        #     print("TimeoutException error", e)
-        # except InvalidSessionIdException as e:
-        #     print("InvalidSessionIdException", e)
-        # except ElementClickInterceptedException as e:
-        #     print("ElementClickInterceptedException", e)
-        #
-        # try:
-        #     if WebDriverWait(driver, 10).until(EC.invisibility_of_element((By.XPATH, Locator.Deploy_button))):
-        #         assert True
-        #         print("deploy button is invisible, So Application deployed perfectly")
-        #         time.sleep(2)
-        #         action = ActionChains(driver)
-        #         # click the item
-        #         action.click()
-        #         # perform the operation
-        #         action.perform()
-        #         time.sleep(2)
-        #     else:
-        #         print("Application Deployed Failed")
-        #         time.sleep(2)
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error :\n", e, "\n")
-        # except TimeoutException as e:
-        #     print("TimeoutException error", e)
-        # except InvalidSessionIdException as e:
-        #     print("InvalidSessionIdException", e)
-        # except ElementClickInterceptedException as e:
-        #     print("ElementClickInterceptedException", e)
+        try:
+            To_deploy = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, Locator.To_deploy)))
+            To_deploy.click()
+            print("successfully clicked on deploy")
+            time.sleep(2)
+            pass
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        except ElementClickInterceptedException as e:
+            print("ElementClickInterceptedException", e)
+
+        try:
+            if WebDriverWait(driver, 10).until(EC.invisibility_of_element((By.XPATH, Locator.Deploy_button))):
+                self.assertFalse()
+                print("deploy button is invisible, So Application deployed perfectly")
+                time.sleep(2)
+            else:
+                print("Application Deployed Failed")
+                time.sleep(2)
+            action = ActionChains(driver)
+            # click the item
+            action.click()
+            # perform the operation
+            action.perform()
+            time.sleep(2)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        except ElementClickInterceptedException as e:
+            print("ElementClickInterceptedException", e)
 
         file_name = ss_path + "deploy_success_validation_screenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)

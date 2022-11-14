@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from Src.Locators.locators import Locator
+from src.Locators.locators import Locator
 
 
 class Header(object):

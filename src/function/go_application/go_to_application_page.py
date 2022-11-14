@@ -1,21 +1,12 @@
 import time
 
-import simple_colors
 from colorama import Fore
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from Src.Locators.locators import Locator
-from Src.screen_shots.screen_shots import SS
-from Src.Page_object_model.pom_loginPage import LogInPage
-from Src.Page_object_model.pom_ApplicationPage import CreateApplicationPage
-from Src.screen_shots.screen_shots import SS
-from Src.base.environment_setup import EnvironmentSetup
+from src.Locators.locators import Locator
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, InvalidSessionIdException
-from urllib.request import urlopen
-from urllib.error import *
 
 ss_path = "/LogIn"
 

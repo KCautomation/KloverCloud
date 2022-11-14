@@ -1,8 +1,8 @@
 from selenium.webdriver.common.by import By
-from Src.Locators.locators import Locator
+from src.Locators.locators import Locator
 
 
-class LogInPage(object):
+class CreatePage(object):
     def __init__(self, driver):
         self.driver = driver
 
@@ -10,6 +10,7 @@ class LogInPage(object):
         self.Password_box = driver.find_element(By.XPATH, Locator.Password_box)
         self.Toggle_Visibility_Button = driver.find_element(By.XPATH, Locator.Toggle_Visibility_Button)
         self.Sign_In_button = driver.find_element(By.XPATH, Locator.Sign_In_button)
+
 
     def get_email(self):
         return self.Email_box
@@ -22,3 +23,5 @@ class LogInPage(object):
 
     def get_Sign_In_button(self):
         return self.Sign_In_button
+
+

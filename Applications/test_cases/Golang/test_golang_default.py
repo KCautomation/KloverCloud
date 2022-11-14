@@ -2,12 +2,11 @@ import time
 
 import pytest
 from selenium.webdriver.common.by import By
-from Src.Locators.locators import Locator
+from src import Locator
 
-from Src.Page_object_model.pom_loginPage import LogInPage
-from Src.Page_object_model.pom_ApplicationPage import CreateApplicationPage
-from Src.screen_shots.screen_shots import SS
-from Src.base.environment_setup import EnvironmentSetup
+from src import LogInPage
+from src.screen_shots.screen_shots import SS
+from src.base.environment_setup import EnvironmentSetup
 from selenium.common.exceptions import NoSuchElementException
 from urllib.request import urlopen
 from urllib.error import *

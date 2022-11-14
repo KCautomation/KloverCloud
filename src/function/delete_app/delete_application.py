@@ -1,19 +1,16 @@
 import time
 from telnetlib import EC
 
-import pytest
 import simple_colors
-from selenium.common import NoSuchElementException, TimeoutException, InvalidSessionIdException, \
-    InvalidSelectorException
-from Src.Locators.locators import Locator
-from Src.function.go_application.go_to_application_page import go_create_app_page
+from selenium.common import NoSuchElementException, TimeoutException, InvalidSessionIdException
+from src.Locators.locators import Locator
 
-from Src.screen_shots.screen_shots import SS
-from Src.base.environment_setup import EnvironmentSetup
+from src.screen_shots.screen_shots import SS
+from src.base.environment_setup import EnvironmentSetup
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from Src.function.logIn.test_login import test_cluster_login
+from src.function.logIn.test_login import test_cluster_login
 
 ss_path = "/Applications/PHP/"
 
