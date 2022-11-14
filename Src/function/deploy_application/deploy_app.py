@@ -23,7 +23,7 @@ class TestDeploy(EnvironmentSetup):
         # pytest.skip("Skipping test...later I will implement...")
         driver = self.driver
         # ApplicationName = input("Enter Application Name: ")
-        ApplicationName = 'dj-7'
+        ApplicationName = 'j-9'
         print("****************** Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -58,7 +58,7 @@ class TestDeploy(EnvironmentSetup):
         # click on an application
         try:
             Application_name = WebDriverWait(driver, 20).until(
-                EC.presence_of_element_located((By.XPATH, "//span[contains(text(),'dj-7')]")))
+                EC.presence_of_element_located((By.XPATH, "//span[contains(text(),'j-9')]")))
             if Application_name.is_displayed:
                 print(ApplicationName, "Application is present in the list")
                 Application_name.click()
@@ -66,7 +66,7 @@ class TestDeploy(EnvironmentSetup):
                 print("successfully clicked on :", ApplicationName)
                 time.sleep(7)
             else:
-                return exit()
+                return exit("Application not found")
 
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
@@ -78,13 +78,13 @@ class TestDeploy(EnvironmentSetup):
         print("******************************* Test Try to deploy application******************************")
         # click on deploy
         try:
-            To_deploy = WebDriverWait(driver, 80).until(
+            To_deploy = WebDriverWait(driver, 30).until(
                 EC.presence_of_element_located((By.XPATH, Locator.To_deploy)))
             print("deploy element is visible")
             # To_deploy.click()
             To_deploy.click()
             # print("successfully clicked on deploy")
-            time.sleep(3)
+            time.sleep(1)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
@@ -96,13 +96,13 @@ class TestDeploy(EnvironmentSetup):
 
         # click on deploy button
         try:
-            Deploy_button = WebDriverWait(driver, 30).until(
+            Deploy_button = WebDriverWait(driver, 5).until(
                 EC.element_to_be_clickable((By.XPATH, Locator.Deploy_button)))
             print("deploy button is clickable")
             Deploy_button.click()
             self.driver.implicitly_wait(20)
             print("successfully clicked on deploy")
-            time.sleep(5)
+            time.sleep(1)
         except NoSuchElementException as e:
             print("NoSuchElementException error", e)
         except TimeoutException as e:
@@ -116,7 +116,6 @@ class TestDeploy(EnvironmentSetup):
                 EC.element_to_be_clickable((By.XPATH, Locator.Okay_button)))
             print("Okay_button is clickable")
             Okay_button.click()
-            self.driver.implicitly_wait(10)
             print("successfully clicked on Okay")
             time.sleep(2)
         except NoSuchElementException as e:
@@ -126,16 +125,16 @@ class TestDeploy(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException error", e)
         try:
-            Deployment_Pending_msg = WebDriverWait(driver, 10).until(
+            Deployment_Pending_msg = WebDriverWait(driver, 7).until(
                 EC.presence_of_element_located((By.XPATH, Locator.Deployment_Pending_msg)))
             if Deployment_Pending_msg.is_displayed():
                 print('Shown a message: ',
                       simple_colors.green(Deployment_Pending_msg.text, ['bold', 'underlined']))
                 print("\n")
-                time.sleep(2)
+                # time.sleep(2)
                 pass
             else:
-                self.driver.stop()
+                pass
         except NoSuchElementException as e:
             print("NoSuchElementException error", e)
         except TimeoutException as e:
@@ -144,38 +143,39 @@ class TestDeploy(EnvironmentSetup):
             print("InvalidSessionIdException error", e)
 
         # error msg
-        try:
-            deployment_failed = WebDriverWait(driver, 120).until(
-                EC.presence_of_element_located((By.XPATH, Locator.deployment_failed)))
-            if deployment_failed.is_displayed():
-                print('Shown a message: ',
-                      simple_colors.green(deployment_failed.text, ['bold', 'underlined']))
-                print("\n")
-                time.sleep(3)
-                return exit()
-                # return False
-            else:
-                pass
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        except InvalidSessionIdException as e:
-            print("InvalidSessionIdException error", e)
+        # try:
+        #     deployment_failed = WebDriverWait(driver, 20).until(
+        #         EC.presence_of_element_located((By.XPATH, Locator.deployment_failed)))
+        #     if deployment_failed.is_displayed():
+        #         print('Shown a message: ',
+        #               simple_colors.green(deployment_failed.text, ['bold', 'underlined']))
+        #         print("\n")
+        #         time.sleep(3)
+        #         return exit()
+        #         # return False
+        #     else:
+        #         pass
+        # except NoSuchElementException as e:
+        #     print("NoSuchElementException error", e)
+        # except TimeoutException as e:
+        #     print("TimeoutException error", e)
+        # except InvalidSessionIdException as e:
+        #     print("InvalidSessionIdException error", e)
 
         # 2nd success msg
-        Deployment_Pending_time_msg = WebDriverWait(driver, 30).until(
-            EC.presence_of_element_located((By.XPATH, Locator.Deployment_Pending_time_msg)))
+
         try:
+            Deployment_Pending_time_msg = WebDriverWait(driver, 15).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Deployment_Pending_time_msg)))
             if Deployment_Pending_time_msg.is_displayed():
                 print('Shown a message: ',
                       simple_colors.green(Deployment_Pending_time_msg.text, ['bold', 'underlined']))
                 print("\n")
-                time.sleep(2)
+                # time.sleep(6)
                 pass
                 # print("Application_build_finished_successfully")
             else:
-                self.driver.stop()
+                pass
         except NoSuchElementException as e:
             print("NoSuchElementException error", e)
         except TimeoutException as e:
@@ -185,17 +185,17 @@ class TestDeploy(EnvironmentSetup):
 
         # Application deployed successful msg
         try:
-            Application_Deployed = WebDriverWait(driver, 200).until(
+            Application_Deployed = WebDriverWait(driver, 30).until(
                 EC.presence_of_element_located((By.XPATH, Locator.Application_Deployed)))
             if Application_Deployed.is_displayed():
                 print('Shown a message: ',
                       simple_colors.green(Application_Deployed.text, ['bold', 'underlined']))
                 print("\n")
-                time.sleep(3)
-                print("Application deployed successfully")
-                self.driver.stop()
+                time.sleep(5)
+                pass
             else:
-                self.driver.stop()
+                pass
+                time.sleep(5)
 
         except NoSuchElementException as e:
             print("NoSuchElementException error", e)
@@ -203,6 +203,59 @@ class TestDeploy(EnvironmentSetup):
             print("TimeoutException error", e)
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException error", e)
+
+        # check deployed or not
+
+        print("**********Application deployed or not by build button visibility***********")
+        time.sleep(50)
+        # close log
+        try:
+            Live_Pipeline_Logs = WebDriverWait(driver, 20).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Live_Pipeline_Logs)))
+            Live_Pipeline_Logs.click()
+            time.sleep(4)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+
+        try:
+            To_deploy = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, Locator.To_deploy)))
+            print("deploy element is visible")
+            To_deploy.click()
+            print("successfully clicked on deploy")
+            time.sleep(2)
+            if WebDriverWait(driver, 10).until(EC.invisibility_of_element((By.XPATH, Locator.Deploy_button))):
+                self.assertTrue('deploy button is invisible, So Application deployed perfectly')
+                print("deploy button is invisible, So Application deployed perfectly")
+                time.sleep(2)
+            else:
+                print("Application Deployed Failed")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        except ElementClickInterceptedException as e:
+            print("ElementClickInterceptedException", e)
+
+        # click on deploy button
+        # try:
+        #     if WebDriverWait(driver, 10).until(EC.invisibility_of_element((By.XPATH, Locator.Deploy_button))):
+        #         self.assertTrue("deploy button is invisible, So Application deployed perfectly")
+        #         time.sleep(3)
+        #     else:
+        #         print("Application Deployed Failed")
+        # # except NoSuchElementException as e:
+        # #     print("NoSuchElementException error", e)
+        # except InvalidSessionIdException as e:
+        #     print("InvalidSessionIdException error", e)
+        # except TimeoutException as e:
+        #     print("TimeoutException error", e)
 
         # close log
         # try:
@@ -271,5 +324,3 @@ class TestDeploy(EnvironmentSetup):
         # file_name = ss_path + "deploy_success_screenshot_" + time.asctime().replace(":", "_") + ".png"
         # ss.driver.save_screenshot(file_name)
         # ss.ScreenShot(file_name)
-
-
