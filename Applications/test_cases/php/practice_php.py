@@ -25,7 +25,7 @@ class TestCreateAppPHP(EnvironmentSetup):
     def test_Laravel_default_01(self):
         # pytest.skip("Skipping test...later I will implement...")
         driver = self.driver
-        ApplicationName = "laravel-17"
+        ApplicationName = "laravel-18"
         print("****************** Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -455,44 +455,44 @@ class TestCreateAppPHP(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException error", e)
 
-        try:
-            To_deploy = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, Locator.To_deploy)))
-            print("deploy element is visible")
-            To_deploy.click()
-            print("successfully clicked on deploy")
-            time.sleep(2)
-        except NoSuchElementException as e:
-            print("NoSuchElementException error :\n", e, "\n")
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        except InvalidSessionIdException as e:
-            print("InvalidSessionIdException", e)
-        except ElementClickInterceptedException as e:
-            print("ElementClickInterceptedException", e)
-
-        try:
-            if WebDriverWait(driver, 10).until(EC.invisibility_of_element((By.XPATH, Locator.Deploy_button))):
-                assert True
-                print("deploy button is invisible, So Application deployed perfectly")
-                time.sleep(2)
-                action = ActionChains(driver)
-                # click the item
-                action.click()
-                # perform the operation
-                action.perform()
-                time.sleep(2)
-            else:
-                print("Application Deployed Failed")
-                time.sleep(2)
-        except NoSuchElementException as e:
-            print("NoSuchElementException error :\n", e, "\n")
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        except InvalidSessionIdException as e:
-            print("InvalidSessionIdException", e)
-        except ElementClickInterceptedException as e:
-            print("ElementClickInterceptedException", e)
+        # try:
+        #     To_deploy = WebDriverWait(driver, 10).until(
+        #         EC.presence_of_element_located((By.XPATH, Locator.To_deploy)))
+        #     print("deploy element is visible")
+        #     To_deploy.click()
+        #     print("successfully clicked on deploy")
+        #     time.sleep(2)
+        # except NoSuchElementException as e:
+        #     print("NoSuchElementException error :\n", e, "\n")
+        # except TimeoutException as e:
+        #     print("TimeoutException error", e)
+        # except InvalidSessionIdException as e:
+        #     print("InvalidSessionIdException", e)
+        # except ElementClickInterceptedException as e:
+        #     print("ElementClickInterceptedException", e)
+        #
+        # try:
+        #     if WebDriverWait(driver, 10).until(EC.invisibility_of_element((By.XPATH, Locator.Deploy_button))):
+        #         assert True
+        #         print("deploy button is invisible, So Application deployed perfectly")
+        #         time.sleep(2)
+        #         action = ActionChains(driver)
+        #         # click the item
+        #         action.click()
+        #         # perform the operation
+        #         action.perform()
+        #         time.sleep(2)
+        #     else:
+        #         print("Application Deployed Failed")
+        #         time.sleep(2)
+        # except NoSuchElementException as e:
+        #     print("NoSuchElementException error :\n", e, "\n")
+        # except TimeoutException as e:
+        #     print("TimeoutException error", e)
+        # except InvalidSessionIdException as e:
+        #     print("InvalidSessionIdException", e)
+        # except ElementClickInterceptedException as e:
+        #     print("ElementClickInterceptedException", e)
 
         file_name = ss_path + "deploy_success_validation_screenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)
