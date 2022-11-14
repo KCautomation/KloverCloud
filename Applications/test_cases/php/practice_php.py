@@ -25,7 +25,7 @@ class TestCreateAppPHP(EnvironmentSetup):
     def test_Laravel_default_01(self):
         # pytest.skip("Skipping test...later I will implement...")
         driver = self.driver
-        ApplicationName = "laravel-18"
+        ApplicationName = "laravel-20"
         print("****************** Test Cluster Login *********************")
         try:
             test_cluster_login(self)
