@@ -16,7 +16,6 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
-
 import pickle
 import time
 
@@ -39,7 +38,6 @@ def test2():
     action.perform()
     time.sleep(2)
     driver.close()
-
 
 # def test1():
 #     # driver = selenium.webdriver.Firefox()

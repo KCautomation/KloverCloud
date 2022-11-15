@@ -1,5 +1,4 @@
 class Locator(object):
-
     # LogIn Page
     Email_box = "//input[@id='mat-input-0']"  # xpath
     Email_box_test = "//input[@id='mat-inpu-0']"  # xpath
@@ -106,3 +105,10 @@ class Locator(object):
     Application_namebox_D = "//input[@placeholder='Type here...']"
     Delete_permanently_button = "//span[contains(text(),'I understand this, Delete permanently')]"
     Application_Deleted_Success_msg = "//p[normalize-space()='Application Deleted Successfully']"
+
+    # to namespace creation
+    Namespace_button = "//body/div[3]/div[2]/div[1]/div[1]/div[1]/button[1]/span[1]"  # XPATH
+
+    NamespaceName_box = "input[placeholder='Namespace Name']"  # css selector
+    # CPU_box = "//input[@class='ng-tns-c41-54 ng-pristine ng-valid ng-touched']"  # XPATH
+    CPU_box = "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[""1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div[""1]/div[4]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/input[""1]"

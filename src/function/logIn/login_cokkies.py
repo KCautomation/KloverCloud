@@ -1,159 +1,72 @@
 import pickle
 import time
-
-import simple_colors
-from colorama import Fore
+from telnetlib import EC
+from selenium.common import NoSuchElementException, TimeoutException, InvalidSessionIdException, \
+    ElementClickInterceptedException
+from selenium.webdriver import ActionChains, Keys
+from selenium.webdriver.common import keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from selenium.webdriver.support.ui import WebDriverWait
 from src.Locators.locators import Locator
-from selenium.common.exceptions import NoSuchElementException, TimeoutException, InvalidSessionIdException
-from urllib.request import urlopen
-from urllib.error import *
 
 from src.base.environment_setup import EnvironmentSetup
+from src.function.logIn.test_login import test_cluster_login
 
-ss_path = "/LogIn"
+ss_path = "/Applications/PHP/"
 
 
 class TestDeploy(EnvironmentSetup):
-
-    def test_cluster_login(self):
+    def test_deploy(self):
+        # pytest.skip("Skipping test...later I will implement...")
         driver = self.driver
-        pageUrl = "https://eks.alpha.klovercloud.io/"
-        username = "admin@klovercloud.com"
-        password = "Hello@1234"
-        # try block to read URL
+        action = ActionChains(driver)
+        # ApplicationName = input("Enter Application Name: ")
+        ApplicationName = 'j-23'
+        print("****************** Test Cluster Login *********************")
         try:
-            html = urlopen(pageUrl)
-
-        # except block to catch
-        # exception
-        # and identify error
-        except HTTPError as e:
-            print(Fore.LIGHTRED_EX + "HTTP error", e)
-
-        except URLError as e:
-            print(Fore.LIGHTRED_EX + "Opps ! Page not found!", e)
-
-        else:
-            print(Fore.YELLOW + 'Yeah ! URL found ')
-
-        driver.get(pageUrl)
-        driver.implicitly_wait(20)
-        time.sleep(2)
-
-        # put Email
-        try:
-            Email_box = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.Email_box)))
-            print("Email_box is inputable")
-            Email_box.send_keys(username)
-            time.sleep(2)
-        except NoSuchElementException as e:
-            print("NoSuchElementException error :\n", e, "\n")
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully put email in Email_box')
-
-        # put password
-        try:
-            Password_box = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.Password_box)))
-            print("Password_box is inputable")
-            Password_box.send_keys(password)
-            time.sleep(2)
-        except NoSuchElementException as e:
-            print("NoSuchElementException error :\n", e, "\n")
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully put password in Password_box')
-
-        # click on Toggle_Visibility_Button
-        try:
-            Toggle_Visibility_Button = WebDriverWait(driver, 20).until(
-                EC.element_to_be_clickable((By.XPATH, Locator.Toggle_Visibility_Button)))
-            print("Toggle_Visibility_Button is clickable")
-            Toggle_Visibility_Button.click()
-            time.sleep(1)
-            Toggle_Visibility_Button.click()
-            time.sleep(1)
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully showed & hided Password')
-        # Click on Sign In button
-
-        try:
-            Sign_In_button = WebDriverWait(driver, 10).until(
-                EC.element_to_be_clickable((By.XPATH, Locator.Sign_In_button)))
-            print("Password_box is inputable")
-            Sign_In_button.click()
-            self.driver.implicitly_wait(10)
-            time.sleep(7)
+            test_cluster_login(self)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
             print("TimeoutException error", e)
         except InvalidSessionIdException as e:
-            print("InvalidSessionIdException error", e)
-        else:
-            print('Successfully click on Sign In button')
+            print("InvalidSessionIdException", e)
 
-        # check error message have or not
         try:
-            LogIn_Authentication_Error = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, Locator.LogIn_Authentication_Error)))
-            if LogIn_Authentication_Error.is_displayed():
-                print("\n")
-                print('Shown a error message: ',
-                      simple_colors.red(LogIn_Authentication_Error.text, ['bold', 'underlined']))
-                print("\n")
-                self.driver.close()
-                self.driver.stop()
-                # return FileExistsError
-            else:
-                pass
+            pickle.dump(driver.get_cookies(), open("cookie.pkl", "wb"))  # writing in pickle file
+            print('Cookie file successfully created.')
+        except Exception as e:
+            print(e)
 
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        except InvalidSessionIdException as e:
-            print("InvalidSessionIdException error", e)
-
-        # Login validation
-        try:
-            if WebDriverWait(driver, 50).until(
-                    EC.visibility_of_element_located((By.XPATH, Locator.Dashboard_button))):
-                Dashboard_title = driver.title
-                Accepted_title = "KloverCloud | Dashboard"
-                self.assertEqual(Dashboard_title, Accepted_title)
-                print("Successfully logged in && Welcome to", Dashboard_title)
-            else:
-                print("Login Failed")
-                assert False
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        except InvalidSessionIdException as e:
-            print("InvalidSessionIdException error", e)
-
-        pickle.dump(driver.get_cookies(), open("cookies.pkl", "wb"))
-
-    def test_cookies(self):
+    def LoadCookie(self):
         driver = self.driver
-        pageUrl = "https://eks.alpha.klovercloud.io/"
-        username = "admin@klovercloud.com"
-        password = "Hello@1234"
-        driver.get(pageUrl)
-        driver.implicitly_wait(20)
-        time.sleep(2)
-        cookies = pickle.load(open("cookies.pkl", "rb"))
-        print("\n", cookies, "\n")
-        for cookie in cookies:
-            driver.add_cookie(cookie)
+        pageUrl = "https://eks.alpha.klovercloud.io/dashboard"
 
+        driver.get("https://www.codespeedy.com/")  # opening the url
+        try:
+            cookie = pickle.load(open("cookie.pkl", "rb"))  # loading from pickle file
+            for i in cookie:
+                driver.add_cookie(i)
+            print('Cookies added.')
+        except Exception as e:
+            print(e)
+        time.sleep(3)
+        driver.get("https://eks.alpha.klovercloud.io/dashboard")
+        time.sleep(5)
 
+    if __name__ == "__main__":
+        LoadCookie()  # call the function
+
+    # driver.get(pageUrl)
+    # time.sleep(2)
+    # cookies = pickle.load(open("cookies.pkl", "rb"))
+    # print("\n", cookies, "\n")
+    # for cookie in cookies:
+    #     try:
+    #         driver.add_cookie(cookie)
+    #     except Exception as e:
+    #         print(e)
+    #
+    # driver.get("https://eks.alpha.klovercloud.io/dashboard")
+    # time.sleep(30)

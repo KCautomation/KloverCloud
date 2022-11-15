@@ -100,9 +100,6 @@ class TestDeploy(EnvironmentSetup):
         except ElementClickInterceptedException as e:
             print("ElementClickInterceptedException", e)
 
-
-
-
         # # # click on deploy button
         # try:
         #     Deploy_button = WebDriverWait(driver, 5).until(

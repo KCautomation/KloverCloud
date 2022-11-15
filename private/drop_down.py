@@ -1,6 +1,7 @@
 import pickle
 import time
 
+import robot
 from selenium import webdriver
 from selenium.common import NoSuchElementException, TimeoutException, InvalidSessionIdException
 from selenium.webdriver.chrome.service import Service
@@ -23,10 +24,14 @@ def test1():
     action.scroll_to_element(driver.find_element(By.XPATH, "//a[contains(text(),'Cookies')]"))
     action.perform()
     time.sleep(2)
+
     # perform the operation
     action.send_keys(Keys.PAGE_UP)
     action.perform()
     time.sleep(2)
 
     pickle.dump(driver.get_cookies(), open("cookies.pkl", "wb"))
+
+
+
     driver.close()

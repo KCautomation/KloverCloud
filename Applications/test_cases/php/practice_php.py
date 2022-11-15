@@ -1,6 +1,7 @@
 import time
 from telnetlib import EC
 
+import allure
 import pytest
 import simple_colors
 from selenium.common import NoSuchElementException, TimeoutException, InvalidSessionIdException, \
@@ -19,10 +20,11 @@ from src.function.logIn.test_login import test_cluster_login
 ss_path = "/Applications/PHP/"
 
 
+@allure.severity(allure.severity_level.CRITICAL)
 class TestCreateAppPHP(EnvironmentSetup):
-
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_Laravel_default_01(self):
-        # pytest.skip("Skipping test...later I will implement...")
+        pytest.skip("Skipping test...later I will implement...")
         driver = self.driver
         ApplicationName = "laravel-28"
         print("****************** Test Cluster Login *********************")
