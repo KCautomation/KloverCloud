@@ -24,7 +24,7 @@ class TestCreateAppPHP(EnvironmentSetup):
     def test_Laravel_default_01(self):
         # pytest.skip("Skipping test...later I will implement...")
         driver = self.driver
-        ApplicationName = "laravel-27"
+        ApplicationName = "laravel-28"
         print("****************** Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -434,13 +434,15 @@ class TestCreateAppPHP(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException error", e)
 
+        # click on deploy
         try:
-            To_deploy = WebDriverWait(driver, 10).until(
+            To_deploy = WebDriverWait(driver, 30).until(
                 EC.presence_of_element_located((By.XPATH, Locator.To_deploy)))
+            print("deploy element is visible")
+            # To_deploy.click()
             To_deploy.click()
-            print("successfully clicked on deploy")
-            time.sleep(2)
-            pass
+            # print("successfully clicked on deploy")
+            time.sleep(3)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
@@ -450,14 +452,12 @@ class TestCreateAppPHP(EnvironmentSetup):
         except ElementClickInterceptedException as e:
             print("ElementClickInterceptedException", e)
 
+        # # click on deploy button
         try:
-            if WebDriverWait(driver, 10).until(EC.invisibility_of_element((By.XPATH, Locator.Deploy_button))):
-                self.assertFalse()
-                print("deploy button is invisible, So Application deployed perfectly")
-                time.sleep(2)
-            else:
-                print("Application Deployed Failed")
-                time.sleep(2)
+            Deploy_button = WebDriverWait(driver, 5).until(
+                EC.visibility_of_element_located((By.XPATH, Locator.Deploy_button)))
+            print("deploy button is hided")
+            time.sleep(2)
             action = ActionChains(driver)
             # click the item
             action.click()
@@ -465,13 +465,11 @@ class TestCreateAppPHP(EnvironmentSetup):
             action.perform()
             time.sleep(2)
         except NoSuchElementException as e:
-            print("NoSuchElementException error :\n", e, "\n")
+            print("NoSuchElementException error", e)
         except TimeoutException as e:
             print("TimeoutException error", e)
         except InvalidSessionIdException as e:
-            print("InvalidSessionIdException", e)
-        except ElementClickInterceptedException as e:
-            print("ElementClickInterceptedException", e)
+            print("InvalidSessionIdException error", e)
 
         file_name = ss_path + "deploy_success_validation_screenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)
