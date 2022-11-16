@@ -19,7 +19,7 @@ from urllib.error import *
 
 
 @allure.severity(allure.severity_level.CRITICAL)
-class NamespaceCreationOrganization(unittest.TestCase):
+class TestNamespaceCreation(unittest.TestCase):
     @allure.severity(allure.severity_level.CRITICAL)
     def test_company(self):
         # pytest.skip("Skipping test...later I will implement...")
