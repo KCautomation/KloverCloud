@@ -12,7 +12,6 @@ from colorama import Fore
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from src.Locators.locators import Locator
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, InvalidSessionIdException
 from urllib.request import urlopen
 from urllib.error import *
@@ -22,11 +21,11 @@ from urllib.error import *
 class NamespaceCreationOrganization(unittest.TestCase):
     @allure.severity(allure.severity_level.CRITICAL)
     def test_company(self):
-        pytest.skip("Skipping test...later I will implement...")
+        # pytest.skip("Skipping test...later I will implement...")
         pageUrl = "https://eks.alpha.klovercloud.io/"
         username = "admin@klovercloud.com"
         password = "Hello@1234"
-        Namespace_Name = "test-27"
+        Namespace_Name = "test-30"
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         driver.maximize_window()
         driver.get(pageUrl)
@@ -115,7 +114,7 @@ class NamespaceCreationOrganization(unittest.TestCase):
         # check error message have or not
         try:
             LogIn_Authentication_Error = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, Locator.LogIn_Authentication_Error)))
+                EC.presence_of_element_located((By.XPATH, "//body[1]/kc-toastr[1]/div[1]/div[1]")))
             if LogIn_Authentication_Error.is_displayed():
                 print("\n")
                 print('Shown a error message: ',
@@ -136,7 +135,7 @@ class NamespaceCreationOrganization(unittest.TestCase):
         # Login validation
         try:
             if WebDriverWait(driver, 50).until(
-                    EC.visibility_of_element_located((By.XPATH, Locator.Dashboard_button))):
+                    EC.visibility_of_element_located((By.XPATH, "//span[contains(text(),'Dashboard')]"))):
                 Dashboard_title = driver.title
                 Accepted_title = "KloverCloud | Dashboard"
                 self.assertEqual(Dashboard_title, Accepted_title)
@@ -151,45 +150,82 @@ class NamespaceCreationOrganization(unittest.TestCase):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException error", e)
 
-        """ Create Namespace """
+        print("**********************************Create Namespace With Company******************************")
 
-        # # Click On Namespace From Side Navigation
-        # driver.find_element(By.XPATH, "//span[contains(text(),'Namespace')]").click()
-        # driver.implicitly_wait(10)
-        # time.sleep(6)
-        #
-        # # click on create button from header
-        # driver.find_element(By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container["
-        #                               "1]/mat-sidenav-content[1]/kc-toolbar[1]/div[1]/button[2]/span[1]").click()
-        # driver.implicitly_wait(10)
-        # time.sleep(4)
-        #
-        # # click namespace
-        # driver.find_element(By.CSS_SELECTOR, "button[role='menuitem']").click()
-        # driver.implicitly_wait(10)
-        # time.sleep(4)
-        #
-        # # input Namespace name
-        # driver.find_element(By.CSS_SELECTOR, "input[placeholder='Namespace Name']").send_keys(Namespace_Name)
-        # time.sleep(3)
-        #
-        # # click create button for create
-        # driver.find_element(By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container["
-        #                               "1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div["
-        #                               "2]/div[1]/div[2]/button[1]").click()
-        # time.sleep(20)
-        # try:
-        #     actual = driver.current_url
-        #     accepted = "https://eks.alpha.klovercloud.io/namespace"
-        #     if self.assertEqual(actual, accepted):
-        #         print("Created Successfully")
-        #     else:
-        #         print("Created failed")
-        # except AssertionError as e:
-        #     print(e)
+        # click on create button from header
+        print("Try to click on CreateNew button from Header")
+        try:
+            CreateNew_button = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/kc-toolbar[1]/div[1]/button[2]/span[1]")))
+            CreateNew_button.click()
+            driver.implicitly_wait(10)
+            time.sleep(4)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+
+        # click namespace
+        print("Try to click on Namespace button from frame")
+        try:
+            Namespace_button = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, "button[role='menuitem']")))
+            Namespace_button.click()
+            driver.implicitly_wait(10)
+            time.sleep(4)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+
+        # input Namespace name
+        print("Try to input Namespace Name")
+        try:
+            NamespaceName_box = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, "input[placeholder='Namespace Name']")))
+            NamespaceName_box.send_keys(Namespace_Name)
+            driver.implicitly_wait(10)
+            time.sleep(4)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+
+        # click create button for create
+        print("Try to click on Create Button")
+        try:
+            Create_button = WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/button[1]")))
+            Create_button.click()
+            time.sleep(5)
+            WebDriverWait(driver, 120).until(EC.visibility_of_element_located((By.XPATH, "/html/body/kc-root/kc-layout/div/mat-sidenav-container/mat-sidenav-content/main/kc-vpc-list/div/div[2]/div[2]/button[1]/span/div")))
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+
+        print("******************Create Namespace Validation**********************")
+        try:
+            actual = driver.current_url
+            accepted = "https://eks.alpha.klovercloud.io/namespace"
+            if self.assertEqual(actual, accepted):
+                print("Created Successfully")
+            else:
+                print("Created failed")
+        except AssertionError as e:
+            print(e)
 
     @allure.severity(allure.severity_level.CRITICAL)
     def test_organization(self):
+        pytest.skip("Skipping test...later I will implement...")
         pageUrl = "https://eks.alpha.klovercloud.io/"
         username = "admin@klovercloud.com"
         password = "Hello@1234"
@@ -285,7 +321,7 @@ class NamespaceCreationOrganization(unittest.TestCase):
         # check error message have or not
         try:
             LogIn_Authentication_Error = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, Locator.LogIn_Authentication_Error)))
+                EC.presence_of_element_located((By.XPATH, "//body[1]/kc-toastr[1]/div[1]/div[1]")))
             if LogIn_Authentication_Error.is_displayed():
                 print("\n")
                 print('Shown a error message: ',
@@ -306,7 +342,7 @@ class NamespaceCreationOrganization(unittest.TestCase):
         # Login validation
         try:
             if WebDriverWait(driver, 50).until(
-                    EC.visibility_of_element_located((By.XPATH, Locator.Dashboard_button))):
+                    EC.visibility_of_element_located((By.XPATH, "//span[contains(text(),'Dashboard')]"))):
                 Dashboard_title = driver.title
                 Accepted_title = "KloverCloud | Dashboard"
                 self.assertEqual(Dashboard_title, Accepted_title)
@@ -426,9 +462,10 @@ class NamespaceCreationOrganization(unittest.TestCase):
 
     @allure.severity(allure.severity_level.CRITICAL)
     def test_team(self):
+        # pytest.skip("Skipping test...later I will implement...")
         pageUrl = "https://eks.alpha.klovercloud.io/"
         username = "admin@klovercloud.com"
-        password = "Hello@1234"
+        password = "Hello@123"
         Namespace_Name = "test-26"
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         driver.maximize_window()
@@ -521,13 +558,14 @@ class NamespaceCreationOrganization(unittest.TestCase):
         # check error message have or not
         try:
             LogIn_Authentication_Error = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, Locator.LogIn_Authentication_Error)))
+                EC.presence_of_element_located((By.XPATH, "//body[1]/kc-toastr[1]/div[1]/div[1]")))
             if LogIn_Authentication_Error.is_displayed():
                 print("\n")
                 print('Shown a error message: ',
                       simple_colors.red(LogIn_Authentication_Error.text, ['bold', 'underlined']))
                 print("\n")
-                driver.close()
+                allure.attach(driver.get_screenshot_as_png(), name="test_login", attachment_type=AttachmentType.PNG)
+                assert False
                 # return FileExistsError
             else:
                 pass
@@ -542,14 +580,16 @@ class NamespaceCreationOrganization(unittest.TestCase):
         # Login validation
         try:
             if WebDriverWait(driver, 50).until(
-                    EC.visibility_of_element_located((By.XPATH, Locator.Dashboard_button))):
+                    EC.visibility_of_element_located((By.XPATH, "//span[contains(text(),'Dashboard')]"))):
                 Dashboard_title = driver.title
                 Accepted_title = "KloverCloud | Dashboard"
                 self.assertEqual(Dashboard_title, Accepted_title)
                 print("Successfully logged in && Welcome to", Dashboard_title)
+                allure.attach(driver.get_screenshot_as_png(), name="test_login", attachment_type=AttachmentType.PNG)
             else:
                 allure.attach(driver.get_screenshot_as_png(), name="test_login", attachment_type=AttachmentType.PNG)
                 print("Login Failed")
+                assert False
         except NoSuchElementException as e:
             print("NoSuchElementException error", e)
         except TimeoutException as e:
