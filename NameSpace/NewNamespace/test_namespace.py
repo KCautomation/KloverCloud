@@ -224,6 +224,7 @@ class NamespaceCreationOrganization(unittest.TestCase):
                 print("Created Successfully")
             else:
                 print("Created failed")
+                assert False
         except AssertionError as e:
             print(e)
 
@@ -546,6 +547,7 @@ class NamespaceCreationOrganization(unittest.TestCase):
                 print("Created Successfully")
             else:
                 print("Created failed")
+                assert False
         except AssertionError as e:
             print(e)
 
@@ -866,57 +868,6 @@ class NamespaceCreationOrganization(unittest.TestCase):
                 print("Created Successfully")
             else:
                 print("Created failed")
+                assert False
         except AssertionError as e:
             print(e)
-
-        #
-
-        #
-        # # CPU selection
-        # driver.find_element(By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container["
-        #                               "1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div["
-        #                               "1]/div[4]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/input["
-        #                               "1]").send_keys(0)
-        # time.sleep(2)
-        #
-        # # Memory Selection
-        # driver.find_element(By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container["
-        #                               "1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div["
-        #                               "1]/div[4]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/input["
-        #                               "1]").send_keys(0)
-        # time.sleep(2)
-        #
-        # # Persistent Volume seloection
-        # driver.find_element(By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container["
-        #                               "1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div["
-        #                               "1]/div[4]/div[2]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/input["
-        #                               "1]").send_keys(0)
-        # time.sleep(2)
-        #
-        # # Bandwidth selection
-        # driver.find_element(By.XPATH, "//div[contains(text(),'Moderate')]").click()
-        # time.sleep(2)
-        #
-        # # scroll
-        # driver.execute_script("document.querySelector('.sidenav-content').scrollTop = -550")
-        # print("Scroll down")
-        # time.sleep(4)
-        # print("Scroll success")
-        #
-        # # click create button for create
-        # driver.find_element(By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container["
-        #                               "1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div["
-        #                               "2]/div[1]/div[2]/button[1]").click()
-        # driver.implicitly_wait(10)
-        # time.sleep(5)
-        #
-        # time.sleep(20)
-        # try:
-        #     actual = driver.current_url
-        #     accepted = "https://eks.alpha.klovercloud.io/namespace"
-        #     if self.assertEqual(actual, accepted):
-        #         print("Created Successfully")
-        #     else:
-        #         print("Created failed")
-        # except AssertionError as e:
-        #     print(e)
