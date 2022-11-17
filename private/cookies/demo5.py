@@ -19,7 +19,6 @@ def seleniumSaveCookie():
         print(e)
 
 
-
 # driver
 if __name__ == "__main__":
     seleniumSaveCookie()  # call the function

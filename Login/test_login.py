@@ -4,7 +4,6 @@ import allure
 import pytest
 from allure_commons.types import AttachmentType
 from selenium import webdriver
-from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 import time
@@ -26,7 +25,6 @@ class TestLogIn(unittest.TestCase):
         pageUrl = "https://eks.alpha.klovercloud.io/"
         username = "admin@klovercloud.com"
         password = "Hello@1234"
-        Namespace_Name = "test-30"
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         driver.maximize_window()
         driver.get(pageUrl)
@@ -157,7 +155,6 @@ class TestLogIn(unittest.TestCase):
         pageUrl = "https://eks.alpha.klovercloud.io/"
         username = "admin@klovercloud.com"
         password = "Hello@1234"
-        Namespace_Name = "test-30"
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         driver.maximize_window()
         driver.get(pageUrl)
@@ -288,7 +285,6 @@ class TestLogIn(unittest.TestCase):
         pageUrl = "https://eks.alpha.klovercloud.io/"
         username = "admin@klovercloud.com"
         password = "Hello@123"
-        Namespace_Name = "test-30"
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         driver.maximize_window()
         driver.get(pageUrl)

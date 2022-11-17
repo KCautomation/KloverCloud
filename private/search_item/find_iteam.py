@@ -1,5 +1,4 @@
 import allure
-import self
 import simple_colors
 from allure_commons.types import AttachmentType
 from selenium import webdriver
