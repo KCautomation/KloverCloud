@@ -33,10 +33,8 @@ def test1():
     driver.close()
 
 
-def test3():
-    from selenium import webdriver
-    from selenium.webdriver.chrome.options import Options
-
+def test2():
+    # pytest.skip("Skipping test...later I will implement...")
     chrome_options = Options()
     chrome_options.add_argument("--remote-debugging-port=9222")
     chrome_options.add_argument('user-data-dir=C:\\Users\\shabr\\Downloads\\chromedriver_win32\\chromeprofile')
@@ -52,10 +50,8 @@ def test3():
     search_bar.send_keys('test')
 
 
-def test2():
-    from selenium import webdriver
-    from selenium.webdriver.chrome.options import Options
-
+def test3():
+    pytest.skip("Skipping test...later I will implement...")
     chrome_options = Options()
     chrome_options.add_argument("--remote-debugging-port=9222")
     chrome_options.add_argument('user-data-dir=C:\\Users\\shabr\\Downloads\\chromedriver_win32\\chromeprofile')
