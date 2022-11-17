@@ -41,13 +41,14 @@ def test2():
     # driver = webdriver.Chrome()
     driver.maximize_window()
     driver.get("https://eks.alpha.klovercloud.io/")
-    time.sleep(3)
+    time.sleep(10)
     cookies = pickle.load(open("cookies.pkl", "rb"))
     for cookie in cookies:
         if isinstance(cookie.get('expiry'), float):  # Checks if the instance expiry a float
             cookie['expiry'] = int(cookie['expiry'])  # it converts expiry cookie to a int
         driver.add_cookie(cookie)
-        driver.get("https://eks.alpha.klovercloud.io/dashboard")
+        print(driver.get_cookies())
+        driver.get("https://eks.alpha.klovercloud.io/dashboard/")
         time.sleep(4)
 
     driver.close()
