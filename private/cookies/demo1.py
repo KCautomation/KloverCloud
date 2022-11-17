@@ -1,20 +1,21 @@
 import pickle
 from http import cookies
 from telnetlib import EC
+
+import selenium
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException, TimeoutException, InvalidSessionIdException
+
+cookies_path = "C:\\Users\\shabr\\PycharmProjects\\KloverCloud\\private\\cookies\\cookies.pkl"
 
 
 def test1():
     username = "admin@klovercloud.com"
     password = "Hello@1234"
-    # driver = selenium.webdriver.Firefox()
+    driver = selenium.webdriver.Firefox()
     # chromedriver.TARGET_VERSION = 90
     # chrome.install()
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
@@ -42,7 +43,7 @@ def test2():
     driver.maximize_window()
     driver.get("https://eks.alpha.klovercloud.io/")
     time.sleep(10)
-    cookies = pickle.load(open("cookies.pkl", "rb"))
+    cookies = pickle.load(open(cookies_path, "rb"))
     for cookie in cookies:
         if isinstance(cookie.get('expiry'), float):  # Checks if the instance expiry a float
             cookie['expiry'] = int(cookie['expiry'])  # it converts expiry cookie to a int
