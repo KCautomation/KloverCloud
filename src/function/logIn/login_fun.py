@@ -10,18 +10,19 @@ from src.Locators.locators import Locator
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, InvalidSessionIdException
 from urllib.request import urlopen
 from urllib.error import *
+from utilities.readProperties import ReadConfig
 
 ss_path = "/LogIn"
 
 
 def test_cluster_login(self):
     driver = self.driver
-    pageUrl = "https://eks.alpha.klovercloud.io/"
-    username = "admin@klovercloud.com"
-    password = "Hello@1234"
+    baseURL = ReadConfig.getApplicationURL()
+    username = ReadConfig.getUseremail()
+    password = ReadConfig.getPassword()
     # try block to read URL
     try:
-        html = urlopen(pageUrl)
+        html = urlopen(baseURL)
 
     # except block to catch
     # exception
@@ -35,7 +36,7 @@ def test_cluster_login(self):
     else:
         print(Fore.YELLOW + 'Yeah ! URL found ')
 
-    driver.get(pageUrl)
+    driver.get(baseURL)
     driver.implicitly_wait(20)
     time.sleep(2)
 
