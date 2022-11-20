@@ -11,7 +11,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from src.Locators.locators import Locator
 
 from src.base.environment_setup import EnvironmentSetup
-from src.function.logIn.test_login import test_cluster_login
+from src.function.logIn.login_fun import test_cluster_login
 
 ss_path = "/Applications/PHP/"
 

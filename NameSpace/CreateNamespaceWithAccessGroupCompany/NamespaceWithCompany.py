@@ -12,7 +12,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from src.Locators.locators import Locator
 
 from src.base.environment_setup import EnvironmentSetup
-from src.function.logIn.test_login import test_cluster_login
+from src.function.logIn.login_fun import test_cluster_login
 from src.function.go_createNamespace.namespace_create_page import go_create_namespace_page
 
 ss_path = "/Applications/PHP/"

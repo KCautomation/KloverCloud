@@ -2,7 +2,7 @@ import pytest
 from selenium.common import NoSuchElementException, TimeoutException, InvalidSessionIdException
 
 from src.base.environment_setup import EnvironmentSetup
-from src.function.logIn.test_login import test_cluster_login
+from src.function.logIn.login_fun import test_cluster_login
 
 
 class TestCreateAppPHP(EnvironmentSetup):

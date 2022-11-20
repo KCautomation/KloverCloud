@@ -1,5 +1,5 @@
 from src.base.environment_setup import EnvironmentSetup
-from src.function.logIn.test_login import TestLogIn
+from src.function.logIn.login_fun import TestLogIn
 ss_path = "/Applications/GoLang/"
 
 

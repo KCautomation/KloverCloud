@@ -29,7 +29,7 @@ def test1():
     driver.find_element(By.XPATH,
                         "//body/kc-root[1]/kc-login[1]/div[1]/div[2]/div[1]/form[1]/button[1]/span[1]/div[1]").click()
     time.sleep(7)
-    pickle.dump(driver.get_cookies(), open("cookies.pkl", "wb"))
+    pickle.dump(driver.get_cookies(), open("../cookies/cookies.pkl", "wb"))
     driver.close()
 
 

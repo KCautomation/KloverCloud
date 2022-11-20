@@ -15,7 +15,7 @@ from src.base.environment_setup import EnvironmentSetup
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from src.function.logIn.test_login import test_cluster_login
+from src.function.logIn.login_fun import test_cluster_login
 
 ss_path = "/Applications/PHP/"
 
@@ -24,7 +24,7 @@ ss_path = "/Applications/PHP/"
 class TestCreateAppPHP(EnvironmentSetup):
     @allure.severity(allure.severity_level.CRITICAL)
     def test_Laravel_default_01(self):
-        pytest.skip("Skipping test...later I will implement...")
+        # pytest.skip("Skipping test...later I will implement...")
         driver = self.driver
         ApplicationName = "laravel-28"
         print("****************** Test Cluster Login *********************")
@@ -565,3 +565,4 @@ class TestCreateAppPHP(EnvironmentSetup):
         file_name = ss_path + "delete_success_screenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
+
