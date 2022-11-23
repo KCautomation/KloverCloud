@@ -3,9 +3,8 @@ import time
 import pytest
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
-from src import Locator
-
-from src import LogInPage
+from src.Locators.locators import Locator
+from src.Page_object_model.pom_loginPage import LogInPage
 from src.screen_shots.screen_shots import SS
 from src.base.environment_setup import EnvironmentSetup
 from urllib.request import urlopen
