@@ -2172,7 +2172,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
 
-        print("******************************* Test Try to deploy application******************************")
+        print("******************************* Try to deploy application******************************")
         # click on deploy
         try:
             To_deploy = WebDriverWait(driver, 30).until(
