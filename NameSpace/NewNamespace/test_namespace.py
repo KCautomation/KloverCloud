@@ -16,24 +16,24 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException, TimeoutException, InvalidSessionIdException
 from urllib.request import urlopen
 from urllib.error import *
+from utilities.readProperties import ReadConfig
 
 
 @allure.severity(allure.severity_level.CRITICAL)
 class TestNamespaceCreation(unittest.TestCase):
+    baseURL = ReadConfig.getApplicationURL()
+    username = ReadConfig.getUseremail()
+    password = ReadConfig.getPassword()
+
     @allure.severity(allure.severity_level.CRITICAL)
     def test_company(self):
         # pytest.skip("Skipping test...later I will implement...")
-        pageUrl = "https://eks.alpha.klovercloud.io/"
-        username = "admin@klovercloud.com"
-        password = "Hello@1234"
         Namespace_Name = "test-30"
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-        driver.maximize_window()
-        driver.get(pageUrl)
+
         time.sleep(2)
         # try block to read URL
         try:
-            html = urlopen(pageUrl)
+            html = urlopen(self.baseURL)
 
         # except block to catch
         # exception
@@ -47,16 +47,16 @@ class TestNamespaceCreation(unittest.TestCase):
         else:
             print(Fore.YELLOW + 'Yeah ! URL found ')
 
-        driver.get(pageUrl)
-        driver.implicitly_wait(20)
-        time.sleep(2)
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        driver.maximize_window()
+        driver.get(self.baseURL)
 
         # put Email
         try:
             Email_box = WebDriverWait(driver, 20).until(
                 EC.element_to_be_clickable((By.XPATH, "//input[@id='mat-input-0']")))
             print("Email_box is inputable")
-            Email_box.send_keys(username)
+            Email_box.send_keys(self.username)
             time.sleep(2)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
@@ -70,7 +70,7 @@ class TestNamespaceCreation(unittest.TestCase):
             Password_box = WebDriverWait(driver, 20).until(
                 EC.element_to_be_clickable((By.XPATH, "//input[@id='mat-input-1']")))
             print("Password_box is inputable")
-            Password_box.send_keys(password)
+            Password_box.send_keys(self.password)
             time.sleep(2)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
@@ -231,17 +231,12 @@ class TestNamespaceCreation(unittest.TestCase):
     @allure.severity(allure.severity_level.CRITICAL)
     def test_organization(self):
         # pytest.skip("Skipping test...later I will implement...")
-        pageUrl = "https://eks.alpha.klovercloud.io/"
-        username = "admin@klovercloud.com"
-        password = "Hello@1234"
         Namespace_Name = "test-30"
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-        driver.maximize_window()
-        driver.get(pageUrl)
+
         time.sleep(2)
         # try block to read URL
         try:
-            html = urlopen(pageUrl)
+            html = urlopen(self.baseURL)
 
         # except block to catch
         # exception
@@ -255,16 +250,16 @@ class TestNamespaceCreation(unittest.TestCase):
         else:
             print(Fore.YELLOW + 'Yeah ! URL found ')
 
-        driver.get(pageUrl)
-        driver.implicitly_wait(20)
-        time.sleep(2)
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        driver.maximize_window()
+        driver.get(self.baseURL)
 
         # put Email
         try:
             Email_box = WebDriverWait(driver, 20).until(
                 EC.element_to_be_clickable((By.XPATH, "//input[@id='mat-input-0']")))
             print("Email_box is inputable")
-            Email_box.send_keys(username)
+            Email_box.send_keys(self.username)
             time.sleep(2)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
@@ -278,7 +273,7 @@ class TestNamespaceCreation(unittest.TestCase):
             Password_box = WebDriverWait(driver, 20).until(
                 EC.element_to_be_clickable((By.XPATH, "//input[@id='mat-input-1']")))
             print("Password_box is inputable")
-            Password_box.send_keys(password)
+            Password_box.send_keys(self.password)
             time.sleep(2)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
@@ -554,17 +549,11 @@ class TestNamespaceCreation(unittest.TestCase):
     @allure.severity(allure.severity_level.CRITICAL)
     def test_team(self):
         # pytest.skip("Skipping test...later I will implement...")
-        pageUrl = "https://eks.alpha.klovercloud.io/"
-        username = "admin@klovercloud.com"
-        password = "Hello@1234"
         Namespace_Name = "test-30"
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-        driver.maximize_window()
-        driver.get(pageUrl)
-        time.sleep(2)
+
         # try block to read URL
         try:
-            html = urlopen(pageUrl)
+            html = urlopen(self.baseURL)
 
         # except block to catch
         # exception
@@ -578,8 +567,9 @@ class TestNamespaceCreation(unittest.TestCase):
         else:
             print(Fore.YELLOW + 'Yeah ! URL found ')
 
-        driver.get(pageUrl)
-        driver.implicitly_wait(20)
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        driver.maximize_window()
+        driver.get(self.baseURL)
         time.sleep(2)
 
         # put Email
@@ -587,7 +577,7 @@ class TestNamespaceCreation(unittest.TestCase):
             Email_box = WebDriverWait(driver, 20).until(
                 EC.element_to_be_clickable((By.XPATH, "//input[@id='mat-input-0']")))
             print("Email_box is inputable")
-            Email_box.send_keys(username)
+            Email_box.send_keys(self.username)
             time.sleep(2)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
@@ -601,7 +591,7 @@ class TestNamespaceCreation(unittest.TestCase):
             Password_box = WebDriverWait(driver, 20).until(
                 EC.element_to_be_clickable((By.XPATH, "//input[@id='mat-input-1']")))
             print("Password_box is inputable")
-            Password_box.send_keys(password)
+            Password_box.send_keys(self.password)
             time.sleep(2)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
@@ -738,7 +728,8 @@ class TestNamespaceCreation(unittest.TestCase):
         print("Try to Choose Team as access group")
         try:
             Team = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/button[3]/span[1]/div[1]")))
+                EC.presence_of_element_located((By.XPATH,
+                                                "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div[1]/div[3]/div[1]/button[3]/span[1]/div[1]")))
             Team.click()
             time.sleep(2)
         except NoSuchElementException as e:
@@ -752,7 +743,8 @@ class TestNamespaceCreation(unittest.TestCase):
         print("Try to click search box")
         try:
             Search_box = WebDriverWait(driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div[1]/div[3]/div[2]/div[1]/mat-form-field[1]/div[1]/div[1]/div[4]")))
+                EC.presence_of_element_located((By.XPATH,
+                                                "//body/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-vpc-form[1]/div[1]/div[1]/div[1]/div[1]/div[3]/div[2]/div[1]/mat-form-field[1]/div[1]/div[1]/div[4]")))
             Search_box.click()
             time.sleep(2)
         except NoSuchElementException as e:
