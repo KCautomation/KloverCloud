@@ -21,11 +21,11 @@ ss_path = "/Applications/PHP/"
 
 class TestCreateAppPHP(EnvironmentSetup):
 
-    def test_Laravel_default_01(self):
+    def test_Laravel_None_01(self):
         # pytest.skip("Skipping test...later I will implement...")
         action = ActionChains(self.driver)
         driver = self.driver
-        ApplicationName = "laravel-26"
+        ApplicationName = "laravel-18"
         print("****************** Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -91,44 +91,6 @@ class TestCreateAppPHP(EnvironmentSetup):
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
         print("Scroll down")
         time.sleep(2)
-
-        # Click on team box
-        try:
-            TeamBox_A = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.TeamBox_A)))
-            print("TeamBox_A button is clickable")
-            TeamBox_A.click()
-            time.sleep(2)
-            # if TeamBox_A.is_enabled():
-            #     print("Team box is Enable")
-            #     TeamBox_A.click()
-            #     time.sleep(2)
-            # else:
-            #     print("Team box is not Enable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully clicked on TeamBox_A')
-
-        # choose Default from team box
-        try:
-            Team_Default = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.Team_Default)))
-            print("Team_Default button is clickable")
-            Team_Default.click()
-            time.sleep(2)
-            # if Team_Default.is_displayed():
-            #     print("Team default is selectable")
-            #     Team_Default.click()
-            #     time.sleep(3)
-            # else:
-            #     print("Team: Default is displayed")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully chose on Team Default')
 
         # scroll below
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 400")
@@ -587,11 +549,11 @@ class TestCreateAppPHP(EnvironmentSetup):
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
 
-    def test_Laravel_default_02(self):
+    def test_Laravel_None_02(self):
         # pytest.skip("Skipping test...later I will implement...")
         action = ActionChains(self.driver)
         driver = self.driver
-        ApplicationName = "test_Laravel_default_02"
+        ApplicationName = "laravel-17"
         print("****************** Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -696,44 +658,6 @@ class TestCreateAppPHP(EnvironmentSetup):
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
         print("Scroll down")
         time.sleep(2)
-
-        # Click on team box
-        try:
-            TeamBox_A = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.TeamBox_A)))
-            print("TeamBox_A button is clickable")
-            TeamBox_A.click()
-            time.sleep(2)
-            # if TeamBox_A.is_enabled():
-            #     print("Team box is Enable")
-            #     TeamBox_A.click()
-            #     time.sleep(2)
-            # else:
-            #     print("Team box is not Enable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully clicked on TeamBox_A')
-
-        # choose Default from team box
-        try:
-            Team_Default = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.Team_Default)))
-            print("Team_Default button is clickable")
-            Team_Default.click()
-            time.sleep(2)
-            # if Team_Default.is_displayed():
-            #     print("Team default is selectable")
-            #     Team_Default.click()
-            #     time.sleep(3)
-            # else:
-            #     print("Team: Default is displayed")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully chose on Team Default')
 
         # scroll below
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 400")
@@ -1017,10 +941,10 @@ class TestCreateAppPHP(EnvironmentSetup):
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
 
-    def test_Laravel_default_03(self):
+    def test_Laravel_None_03(self):
         # pytest.skip("Skipping test...later I will implement...")
         driver = self.driver
-        ApplicationName = "test_Laravel_default_03"
+        ApplicationName = "laravel-16"
         print("****************** Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -1125,44 +1049,6 @@ class TestCreateAppPHP(EnvironmentSetup):
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
         print("Scroll down")
         time.sleep(2)
-
-        # Click on team box
-        try:
-            TeamBox_A = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.TeamBox_A)))
-            print("TeamBox_A button is clickable")
-            TeamBox_A.click()
-            time.sleep(2)
-            # if TeamBox_A.is_enabled():
-            #     print("Team box is Enable")
-            #     TeamBox_A.click()
-            #     time.sleep(2)
-            # else:
-            #     print("Team box is not Enable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully clicked on TeamBox_A')
-
-        # choose Default from team box
-        try:
-            Team_Default = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.Team_Default)))
-            print("Team_Default button is clickable")
-            Team_Default.click()
-            time.sleep(2)
-            # if Team_Default.is_displayed():
-            #     print("Team default is selectable")
-            #     Team_Default.click()
-            #     time.sleep(3)
-            # else:
-            #     print("Team: Default is displayed")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully chose on Team Default')
 
         # scroll below
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 400")
@@ -1446,11 +1332,11 @@ class TestCreateAppPHP(EnvironmentSetup):
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
 
-    def test_Laravel_default_04(self):
+    def test_Laravel_None_04(self):
         # pytest.skip("Skipping test...later I will implement...")
         action = ActionChains(self.driver)
         driver = self.driver
-        ApplicationName = "test_Laravel_default_04"
+        ApplicationName = "laravel-15"
         print("****************** Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -1555,44 +1441,6 @@ class TestCreateAppPHP(EnvironmentSetup):
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
         print("Scroll down")
         time.sleep(2)
-
-        # Click on team box
-        try:
-            TeamBox_A = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.TeamBox_A)))
-            print("TeamBox_A button is clickable")
-            TeamBox_A.click()
-            time.sleep(2)
-            # if TeamBox_A.is_enabled():
-            #     print("Team box is Enable")
-            #     TeamBox_A.click()
-            #     time.sleep(2)
-            # else:
-            #     print("Team box is not Enable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully clicked on TeamBox_A')
-
-        # choose Default from team box
-        try:
-            Team_Default = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.Team_Default)))
-            print("Team_Default button is clickable")
-            Team_Default.click()
-            time.sleep(2)
-            # if Team_Default.is_displayed():
-            #     print("Team default is selectable")
-            #     Team_Default.click()
-            #     time.sleep(3)
-            # else:
-            #     print("Team: Default is displayed")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully chose on Team Default')
 
         # scroll below
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 400")
@@ -1876,11 +1724,11 @@ class TestCreateAppPHP(EnvironmentSetup):
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
 
-    def test_Laravel_default_05(self):
+    def test_Laravel_None_05(self):
         # pytest.skip("Skipping test...later I will implement...")
         action = ActionChains(self.driver)
         driver = self.driver
-        ApplicationName = "test_Laravel_default_06"
+        ApplicationName = "laravel-14"
         print("****************** Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -1985,44 +1833,6 @@ class TestCreateAppPHP(EnvironmentSetup):
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
         print("Scroll down")
         time.sleep(2)
-
-        # Click on team box
-        try:
-            TeamBox_A = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.TeamBox_A)))
-            print("TeamBox_A button is clickable")
-            TeamBox_A.click()
-            time.sleep(2)
-            # if TeamBox_A.is_enabled():
-            #     print("Team box is Enable")
-            #     TeamBox_A.click()
-            #     time.sleep(2)
-            # else:
-            #     print("Team box is not Enable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully clicked on TeamBox_A')
-
-        # choose Default from team box
-        try:
-            Team_Default = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.Team_Default)))
-            print("Team_Default button is clickable")
-            Team_Default.click()
-            time.sleep(2)
-            # if Team_Default.is_displayed():
-            #     print("Team default is selectable")
-            #     Team_Default.click()
-            #     time.sleep(3)
-            # else:
-            #     print("Team: Default is displayed")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        else:
-            print('Successfully chose on Team Default')
 
         # scroll below
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 400")
