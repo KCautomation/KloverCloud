@@ -12,7 +12,7 @@ from urllib.request import urlopen
 from urllib.error import *
 from utilities.readProperties import ReadConfig
 
-ss_path = "/LogIn"
+ss_path = "/LogIn/"
 
 
 def test_cluster_login(self):

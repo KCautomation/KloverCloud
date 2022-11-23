@@ -100,21 +100,21 @@ class TestDeploy(EnvironmentSetup):
         except ElementClickInterceptedException as e:
             print("ElementClickInterceptedException", e)
 
-        # # # click on deploy button
-        # try:
-        #     Deploy_button = WebDriverWait(driver, 5).until(
-        #         EC.presence_of_element_located((By.XPATH, Locator.Deploy_button)))
-        #     print("deploy button is hided")
-        #     time.sleep(2)
-        #     action = ActionChains(driver)
-        #     # click the item
-        #     action.click()
-        #     # perform the operation
-        #     action.perform()
-        #     time.sleep(2)
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # except TimeoutException as e:
-        #     print("TimeoutException error", e)
-        # except InvalidSessionIdException as e:
-        #     print("InvalidSessionIdException error", e)
+        # click on deploy button
+        try:
+            Deploy_button = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Deploy_button)))
+            print("deploy button is hided")
+            time.sleep(2)
+            action = ActionChains(driver)
+            # click the item
+            action.click()
+            # perform the operation
+            action.perform()
+            time.sleep(2)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
