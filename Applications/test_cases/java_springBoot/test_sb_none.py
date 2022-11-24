@@ -1,15 +1,17 @@
-import time
-
 import pytest
-from selenium.common import NoSuchElementException
-from selenium.webdriver.common.by import By
-from src import Locator
-
-from src import LogInPage
+import time
+from telnetlib import EC
+import simple_colors
+from selenium.common import NoSuchElementException, TimeoutException, InvalidSessionIdException, \
+    ElementClickInterceptedException
+from selenium.webdriver import ActionChains, Keys
+from src.Locators.locators import Locator
 from src.screen_shots.screen_shots import SS
 from src.base.environment_setup import EnvironmentSetup
-from urllib.request import urlopen
-from urllib.error import *
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from src.function.logIn.login_fun import test_cluster_login
 
 ss_path = "/Applications/Java/"
 
@@ -17,91 +19,22 @@ ss_path = "/Applications/Java/"
 class TestCreateJava(EnvironmentSetup):
 
     def test_sb_none_01(self):
-        # pytest.skip("Skipping test...later I will implement...")
-        pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
+        pytest.skip("Skipping test...later I will implement...")
+        action = ActionChains(self.driver)
         driver = self.driver
+        ApplicationName = "java-07"
 
-        # try block to read URL
+        print("****************** Test Cluster Login *********************")
         try:
-            html = urlopen(pageUrl)
-
-        # except block to catch
-        # exception
-        # and identify error
-        except HTTPError as e:
-            print("HTTP error", e)
-
-        except URLError as e:
-            print("Opps ! Page not found!", e)
-
-        else:
-            print('Yeah ! URL found ')
-
-        self.driver.get(pageUrl)
-        self.driver.implicitly_wait(20)
-        time.sleep(2)
-        # ******************************Login**********************************
-        print("----------------------Cluster LogIn-----------------------------------")
-        # page object
-        log = LogInPage(driver)  # LogIn page
-
-        # input email
-        try:
-            if log.Email_box.is_enabled():
-                log.Email_box.send_keys('admin@klovercloud.com')
-                print("Email box is enabled")
-                time.sleep(1)
-            else:
-                print("Email box is not enabled")
+            test_cluster_login(self)
         except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
 
-        else:
-            print('Successfully inputted email')
-
-        # input pass
-        try:
-            if log.Password_box.is_enabled():
-                log.Password_box.send_keys('Hello@1234')
-                print("Password box is enabled")
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully inputted Password')
-
-        # To show password
-        try:
-            if log.Toggle_Visibility_Button.is_enabled():
-                log.Toggle_Visibility_Button.click()
-                time.sleep(1)
-                log.Toggle_Visibility_Button.click()
-                print("Password box is enabled")
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully showed & hided Password')
-
-        # Click On SignIn button
-        try:
-            if log.Sign_In_button.is_enabled():
-                log.Sign_In_button.click()
-                self.driver.implicitly_wait(10)
-                time.sleep(5)
-                print("Sign In button is clickable")
-            else:
-                print("Sign In button is not clickable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully logged in')
-
-        # ************************ Create Java Application based on Team: Default ************************
+        print(" ************************ Create Java Application based on Team: None ************************ ")
 
         print("-----------------------Header frame----------------------------------------")
         # click on create button from header
@@ -157,7 +90,7 @@ class TestCreateJava(EnvironmentSetup):
         try:
             ApplicationName_box = driver.find_element(By.XPATH, Locator.ApplicationName_box)
             if ApplicationName_box.is_enabled():
-                ApplicationName_box.send_keys('test44')
+                ApplicationName_box.send_keys(ApplicationName)
                 print("ApplicationName_box is enable")
                 time.sleep(2)
             else:
@@ -171,35 +104,6 @@ class TestCreateJava(EnvironmentSetup):
         # driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
         # print("Scroll down")
         # time.sleep(2)
-
-        # Click on team box
-        # try:
-        #     TeamBox_A = self.driver.find_element(By.XPATH, Locator.TeamBox_A)
-        #     if TeamBox_A.is_enabled():
-        #         print("Team box is Enable")
-        #         TeamBox_A.click()
-        #         time.sleep(1)
-        #     else:
-        #         print("Team box is not Enable")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully clicked on TeamBox_A')
-        #
-        # # choose Default from team box
-        # try:
-        #     Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
-        #     if Team_Default.is_displayed():
-        #         print("Team default is selectable")
-        #         Team_Default.click()
-        #         time.sleep(3)
-        #     else:
-        #         print("Team: Default is displayed")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully chose on Team Default')
-
         # scroll below
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 400")
         print("Scroll down")
@@ -272,107 +176,173 @@ class TestCreateJava(EnvironmentSetup):
         else:
             print('Successfully clicked on Save button')
         # click on Create application button
-        # try:
-        #     Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
-        #     if Create_Application.is_enabled():
-        #         Create_Application.click()
-        #         time.sleep(180)
-        #         print("Create application button is enable")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully clicked on Create_Application')
+        try:
+            Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
+            if Create_Application.is_enabled():
+                Create_Application.click()
+                time.sleep(180)
+                print("Create application button is enable")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        else:
+            print('Successfully clicked on Create_Application')
         ss = SS(driver)
         file_name = ss_path + "test_sb_default_01_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
 
+        print("******************************* Test Try to deploy application******************************")
+        # click on deploy
+        try:
+            To_deploy = WebDriverWait(driver, 30).until(
+                EC.presence_of_element_located((By.XPATH, Locator.To_deploy)))
+            print("deploy element is visible")
+            # To_deploy.click()
+            To_deploy.click()
+            time.sleep(2)
+            # To_deploy.sendKeys(Keys.ENTER)
+            action = ActionChains(driver)
+            # click the item
+            action.send_keys(Keys.ENTER)
+            # perform the operation
+            action.perform()
+
+            # print("successfully clicked on deploy")
+            time.sleep(3)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        except ElementClickInterceptedException as e:
+            print("ElementClickInterceptedException", e)
+
+        # click on deploy button
+        try:
+            Deploy_button = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Deploy_button)))
+            print("deploy button is hided")
+            time.sleep(2)
+            action = ActionChains(driver)
+            # click the item
+            action.click()
+            # perform the operation
+            action.perform()
+            time.sleep(2)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+
+        print("******************************* Test Try to delete application******************************")
+        try:
+            application_Settings = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.application_Settings)))
+            print("application_Settings is clickable")
+            application_Settings.click()
+            print("Welcome application_Settings ")
+            time.sleep(5)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # click on Delete button
+        try:
+            application_Delete = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.application_Delete)))
+            print("application_Delete is clickable")
+            application_Delete.click()
+            print("successfully clicked application_Delete ")
+            time.sleep(5)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # input application name
+        try:
+            Application_namebox_D = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.Application_namebox_D)))
+            print("application_Delete is clickable")
+            Application_namebox_D.send_keys(ApplicationName)
+            print("successfully inputted Application_name ")
+            time.sleep(5)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # scroll down
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 20")
+        print("Scroll down")
+        time.sleep(3)
+
+        # input application name
+        try:
+            Delete_permanently_button = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.Delete_permanently_button)))
+            print("application_Delete is clickable")
+            Delete_permanently_button.click()
+            print("successfully clicked on Delete_permanently_button ")
+            time.sleep(2)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # check msg
+        try:
+            Application_Deleted_Success_msg = WebDriverWait(driver, 120).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Application_Deleted_Success_msg)))
+            if Application_Deleted_Success_msg.is_displayed():
+
+                print('Shown a message: ',
+                      simple_colors.green(Application_Deleted_Success_msg.text, ['bold', 'underlined']))
+                print("\n")
+                pass
+            else:
+                assert False
+            time.sleep(10)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        file_name = ss_path + "delete_success_screenshot_" + time.asctime().replace(":", "_") + ".png"
+        ss.driver.save_screenshot(file_name)
+        ss.ScreenShot(file_name)
+
+
     def test_sb_none_02(self):
-        # pytest.skip("Skipping test...later I will implement...")
-        pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
+        pytest.skip("Skipping test...later I will implement...")
+        action = ActionChains(self.driver)
         driver = self.driver
+        ApplicationName = "java-08"
 
-        # try block to read URL
+        print("****************** Test Cluster Login *********************")
         try:
-            html = urlopen(pageUrl)
-
-        # except block to catch
-        # exception
-        # and identify error
-        except HTTPError as e:
-            print("HTTP error", e)
-
-        except URLError as e:
-            print("Opps ! Page not found!", e)
-
-        else:
-            print('Yeah ! URL found ')
-
-        self.driver.get(pageUrl)
-        self.driver.implicitly_wait(20)
-        time.sleep(2)
-        # ******************************Login**********************************
-        print("----------------------Cluster LogIn-----------------------------------")
-        # page object
-        log = LogInPage(driver)  # LogIn page
-
-        # input email
-        try:
-            if log.Email_box.is_enabled():
-                log.Email_box.send_keys('admin@klovercloud.com')
-                print("Email box is enabled")
-                time.sleep(1)
-            else:
-                print("Email box is not enabled")
+            test_cluster_login(self)
         except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
 
-        else:
-            print('Successfully inputted email')
-
-        # input pass
-        try:
-            if log.Password_box.is_enabled():
-                log.Password_box.send_keys('Hello@1234')
-                print("Password box is enabled")
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully inputted Password')
-
-        # To show password
-        try:
-            if log.Toggle_Visibility_Button.is_enabled():
-                log.Toggle_Visibility_Button.click()
-                time.sleep(1)
-                log.Toggle_Visibility_Button.click()
-                print("Password box is enabled")
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully showed & hided Password')
-
-        # Click On SignIn button
-        try:
-            if log.Sign_In_button.is_enabled():
-                log.Sign_In_button.click()
-                self.driver.implicitly_wait(10)
-                time.sleep(5)
-                print("Sign In button is clickable")
-            else:
-                print("Sign In button is not clickable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully logged in')
-
-        # ************************ Create Java Application based on Team: Default ************************
+        # ************************ Create Java Application based on Team: None ************************
 
         print("-----------------------Header frame----------------------------------------")
         # click on create button from header
@@ -428,7 +398,7 @@ class TestCreateJava(EnvironmentSetup):
         try:
             ApplicationName_box = driver.find_element(By.XPATH, Locator.ApplicationName_box)
             if ApplicationName_box.is_enabled():
-                ApplicationName_box.send_keys('test44')
+                ApplicationName_box.send_keys(ApplicationName)
                 print("ApplicationName_box is enable")
                 time.sleep(2)
             else:
@@ -468,34 +438,7 @@ class TestCreateJava(EnvironmentSetup):
         # driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
         # print("Scroll down")
         # time.sleep(2)
-        #
-        # # Click on team box
-        # try:
-        #     TeamBox_A = self.driver.find_element(By.XPATH, Locator.TeamBox_A)
-        #     if TeamBox_A.is_enabled():
-        #         print("Team box is Enable")
-        #         TeamBox_A.click()
-        #         time.sleep(1)
-        #     else:
-        #         print("Team box is not Enable")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully clicked on TeamBox_A')
-        #
-        # # choose Default from team box
-        # try:
-        #     Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
-        #     if Team_Default.is_displayed():
-        #         print("Team default is selectable")
-        #         Team_Default.click()
-        #         time.sleep(3)
-        #     else:
-        #         print("Team: Default is displayed")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully chose on Team Default')
+
 
         # scroll below
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 400")
@@ -569,107 +512,172 @@ class TestCreateJava(EnvironmentSetup):
         else:
             print('Successfully clicked on Save button')
         # click on Create application button
-        # try:
-        #     Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
-        #     if Create_Application.is_enabled():
-        #         Create_Application.click()
-        #         time.sleep(180)
-        #         print("Create application button is enable")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully clicked on Create_Application')
+        try:
+            Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
+            if Create_Application.is_enabled():
+                Create_Application.click()
+                time.sleep(180)
+                print("Create application button is enable")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        else:
+            print('Successfully clicked on Create_Application')
         ss = SS(driver)
-        file_name = ss_path + "test_sb_none_02_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
+        file_name = ss_path + "test_sb_default_02_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
+        ss.driver.save_screenshot(file_name)
+        ss.ScreenShot(file_name)
+
+        print("******************************* Test Try to deploy application******************************")
+        # click on deploy
+        try:
+            To_deploy = WebDriverWait(driver, 30).until(
+                EC.presence_of_element_located((By.XPATH, Locator.To_deploy)))
+            print("deploy element is visible")
+            # To_deploy.click()
+            To_deploy.click()
+            time.sleep(2)
+            # To_deploy.sendKeys(Keys.ENTER)
+            action = ActionChains(driver)
+            # click the item
+            action.send_keys(Keys.ENTER)
+            # perform the operation
+            action.perform()
+
+            # print("successfully clicked on deploy")
+            time.sleep(3)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        except ElementClickInterceptedException as e:
+            print("ElementClickInterceptedException", e)
+
+        # click on deploy button
+        try:
+            Deploy_button = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Deploy_button)))
+            print("deploy button is hided")
+            time.sleep(2)
+            action = ActionChains(driver)
+            # click the item
+            action.click()
+            # perform the operation
+            action.perform()
+            time.sleep(2)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+
+        print("******************************* Test Try to delete application******************************")
+        try:
+            application_Settings = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.application_Settings)))
+            print("application_Settings is clickable")
+            application_Settings.click()
+            print("Welcome application_Settings ")
+            time.sleep(5)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # click on Delete button
+        try:
+            application_Delete = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.application_Delete)))
+            print("application_Delete is clickable")
+            application_Delete.click()
+            print("successfully clicked application_Delete ")
+            time.sleep(5)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # input application name
+        try:
+            Application_namebox_D = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.Application_namebox_D)))
+            print("application_Delete is clickable")
+            Application_namebox_D.send_keys(ApplicationName)
+            print("successfully inputted Application_name ")
+            time.sleep(5)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # scroll down
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 20")
+        print("Scroll down")
+        time.sleep(3)
+
+        # input application name
+        try:
+            Delete_permanently_button = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.Delete_permanently_button)))
+            print("application_Delete is clickable")
+            Delete_permanently_button.click()
+            print("successfully clicked on Delete_permanently_button ")
+            time.sleep(2)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # check msg
+        try:
+            Application_Deleted_Success_msg = WebDriverWait(driver, 120).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Application_Deleted_Success_msg)))
+            if Application_Deleted_Success_msg.is_displayed():
+
+                print('Shown a message: ',
+                      simple_colors.green(Application_Deleted_Success_msg.text, ['bold', 'underlined']))
+                print("\n")
+                pass
+            else:
+                assert False
+            time.sleep(10)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        file_name = ss_path + "delete_success_screenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
 
     def test_sb_none_03(self):
         pytest.skip("Skipping test...later I will implement...")
-        pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
+        action = ActionChains(self.driver)
         driver = self.driver
+        ApplicationName = "java-09"
 
-        # try block to read URL
+        print("****************** Test Cluster Login *********************")
         try:
-            html = urlopen(pageUrl)
-
-        # except block to catch
-        # exception
-        # and identify error
-        except HTTPError as e:
-            print("HTTP error", e)
-
-        except URLError as e:
-            print("Opps ! Page not found!", e)
-
-        else:
-            print('Yeah ! URL found ')
-
-        self.driver.get(pageUrl)
-        self.driver.implicitly_wait(20)
-        time.sleep(2)
-        # ******************************Login**********************************
-        print("----------------------Cluster LogIn-----------------------------------")
-        # page object
-        log = LogInPage(driver)  # LogIn page
-
-        # input email
-        try:
-            if log.Email_box.is_enabled():
-                log.Email_box.send_keys('admin@klovercloud.com')
-                print("Email box is enabled")
-                time.sleep(1)
-            else:
-                print("Email box is not enabled")
+            test_cluster_login(self)
         except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
 
-        else:
-            print('Successfully inputted email')
-
-        # input pass
-        try:
-            if log.Password_box.is_enabled():
-                log.Password_box.send_keys('Hello@1234')
-                print("Password box is enabled")
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully inputted Password')
-
-        # To show password
-        try:
-            if log.Toggle_Visibility_Button.is_enabled():
-                log.Toggle_Visibility_Button.click()
-                time.sleep(1)
-                log.Toggle_Visibility_Button.click()
-                print("Password box is enabled")
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully showed & hided Password')
-
-        # Click On SignIn button
-        try:
-            if log.Sign_In_button.is_enabled():
-                log.Sign_In_button.click()
-                self.driver.implicitly_wait(10)
-                time.sleep(5)
-                print("Sign In button is clickable")
-            else:
-                print("Sign In button is not clickable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully logged in')
-
-        # ************************ Create Java Application based on Team: Default ************************
+        # ************************ Create Java Application based on Team: None ************************
 
         print("-----------------------Header frame----------------------------------------")
         # click on create button from header
@@ -725,7 +733,7 @@ class TestCreateJava(EnvironmentSetup):
         try:
             ApplicationName_box = driver.find_element(By.XPATH, Locator.ApplicationName_box)
             if ApplicationName_box.is_enabled():
-                ApplicationName_box.send_keys('test44')
+                ApplicationName_box.send_keys(ApplicationName)
                 print("ApplicationName_box is enable")
                 time.sleep(2)
             else:
@@ -761,38 +769,38 @@ class TestCreateJava(EnvironmentSetup):
         else:
             print('Successfully chose Java version 11')
 
-        # # scroll down
-        # driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
-        # print("Scroll down")
-        # time.sleep(2)
+        # scroll down
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
+        print("Scroll down")
+        time.sleep(2)
 
         # Click on team box
-        # try:
-        #     TeamBox_A = self.driver.find_element(By.XPATH, Locator.TeamBox_A)
-        #     if TeamBox_A.is_enabled():
-        #         print("Team box is Enable")
-        #         TeamBox_A.click()
-        #         time.sleep(1)
-        #     else:
-        #         print("Team box is not Enable")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully clicked on TeamBox_A')
-        #
-        # # choose Default from team box
-        # try:
-        #     Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
-        #     if Team_Default.is_displayed():
-        #         print("Team default is selectable")
-        #         Team_Default.click()
-        #         time.sleep(3)
-        #     else:
-        #         print("Team: Default is displayed")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully chose on Team Default')
+        try:
+            TeamBox_A = self.driver.find_element(By.XPATH, Locator.TeamBox_A)
+            if TeamBox_A.is_enabled():
+                print("Team box is Enable")
+                TeamBox_A.click()
+                time.sleep(1)
+            else:
+                print("Team box is not Enable")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        else:
+            print('Successfully clicked on TeamBox_A')
+
+        # choose Default from team box
+        try:
+            Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
+            if Team_Default.is_displayed():
+                print("Team default is selectable")
+                Team_Default.click()
+                time.sleep(3)
+            else:
+                print("Team: Default is displayed")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        else:
+            print('Successfully chose on Team Default')
 
         # scroll below
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 400")
@@ -866,107 +874,172 @@ class TestCreateJava(EnvironmentSetup):
         else:
             print('Successfully clicked on Save button')
         # click on Create application button
-        # try:
-        #     Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
-        #     if Create_Application.is_enabled():
-        #         Create_Application.click()
-        #         time.sleep(180)
-        #         print("Create application button is enable")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully clicked on Create_Application')
+        try:
+            Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
+            if Create_Application.is_enabled():
+                Create_Application.click()
+                time.sleep(180)
+                print("Create application button is enable")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        else:
+            print('Successfully clicked on Create_Application')
         ss = SS(driver)
-        file_name = ss_path + "test_sb_none_03_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
+        file_name = ss_path + "test_sb_default_03_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
+        ss.driver.save_screenshot(file_name)
+        ss.ScreenShot(file_name)
+
+        print("******************************* Test Try to deploy application******************************")
+        # click on deploy
+        try:
+            To_deploy = WebDriverWait(driver, 30).until(
+                EC.presence_of_element_located((By.XPATH, Locator.To_deploy)))
+            print("deploy element is visible")
+            # To_deploy.click()
+            To_deploy.click()
+            time.sleep(2)
+            # To_deploy.sendKeys(Keys.ENTER)
+            action = ActionChains(driver)
+            # click the item
+            action.send_keys(Keys.ENTER)
+            # perform the operation
+            action.perform()
+
+            # print("successfully clicked on deploy")
+            time.sleep(3)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        except ElementClickInterceptedException as e:
+            print("ElementClickInterceptedException", e)
+
+        # click on deploy button
+        try:
+            Deploy_button = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Deploy_button)))
+            print("deploy button is hided")
+            time.sleep(2)
+            action = ActionChains(driver)
+            # click the item
+            action.click()
+            # perform the operation
+            action.perform()
+            time.sleep(2)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+
+        print("******************************* Test Try to delete application******************************")
+        try:
+            application_Settings = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.application_Settings)))
+            print("application_Settings is clickable")
+            application_Settings.click()
+            print("Welcome application_Settings ")
+            time.sleep(5)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # click on Delete button
+        try:
+            application_Delete = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.application_Delete)))
+            print("application_Delete is clickable")
+            application_Delete.click()
+            print("successfully clicked application_Delete ")
+            time.sleep(5)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # input application name
+        try:
+            Application_namebox_D = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.Application_namebox_D)))
+            print("application_Delete is clickable")
+            Application_namebox_D.send_keys(ApplicationName)
+            print("successfully inputted Application_name ")
+            time.sleep(5)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # scroll down
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 20")
+        print("Scroll down")
+        time.sleep(3)
+
+        # input application name
+        try:
+            Delete_permanently_button = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.Delete_permanently_button)))
+            print("application_Delete is clickable")
+            Delete_permanently_button.click()
+            print("successfully clicked on Delete_permanently_button ")
+            time.sleep(2)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # check msg
+        try:
+            Application_Deleted_Success_msg = WebDriverWait(driver, 120).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Application_Deleted_Success_msg)))
+            if Application_Deleted_Success_msg.is_displayed():
+
+                print('Shown a message: ',
+                      simple_colors.green(Application_Deleted_Success_msg.text, ['bold', 'underlined']))
+                print("\n")
+                pass
+            else:
+                assert False
+            time.sleep(10)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        file_name = ss_path + "delete_success_screenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
 
     def test_sb_none_04(self):
-       # pytest.skip("Skipping test...later I will implement...")
-        pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
+        pytest.skip("Skipping test...later I will implement...")
+        action = ActionChains(self.driver)
         driver = self.driver
+        ApplicationName = "java-10"
 
-        # try block to read URL
+        print("****************** Test Cluster Login *********************")
         try:
-            html = urlopen(pageUrl)
-
-        # except block to catch
-        # exception
-        # and identify error
-        except HTTPError as e:
-            print("HTTP error", e)
-
-        except URLError as e:
-            print("Opps ! Page not found!", e)
-
-        else:
-            print('Yeah ! URL found ')
-
-        self.driver.get(pageUrl)
-        self.driver.implicitly_wait(20)
-        time.sleep(2)
-        # ******************************Login**********************************
-        print("----------------------Cluster LogIn-----------------------------------")
-        # page object
-        log = LogInPage(driver)  # LogIn page
-
-        # input email
-        try:
-            if log.Email_box.is_enabled():
-                log.Email_box.send_keys('admin@klovercloud.com')
-                print("Email box is enabled")
-                time.sleep(1)
-            else:
-                print("Email box is not enabled")
+            test_cluster_login(self)
         except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
 
-        else:
-            print('Successfully inputted email')
-
-        # input pass
-        try:
-            if log.Password_box.is_enabled():
-                log.Password_box.send_keys('Hello@1234')
-                print("Password box is enabled")
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully inputted Password')
-
-        # To show password
-        try:
-            if log.Toggle_Visibility_Button.is_enabled():
-                log.Toggle_Visibility_Button.click()
-                time.sleep(1)
-                log.Toggle_Visibility_Button.click()
-                print("Password box is enabled")
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully showed & hided Password')
-
-        # Click On SignIn button
-        try:
-            if log.Sign_In_button.is_enabled():
-                log.Sign_In_button.click()
-                self.driver.implicitly_wait(10)
-                time.sleep(5)
-                print("Sign In button is clickable")
-            else:
-                print("Sign In button is not clickable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully logged in')
-
-        # ************************ Create Java Application based on Team: Default ************************
+        # ************************ Create Java Application based on Team: None ************************
 
         print("-----------------------Header frame----------------------------------------")
         # click on create button from header
@@ -1022,7 +1095,7 @@ class TestCreateJava(EnvironmentSetup):
         try:
             ApplicationName_box = driver.find_element(By.XPATH, Locator.ApplicationName_box)
             if ApplicationName_box.is_enabled():
-                ApplicationName_box.send_keys('test44')
+                ApplicationName_box.send_keys(ApplicationName)
                 print("ApplicationName_box is enable")
                 time.sleep(2)
             else:
@@ -1085,38 +1158,38 @@ class TestCreateJava(EnvironmentSetup):
         else:
             print('Successfully chose SpringBoot Version 2.1.11')
 
-        # # scroll down
-        # driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
-        # print("Scroll down")
-        # time.sleep(2)
-        #
-        # # Click on team box
-        # try:
-        #     TeamBox_A = self.driver.find_element(By.XPATH, Locator.TeamBox_A)
-        #     if TeamBox_A.is_enabled():
-        #         print("Team box is Enable")
-        #         TeamBox_A.click()
-        #         time.sleep(1)
-        #     else:
-        #         print("Team box is not Enable")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully clicked on TeamBox_A')
-        #
-        # # choose Default from team box
-        # try:
-        #     Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
-        #     if Team_Default.is_displayed():
-        #         print("Team default is selectable")
-        #         Team_Default.click()
-        #         time.sleep(3)
-        #     else:
-        #         print("Team: Default is displayed")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully chose on Team Default')
+        # scroll down
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
+        print("Scroll down")
+        time.sleep(2)
+
+        # Click on team box
+        try:
+            TeamBox_A = self.driver.find_element(By.XPATH, Locator.TeamBox_A)
+            if TeamBox_A.is_enabled():
+                print("Team box is Enable")
+                TeamBox_A.click()
+                time.sleep(1)
+            else:
+                print("Team box is not Enable")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        else:
+            print('Successfully clicked on TeamBox_A')
+
+        # choose Default from team box
+        try:
+            Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
+            if Team_Default.is_displayed():
+                print("Team default is selectable")
+                Team_Default.click()
+                time.sleep(3)
+            else:
+                print("Team: Default is displayed")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        else:
+            print('Successfully chose on Team Default')
 
         # scroll below
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 400")
@@ -1190,107 +1263,172 @@ class TestCreateJava(EnvironmentSetup):
         else:
             print('Successfully clicked on Save button')
         # click on Create application button
-        # try:
-        #     Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
-        #     if Create_Application.is_enabled():
-        #         Create_Application.click()
-        #         time.sleep(180)
-        #         print("Create application button is enable")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully clicked on Create_Application')
+        try:
+            Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
+            if Create_Application.is_enabled():
+                Create_Application.click()
+                time.sleep(180)
+                print("Create application button is enable")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        else:
+            print('Successfully clicked on Create_Application')
         ss = SS(driver)
-        file_name = ss_path + "test_sb_none_04_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
+        file_name = ss_path + "test_sb_default_04_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
 
-    def test_sb_none_05(self):
+        print("******************************* Test Try to deploy application******************************")
+        # click on deploy
+        try:
+            To_deploy = WebDriverWait(driver, 30).until(
+                EC.presence_of_element_located((By.XPATH, Locator.To_deploy)))
+            print("deploy element is visible")
+            # To_deploy.click()
+            To_deploy.click()
+            time.sleep(2)
+            # To_deploy.sendKeys(Keys.ENTER)
+            action = ActionChains(driver)
+            # click the item
+            action.send_keys(Keys.ENTER)
+            # perform the operation
+            action.perform()
+
+            # print("successfully clicked on deploy")
+            time.sleep(3)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        except ElementClickInterceptedException as e:
+            print("ElementClickInterceptedException", e)
+
+        # click on deploy button
+        try:
+            Deploy_button = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Deploy_button)))
+            print("deploy button is hided")
+            time.sleep(2)
+            action = ActionChains(driver)
+            # click the item
+            action.click()
+            # perform the operation
+            action.perform()
+            time.sleep(2)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+
+        print("******************************* Test Try to delete application******************************")
+        try:
+            application_Settings = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.application_Settings)))
+            print("application_Settings is clickable")
+            application_Settings.click()
+            print("Welcome application_Settings ")
+            time.sleep(5)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # click on Delete button
+        try:
+            application_Delete = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.application_Delete)))
+            print("application_Delete is clickable")
+            application_Delete.click()
+            print("successfully clicked application_Delete ")
+            time.sleep(5)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # input application name
+        try:
+            Application_namebox_D = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.Application_namebox_D)))
+            print("application_Delete is clickable")
+            Application_namebox_D.send_keys(ApplicationName)
+            print("successfully inputted Application_name ")
+            time.sleep(5)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # scroll down
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 20")
+        print("Scroll down")
+        time.sleep(3)
+
+        # input application name
+        try:
+            Delete_permanently_button = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.Delete_permanently_button)))
+            print("application_Delete is clickable")
+            Delete_permanently_button.click()
+            print("successfully clicked on Delete_permanently_button ")
+            time.sleep(2)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # check msg
+        try:
+            Application_Deleted_Success_msg = WebDriverWait(driver, 120).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Application_Deleted_Success_msg)))
+            if Application_Deleted_Success_msg.is_displayed():
+
+                print('Shown a message: ',
+                      simple_colors.green(Application_Deleted_Success_msg.text, ['bold', 'underlined']))
+                print("\n")
+                pass
+            else:
+                assert False
+            time.sleep(10)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        file_name = ss_path + "delete_success_screenshot_" + time.asctime().replace(":", "_") + ".png"
+        ss.driver.save_screenshot(file_name)
+        ss.ScreenShot(file_name)
+
+    def test_sb_default_05(self):
         pytest.skip("Skipping test...later I will implement...")
-        pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
+        action = ActionChains(self.driver)
         driver = self.driver
+        ApplicationName = "java-11"
 
-        # try block to read URL
+        print("****************** Test Cluster Login *********************")
         try:
-            html = urlopen(pageUrl)
-
-        # except block to catch
-        # exception
-        # and identify error
-        except HTTPError as e:
-            print("HTTP error", e)
-
-        except URLError as e:
-            print("Opps ! Page not found!", e)
-
-        else:
-            print('Yeah ! URL found ')
-
-        self.driver.get(pageUrl)
-        self.driver.implicitly_wait(20)
-        time.sleep(2)
-        # ******************************Login**********************************
-        print("----------------------Cluster LogIn-----------------------------------")
-        # page object
-        log = LogInPage(driver)  # LogIn page
-
-        # input email
-        try:
-            if log.Email_box.is_enabled():
-                log.Email_box.send_keys('admin@klovercloud.com')
-                print("Email box is enabled")
-                time.sleep(1)
-            else:
-                print("Email box is not enabled")
+            test_cluster_login(self)
         except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
 
-        else:
-            print('Successfully inputted email')
-
-        # input pass
-        try:
-            if log.Password_box.is_enabled():
-                log.Password_box.send_keys('Hello@1234')
-                print("Password box is enabled")
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully inputted Password')
-
-        # To show password
-        try:
-            if log.Toggle_Visibility_Button.is_enabled():
-                log.Toggle_Visibility_Button.click()
-                time.sleep(1)
-                log.Toggle_Visibility_Button.click()
-                print("Password box is enabled")
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully showed & hided Password')
-
-        # Click On SignIn button
-        try:
-            if log.Sign_In_button.is_enabled():
-                log.Sign_In_button.click()
-                self.driver.implicitly_wait(10)
-                time.sleep(5)
-                print("Sign In button is clickable")
-            else:
-                print("Sign In button is not clickable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully logged in')
-
-        # ************************ Create Java Application based on Team: Default ************************
+        # ************************ Create Java Application based on Team: None ************************
 
         print("-----------------------Header frame----------------------------------------")
         # click on create button from header
@@ -1346,7 +1484,7 @@ class TestCreateJava(EnvironmentSetup):
         try:
             ApplicationName_box = driver.find_element(By.XPATH, Locator.ApplicationName_box)
             if ApplicationName_box.is_enabled():
-                ApplicationName_box.send_keys('test44')
+                ApplicationName_box.send_keys(ApplicationName)
                 print("ApplicationName_box is enable")
                 time.sleep(2)
             else:
@@ -1382,38 +1520,38 @@ class TestCreateJava(EnvironmentSetup):
         else:
             print('Successfully chose Java version 8')
 
-        # # scroll down
-        # driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
-        # print("Scroll down")
-        # time.sleep(2)
-        #
-        # # Click on team box
-        # try:
-        #     TeamBox_A = self.driver.find_element(By.XPATH, Locator.TeamBox_A)
-        #     if TeamBox_A.is_enabled():
-        #         print("Team box is Enable")
-        #         TeamBox_A.click()
-        #         time.sleep(1)
-        #     else:
-        #         print("Team box is not Enable")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully clicked on TeamBox_A')
-        #
-        # # choose Default from team box
-        # try:
-        #     Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
-        #     if Team_Default.is_displayed():
-        #         print("Team default is selectable")
-        #         Team_Default.click()
-        #         time.sleep(3)
-        #     else:
-        #         print("Team: Default is displayed")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully chose on Team Default')
+        # scroll down
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
+        print("Scroll down")
+        time.sleep(2)
+
+        # Click on team box
+        try:
+            TeamBox_A = self.driver.find_element(By.XPATH, Locator.TeamBox_A)
+            if TeamBox_A.is_enabled():
+                print("Team box is Enable")
+                TeamBox_A.click()
+                time.sleep(1)
+            else:
+                print("Team box is not Enable")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        else:
+            print('Successfully clicked on TeamBox_A')
+
+        # choose Default from team box
+        try:
+            Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
+            if Team_Default.is_displayed():
+                print("Team default is selectable")
+                Team_Default.click()
+                time.sleep(3)
+            else:
+                print("Team: Default is displayed")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        else:
+            print('Successfully chose on Team Default')
 
         # scroll below
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 400")
@@ -1487,107 +1625,172 @@ class TestCreateJava(EnvironmentSetup):
         else:
             print('Successfully clicked on Save button')
         # click on Create application button
-        # try:
-        #     Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
-        #     if Create_Application.is_enabled():
-        #         Create_Application.click()
-        #         time.sleep(180)
-        #         print("Create application button is enable")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully clicked on Create_Application')
+        try:
+            Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
+            if Create_Application.is_enabled():
+                Create_Application.click()
+                time.sleep(180)
+                print("Create application button is enable")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        else:
+            print('Successfully clicked on Create_Application')
         ss = SS(driver)
-        file_name = ss_path + "test_sb_none_05_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
+        file_name = ss_path + "test_sb_default_05_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
 
-    def test_sb_none_06(self):
-        # pytest.skip("Skipping test...later I will implement...")
-        pageUrl = "https://eks.rakibefstestmaincluster782.klovercloud.io/"
+        print("******************************* Test Try to deploy application******************************")
+        # click on deploy
+        try:
+            To_deploy = WebDriverWait(driver, 30).until(
+                EC.presence_of_element_located((By.XPATH, Locator.To_deploy)))
+            print("deploy element is visible")
+            # To_deploy.click()
+            To_deploy.click()
+            time.sleep(2)
+            # To_deploy.sendKeys(Keys.ENTER)
+            action = ActionChains(driver)
+            # click the item
+            action.send_keys(Keys.ENTER)
+            # perform the operation
+            action.perform()
+
+            # print("successfully clicked on deploy")
+            time.sleep(3)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        except ElementClickInterceptedException as e:
+            print("ElementClickInterceptedException", e)
+
+        # click on deploy button
+        try:
+            Deploy_button = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Deploy_button)))
+            print("deploy button is hided")
+            time.sleep(2)
+            action = ActionChains(driver)
+            # click the item
+            action.click()
+            # perform the operation
+            action.perform()
+            time.sleep(2)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+
+        print("******************************* Test Try to delete application******************************")
+        try:
+            application_Settings = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.application_Settings)))
+            print("application_Settings is clickable")
+            application_Settings.click()
+            print("Welcome application_Settings ")
+            time.sleep(5)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # click on Delete button
+        try:
+            application_Delete = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.application_Delete)))
+            print("application_Delete is clickable")
+            application_Delete.click()
+            print("successfully clicked application_Delete ")
+            time.sleep(5)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # input application name
+        try:
+            Application_namebox_D = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.Application_namebox_D)))
+            print("application_Delete is clickable")
+            Application_namebox_D.send_keys(ApplicationName)
+            print("successfully inputted Application_name ")
+            time.sleep(5)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # scroll down
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 20")
+        print("Scroll down")
+        time.sleep(3)
+
+        # input application name
+        try:
+            Delete_permanently_button = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.Delete_permanently_button)))
+            print("application_Delete is clickable")
+            Delete_permanently_button.click()
+            print("successfully clicked on Delete_permanently_button ")
+            time.sleep(2)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # check msg
+        try:
+            Application_Deleted_Success_msg = WebDriverWait(driver, 120).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Application_Deleted_Success_msg)))
+            if Application_Deleted_Success_msg.is_displayed():
+
+                print('Shown a message: ',
+                      simple_colors.green(Application_Deleted_Success_msg.text, ['bold', 'underlined']))
+                print("\n")
+                pass
+            else:
+                assert False
+            time.sleep(10)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        file_name = ss_path + "delete_success_screenshot_" + time.asctime().replace(":", "_") + ".png"
+        ss.driver.save_screenshot(file_name)
+        ss.ScreenShot(file_name)
+
+    def test_sb_default_06(self):
+        pytest.skip("Skipping test...later I will implement...")
+        action = ActionChains(self.driver)
         driver = self.driver
+        ApplicationName = "java-04"
 
-        # try block to read URL
+        print("****************** Test Cluster Login *********************")
         try:
-            html = urlopen(pageUrl)
-
-        # except block to catch
-        # exception
-        # and identify error
-        except HTTPError as e:
-            print("HTTP error", e)
-
-        except URLError as e:
-            print("Opps ! Page not found!", e)
-
-        else:
-            print('Yeah ! URL found ')
-
-        self.driver.get(pageUrl)
-        self.driver.implicitly_wait(20)
-        time.sleep(2)
-        # ******************************Login**********************************
-        print("----------------------Cluster LogIn-----------------------------------")
-        # page object
-        log = LogInPage(driver)  # LogIn page
-
-        # input email
-        try:
-            if log.Email_box.is_enabled():
-                log.Email_box.send_keys('admin@klovercloud.com')
-                print("Email box is enabled")
-                time.sleep(1)
-            else:
-                print("Email box is not enabled")
+            test_cluster_login(self)
         except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
 
-        else:
-            print('Successfully inputted email')
-
-        # input pass
-        try:
-            if log.Password_box.is_enabled():
-                log.Password_box.send_keys('Hello@1234')
-                print("Password box is enabled")
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully inputted Password')
-
-        # To show password
-        try:
-            if log.Toggle_Visibility_Button.is_enabled():
-                log.Toggle_Visibility_Button.click()
-                time.sleep(1)
-                log.Toggle_Visibility_Button.click()
-                print("Password box is enabled")
-                time.sleep(1)
-            else:
-                print("Password box is not enabled")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully showed & hided Password')
-
-        # Click On SignIn button
-        try:
-            if log.Sign_In_button.is_enabled():
-                log.Sign_In_button.click()
-                self.driver.implicitly_wait(10)
-                time.sleep(5)
-                print("Sign In button is clickable")
-            else:
-                print("Sign In button is not clickable")
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        else:
-            print('Successfully logged in')
-
-        # ************************ Create Java Application based on Team: Default ************************
+        # ************************ Create Java Application based on Team: None ************************
 
         print("-----------------------Header frame----------------------------------------")
         # click on create button from header
@@ -1643,7 +1846,7 @@ class TestCreateJava(EnvironmentSetup):
         try:
             ApplicationName_box = driver.find_element(By.XPATH, Locator.ApplicationName_box)
             if ApplicationName_box.is_enabled():
-                ApplicationName_box.send_keys('test44')
+                ApplicationName_box.send_keys(ApplicationName)
                 print("ApplicationName_box is enable")
                 time.sleep(2)
             else:
@@ -1707,37 +1910,37 @@ class TestCreateJava(EnvironmentSetup):
             print('Successfully chose SpringBoot Version 2.1.11')
 
         # scroll down
-        # driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
-        # print("Scroll down")
-        # time.sleep(2)
-        #
-        # # Click on team box
-        # try:
-        #     TeamBox_A = self.driver.find_element(By.XPATH, Locator.TeamBox_A)
-        #     if TeamBox_A.is_enabled():
-        #         print("Team box is Enable")
-        #         TeamBox_A.click()
-        #         time.sleep(1)
-        #     else:
-        #         print("Team box is not Enable")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully clicked on TeamBox_A')
-        #
-        # # choose Default from team box
-        # try:
-        #     Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
-        #     if Team_Default.is_displayed():
-        #         print("Team default is selectable")
-        #         Team_Default.click()
-        #         time.sleep(3)
-        #     else:
-        #         print("Team: Default is displayed")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully chose on Team Default')
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
+        print("Scroll down")
+        time.sleep(2)
+
+        # Click on team box
+        try:
+            TeamBox_A = self.driver.find_element(By.XPATH, Locator.TeamBox_A)
+            if TeamBox_A.is_enabled():
+                print("Team box is Enable")
+                TeamBox_A.click()
+                time.sleep(1)
+            else:
+                print("Team box is not Enable")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        else:
+            print('Successfully clicked on TeamBox_A')
+
+        # choose Default from team box
+        try:
+            Team_Default = self.driver.find_element(By.XPATH, Locator.Team_Default)
+            if Team_Default.is_displayed():
+                print("Team default is selectable")
+                Team_Default.click()
+                time.sleep(3)
+            else:
+                print("Team: Default is displayed")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        else:
+            print('Successfully chose on Team Default')
 
         # scroll below
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 400")
@@ -1811,17 +2014,151 @@ class TestCreateJava(EnvironmentSetup):
         else:
             print('Successfully clicked on Save button')
         # click on Create application button
-        # try:
-        #     Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
-        #     if Create_Application.is_enabled():
-        #         Create_Application.click()
-        #         time.sleep(180)
-        #         print("Create application button is enable")
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error", e)
-        # else:
-        #     print('Successfully clicked on Create_Application')
+        try:
+            Create_Application = self.driver.find_element(By.XPATH, Locator.Create_Application)
+            if Create_Application.is_enabled():
+                Create_Application.click()
+                time.sleep(180)
+                print("Create application button is enable")
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        else:
+            print('Successfully clicked on Create_Application')
         ss = SS(driver)
-        file_name = ss_path + "test_sb_none_06_screenshot_" + time.asctime().replace(":", "_") + ".png"
+        file_name = ss_path + "test_sb_default_06_scrrenshot_" + time.asctime().replace(":", "_") + ".png"
+        ss.driver.save_screenshot(file_name)
+        ss.ScreenShot(file_name)
+
+        print("******************************* Test Try to deploy application******************************")
+        # click on deploy
+        try:
+            To_deploy = WebDriverWait(driver, 30).until(
+                EC.presence_of_element_located((By.XPATH, Locator.To_deploy)))
+            print("deploy element is visible")
+            # To_deploy.click()
+            To_deploy.click()
+            time.sleep(2)
+            # To_deploy.sendKeys(Keys.ENTER)
+            action = ActionChains(driver)
+            # click the item
+            action.send_keys(Keys.ENTER)
+            # perform the operation
+            action.perform()
+
+            # print("successfully clicked on deploy")
+            time.sleep(3)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        except ElementClickInterceptedException as e:
+            print("ElementClickInterceptedException", e)
+
+        # click on deploy button
+        try:
+            Deploy_button = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Deploy_button)))
+            print("deploy button is hided")
+            time.sleep(2)
+            action = ActionChains(driver)
+            # click the item
+            action.click()
+            # perform the operation
+            action.perform()
+            time.sleep(2)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+
+        print("******************************* Test Try to delete application******************************")
+        try:
+            application_Settings = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.application_Settings)))
+            print("application_Settings is clickable")
+            application_Settings.click()
+            print("Welcome application_Settings ")
+            time.sleep(5)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # click on Delete button
+        try:
+            application_Delete = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.application_Delete)))
+            print("application_Delete is clickable")
+            application_Delete.click()
+            print("successfully clicked application_Delete ")
+            time.sleep(5)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # input application name
+        try:
+            Application_namebox_D = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.Application_namebox_D)))
+            print("application_Delete is clickable")
+            Application_namebox_D.send_keys(ApplicationName)
+            print("successfully inputted Application_name ")
+            time.sleep(5)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # scroll down
+        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 20")
+        print("Scroll down")
+        time.sleep(3)
+
+        # input application name
+        try:
+            Delete_permanently_button = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.Delete_permanently_button)))
+            print("application_Delete is clickable")
+            Delete_permanently_button.click()
+            print("successfully clicked on Delete_permanently_button ")
+            time.sleep(2)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+
+        # check msg
+        try:
+            Application_Deleted_Success_msg = WebDriverWait(driver, 120).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Application_Deleted_Success_msg)))
+            if Application_Deleted_Success_msg.is_displayed():
+
+                print('Shown a message: ',
+                      simple_colors.green(Application_Deleted_Success_msg.text, ['bold', 'underlined']))
+                print("\n")
+                pass
+            else:
+                assert False
+            time.sleep(10)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        file_name = ss_path + "delete_success_screenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
