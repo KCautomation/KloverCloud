@@ -33,7 +33,7 @@ class TestCreatePython(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException", e)
 
-        # ****************************** Create Python Application based on Team: default ******************************
+        print("******************** Create Python Application based on Team: default ********************")
         # click on create button from header
 
         print("-----------------------Header frame----------------------------------------")
@@ -366,7 +366,7 @@ class TestCreatePython(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException", e)
 
-        # ****************************** Create Python Application based on Team: default ******************************
+        print("*********************** Create Python Application based on Team: default *********************")
         # click on create button from header
 
         print("-----------------------Header frame----------------------------------------")
@@ -709,7 +709,6 @@ class TestCreatePython(EnvironmentSetup):
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
 
-
     def test_dj_default_03(self):
         pytest.skip("Skipping test...later I will implement...")
         action = ActionChains(self.driver)
@@ -725,7 +724,7 @@ class TestCreatePython(EnvironmentSetup):
             print("TimeoutException error", e)
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException", e)
-        # ****************************** Create Python Application based on Team: default ******************************
+        print("*********************** Create Python Application based on Team: default *********************")
         # click on create button from header
 
         print("-----------------------Header frame----------------------------------------")
@@ -1085,7 +1084,7 @@ class TestCreatePython(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException", e)
 
-        # ****************************** Create Python Application based on Team: default ******************************
+        print("*********************** Create Python Application based on Team: default *********************")
         # click on create button from header
 
         print("-----------------------Header frame----------------------------------------")
@@ -1473,7 +1472,7 @@ class TestCreatePython(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException", e)
 
-        # ****************************** Create Python Application based on Team: default ******************************
+        print("*********************** Create Python Application based on Team: default *********************")
         # click on create button from header
 
         print("-----------------------Header frame----------------------------------------")
@@ -1833,7 +1832,7 @@ class TestCreatePython(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException", e)
 
-        # ****************************** Create Python Application based on Team: default ******************************
+        print("*********************** Create Python Application based on Team: default *********************")
         # click on create button from header
 
         print("-----------------------Header frame----------------------------------------")
