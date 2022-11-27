@@ -51,6 +51,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         # choose Laravel
         # app = CreateApplicationPage(self.driver)
         try:
+            self.driver.refresh()
             Laravel = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.Laravel)))
             print("Laravel button is clickable")
             Laravel.click()

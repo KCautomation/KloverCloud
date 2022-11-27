@@ -11,6 +11,7 @@ class EnvironmentSetup(unittest.TestCase):
     # setUP contains the browser setup attributes
     def setUp(self):
         # self.driver = webdriver.Chrome()
+        # if you need solve version issues
         self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         print("Run Started at :" + str(datetime.datetime.now()))
         print("Chrome Environment Set Up")
