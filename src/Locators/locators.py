@@ -97,6 +97,8 @@ class Locator(object):
     close = "// span[contains(text(), 'close')]"
     Deployment_Pending_time_msg = "//span[contains(text(),'Now we are deploying your application. Please wait')]"
     Application_Deployed = "//body/div[3]/div[1]/div[1]/snack-bar-container[1]/simple-snack-bar[1]"
+
+    to_check_deploy = "//*[@id='6384410f571f50000103b892']"
     Deployed_success_status = "//p[contains(text(),'Success')]"
     Deployed_status = "/html/body/kc-root/kc-layout/div/mat-sidenav-container/mat-sidenav-content/main/kc-application-details/div/div/kc-ci-cd-pipeline/div[5]/div[2]/div[1]/div/p[2]"
 
