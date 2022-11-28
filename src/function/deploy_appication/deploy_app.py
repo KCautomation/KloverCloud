@@ -23,59 +23,6 @@ def test_deploy(self):
     # pytest.skip("Skipping test...later I will implement...")
     driver = self.driver
     action = ActionChains(driver)
-    # ApplicationName = input("Enter Application Name: ")
-    ApplicationName = 'test-j-002'
-    print("****************** Test Cluster Login *********************")
-    try:
-        test_cluster_login(self)
-    except NoSuchElementException as e:
-        print("NoSuchElementException error :\n", e, "\n")
-    except TimeoutException as e:
-        print("TimeoutException error", e)
-    except InvalidSessionIdException as e:
-        print("InvalidSessionIdException", e)
-
-    print("****************** Go to Application list *********************")
-    try:
-        Applications_list = WebDriverWait(driver, 20).until(
-            EC.element_to_be_clickable((By.XPATH, Locator.Applications)))
-        print("Applications button is clickable")
-        Applications_list.click()
-        self.driver.implicitly_wait(30)
-        print("Welcome to applications list")
-        time.sleep(5)
-    except NoSuchElementException as e:
-        print("NoSuchElementException error :\n", e, "\n")
-    except TimeoutException as e:
-        print("TimeoutException error", e)
-    except InvalidSessionIdException as e:
-        print("InvalidSessionIdException", e)
-
-    # scroll down
-    driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 20")
-    print("Scroll down")
-    time.sleep(3)
-
-    # click on an application
-    try:
-        Application_name = WebDriverWait(driver, 20).until(
-            EC.presence_of_element_located((By.XPATH, "//span[contains(text(),'test-j-002')]")))
-        if Application_name.is_displayed:
-            print(ApplicationName, "Application is present in the list")
-            Application_name.click()
-            self.driver.implicitly_wait(25)
-            print("successfully clicked on :", ApplicationName)
-            time.sleep(7)
-        else:
-            return exit()
-
-    except NoSuchElementException as e:
-        print("NoSuchElementException error :\n", e, "\n")
-    except TimeoutException as e:
-        print("TimeoutException error", e)
-    except InvalidSessionIdException as e:
-        print("InvalidSessionIdException", e)
-
     print("******************************* Test Try to deploy application******************************")
     # click on deploy
     try:

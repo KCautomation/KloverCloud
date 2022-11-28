@@ -28,7 +28,7 @@ class TestNamespaceCreation(unittest.TestCase):
     @allure.severity(allure.severity_level.CRITICAL)
     def test_company(self):
         # pytest.skip("Skipping test...later I will implement...")
-        Namespace_Name = "test-30"
+        Namespace_Name = "test-33"
 
         time.sleep(2)
         # try block to read URL

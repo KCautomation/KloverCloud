@@ -67,7 +67,7 @@ class Locator(object):
     Choose_Namespace_one = "//mat-tab-body/div[1]/div[1]/div[1]/button[1]/span[1]/div[1]/div[1]"
     Save_button_A = "//span[contains(text(),'Save')]"
     Create_Application = "//*[@id='msgContainer']/div/kc-horizontal-stepper/section/div/form/div[3]/button[2]"
-
+    check_create_app = "//*[@id='6384418f571f50000103b8a5']"
     # For create validation
     # Http failure response for https://api.eks.rakibefs'
     # message: Http failure response for https://api.eks.rakibefstestmaincluster782.klovercloud.io/api/application/create: 0 Unknown Error
