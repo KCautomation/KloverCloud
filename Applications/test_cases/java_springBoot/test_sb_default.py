@@ -19,10 +19,10 @@ ss_path = "/Applications/Java/"
 class TestCreateJava(EnvironmentSetup):
 
     def test_sb_default_01(self):
-        pytest.skip("Skipping test...later I will implement...")
+        # pytest.skip("Skipping test...later I will implement...")
         action = ActionChains(self.driver)
         driver = self.driver
-        ApplicationName = "java-01"
+        ApplicationName = "java-001"
 
         print("****************** Test Cluster Login *********************")
         try:
@@ -36,8 +36,8 @@ class TestCreateJava(EnvironmentSetup):
 
         # ************************ Create Java Application based on Team: Default ************************
 
-        print("-----------------------Header frame----------------------------------------")
-        # click on create button from header
+        print(
+            "-----------------------Create Application Page----------------------------------------")  # click on create button from header
         try:
             CreateNew_H = self.driver.find_element(By.XPATH, Locator.CreateNew_H)
             if CreateNew_H.is_enabled():
@@ -66,12 +66,12 @@ class TestCreateJava(EnvironmentSetup):
         else:
             print('Successfully clicked on NewApplication_H')
 
-        print("-----------------------Create Application Page----------------------------------------")
-        print("----------------------Create Express JS app with version 4.17.0-----------------------------------")
+        print("----------------------Create Java with java: 13 & SpringBoot 2.2.2-----------------------------------")
 
         # choose spring boot
         # app = CreateApplicationPage(self.driver)
         try:
+            driver.refresh()
             SpringBoot = self.driver.find_element(By.XPATH, Locator.SpringBoot)
             if SpringBoot.is_displayed():
                 SpringBoot.click()
@@ -353,7 +353,6 @@ class TestCreateJava(EnvironmentSetup):
         file_name = ss_path + "delete_success_screenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
-
 
     def test_sb_default_02(self):
         pytest.skip("Skipping test...later I will implement...")
