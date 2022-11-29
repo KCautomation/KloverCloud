@@ -1,6 +1,6 @@
 import time
 from telnetlib import EC
-
+import pytest
 import simple_colors
 from selenium.common import NoSuchElementException, TimeoutException, InvalidSessionIdException, \
     ElementClickInterceptedException
@@ -23,7 +23,7 @@ ss_path = "/Applications/PHP/"
 
 class TestCreateAppPHP(EnvironmentSetup):
 
-    def test_Laravel_default_01(self):
+    def test_Laravel_default_01(self, setup):
         # pytest.skip("Skipping test...later I will implement...")
         action = ActionChains(self.driver)
         driver = self.driver
@@ -38,12 +38,12 @@ class TestCreateAppPHP(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException", e)
 
-        driver.get("https://eks.alpha.klovercloud.io/namespace")
-        driver.implicitly_wait(20)
-        time.sleep(5)
-
-        elem = driver.find_element(By.XPATH, "//span[contains(text(),'test-com-2')]")
-        elem.send_keys(Keys.PAGE_DOWN)
+        # driver.get("https://eks.alpha.klovercloud.io/namespace")
+        # driver.implicitly_wait(20)
+        # time.sleep(5)
+        #
+        # elem = driver.find_element(By.XPATH, "//span[contains(text(),'test-com-2')]")
+        # elem.send_keys(Keys.PAGE_DOWN)
 
         # actions.moveToElement(element);
         # ## actions.click();
