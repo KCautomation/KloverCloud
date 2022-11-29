@@ -612,6 +612,51 @@ class TestCreateAppPHP(EnvironmentSetup):
 
         print("Application Delete Successfully")
 
+        print("---------------Deployed Validation--------------------")
+        try:
+            # time.sleep(60)
+            driver.refresh()
+            time.sleep(2)
+
+            to_check_deploy = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.XPATH, Locator.to_check_deploy)))
+            print("Deploy_button is located")
+            to_check_deploy.click()
+            time.sleep(2)
+            action.send_keys(Keys.ENTER)
+            action.perform()
+            time.sleep(3)
+            pass
+
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+        # validation
+        try:
+            Deployed_status = WebDriverWait(driver, 20).until(
+                EC.presence_of_element_located((By.XPATH, Locator.Deployed_status)))
+
+            Accepted_status = "Success"
+            Actual_status = Deployed_status.text
+            self.assertEqual(Actual_status, Accepted_status)
+
+            print('Deployed status is: ',
+                  simple_colors.green(Actual_status, ['bold', 'underlined']))
+            time.sleep(2)
+            pass
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
+        except AssertionError as e:
+            print("InvalidSessionIdException error", e)
+
+
         file_name = ss_path + "delete_success_screenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)
         ss.ScreenShot(file_name)
