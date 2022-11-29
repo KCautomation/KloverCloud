@@ -23,6 +23,9 @@ def test_delete_app(self, ApplicationName):
     # ApplicationName = input("Enter Application Name: ")
     # click on settings
     print("******************************* Test Try to delete application******************************")
+
+    print("-------Try to click on application Settings--------")
+
     try:
         application_Settings = WebDriverWait(driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, Locator.application_Settings)))
@@ -38,6 +41,7 @@ def test_delete_app(self, ApplicationName):
         print("InvalidSessionIdException", e)
 
     # click on Delete button
+    print("-------Try to click on application Delete--------")
     try:
         application_Delete = WebDriverWait(driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, Locator.application_Delete)))
@@ -53,6 +57,7 @@ def test_delete_app(self, ApplicationName):
         print("InvalidSessionIdException", e)
 
     # input application name
+    print("-------Try to put Application Name in application name box--------")
     try:
         Application_namebox_D = WebDriverWait(driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, Locator.Application_namebox_D)))

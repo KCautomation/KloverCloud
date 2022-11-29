@@ -69,6 +69,15 @@ class Locator(object):
     Create_Application = "//*[@id='msgContainer']/div/kc-horizontal-stepper/section/div/form/div[3]/button[2]"
     check_create_app = "/html[1]/body[1]/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-details[1]/div[1]/div[1]/kc-ci-cd-pipeline[1]/div[1]/div[1]/div[2]/div[1]/div[1]/ul[1]/li[1]"
     check_app_status = "/html[1]/body[1]/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-details[1]/div[1]/div[1]/kc-ci-cd-pipeline[1]/div[5]/div[2]/div[1]/div[1]/p[2]"
+    Overview_button = "//span[contains(text(),'Overview')]"
+    PipelineConfig_button = "//span[contains(text(),'Pipeline Config')]"
+    Resources_Config_button = "//span[contains(text(),'Resources Config')]"
+    External_Endpoints_button = "//span[contains(text(),'External Endpoints')]"
+    Environment_Variables_button = "//span[contains(text(),'Environment Variables')]"
+    Secrets_button = "//span[contains(text(),'Secrets')]"
+    Monitoring_button = "//span[contains(text(),'Monitoring')]"
+    Logs_button = "//span[contains(text(),'Logs')]"
+
     # For create validation
     # Http failure response for https://api.eks.rakibefs'
     # message: Http failure response for https://api.eks.rakibefstestmaincluster782.klovercloud.io/api/application/create: 0 Unknown Error

@@ -38,48 +38,13 @@ class TestCreateAppPHP(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException", e)
 
-        driver.get("https://eks.alpha.klovercloud.io/applications/6384309fe756f70001787504/pipeline")
+        driver.get("https://eks.alpha.klovercloud.io/namespace")
+        driver.implicitly_wait(20)
         time.sleep(5)
 
-        # application created validation
-        print("---------------Crated Application Validation--------------------")
-        try:
-            driver.refresh()
-            time.sleep(2)
+        elem = driver.find_element(By.XPATH, "//span[contains(text(),'test-com-2')]")
+        elem.send_keys(Keys.PAGE_DOWN)
 
-            check_create_app = WebDriverWait(driver, 5).until(
-                EC.presence_of_element_located((By.XPATH, Locator.check_create_app)))
-            check_create_app.click()
-            time.sleep(2)
-            action.send_keys(Keys.ENTER)
-            action.perform()
-            time.sleep(3)
-            pass
-
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        except InvalidSessionIdException as e:
-            print("InvalidSessionIdException error", e)
-        # validation
-        try:
-            Created_status = WebDriverWait(driver, 20).until(
-                EC.presence_of_element_located((By.XPATH, Locator.check_app_status)))
-
-            Accepted_status = "Success"
-            Actual_status = Created_status.text
-            self.assertEqual(Actual_status, Accepted_status)
-
-            print('Application created status is: ',
-                  simple_colors.green(Actual_status, ['bold', 'underlined']))
-            time.sleep(2)
-            pass
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        except InvalidSessionIdException as e:
-            print("InvalidSessionIdException error", e)
-        except AssertionError as e:
-            print("InvalidSessionIdException error", e)
+        # actions.moveToElement(element);
+        # ## actions.click();
+        # actions.perform();
