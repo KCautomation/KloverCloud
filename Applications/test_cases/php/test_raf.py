@@ -27,7 +27,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         # pytest.skip("Skipping test...later I will implement...")
         action = ActionChains(self.driver)
         driver = self.driver
-        ApplicationName = "laravel-0141"
+        ApplicationName = "laravel-0145"
         print("****************** Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -41,8 +41,11 @@ class TestCreateAppPHP(EnvironmentSetup):
         print("****************** Go to Create Application Page *********************")
         try:
             driver.refresh()
-            time.sleep(2)
+            time.sleep(3)
             go_create_app_page(self)
+
+            WebDriverWait(driver, 30).until(EC.visibility_of_element_located((By.XPATH, Locator.Laravel)))
+            driver.refresh()
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
@@ -54,7 +57,7 @@ class TestCreateAppPHP(EnvironmentSetup):
 
         print("----try to choose Laravel from below--------")
         try:
-            Laravel = WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.XPATH, Locator.Laravel)))
+            Laravel = WebDriverWait(driver, 30).until(EC.visibility_of_element_located((By.XPATH, Locator.Laravel)))
             # driver.refresh()
             Laravel.click()
             driver.implicitly_wait(10)
@@ -211,7 +214,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException error", e)
 
-        time.sleep(30)
+        time.sleep(50)
 
         # application created validation
         print("---------------Crated Application Validation--------------------")
@@ -228,10 +231,11 @@ class TestCreateAppPHP(EnvironmentSetup):
         # except InvalidSessionIdException as e:
         #     print("InvalidSessionIdException error", e)
         # time.sleep(20)
-        driver.refresh()
-        time.sleep(2)
+
         try:
-            check_create_app = WebDriverWait(driver, 5).until(
+            driver.refresh()
+            time.sleep(2)
+            check_create_app = WebDriverWait(driver, 40).until(
                 EC.presence_of_element_located((By.XPATH, Locator.check_create_app)))
             check_create_app.click()
             time.sleep(2)
@@ -267,22 +271,26 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("AssertionError", e)
 
         # deploy application
-        # print("******************************* Test Try to deploy application******************************")
+        print("******************************* Test Try to deploy application******************************")
         try:
             driver.refresh()
             time.sleep(2)
             test_deploy(self)
+            time.sleep(5)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
             print("TimeoutException error", e)
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException", e)
-
+        except AssertionError as e:
+            print("AssertionError", e)
         time.sleep(20)
+
         print("******************************* Test Try to delete application******************************")
         try:
             test_delete_app(self, ApplicationName)
+            time.sleep(5)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:

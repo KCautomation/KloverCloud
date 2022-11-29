@@ -26,7 +26,7 @@ def test_deploy(self):
     print("******************************* Test Try to deploy application******************************")
     # click on deploy
     try:
-        To_deploy = WebDriverWait(driver, 30).until(
+        To_deploy = WebDriverWait(driver, 40).until(
             EC.presence_of_element_located((By.XPATH, Locator.To_deploy)))
         print("deploy element is visible")
         # To_deploy.click()
@@ -139,13 +139,12 @@ def test_deploy(self):
     except InvalidSessionIdException as e:
         print("InvalidSessionIdException error", e)
 
+    time.sleep(40)
+    driver.refresh()
+
     print("---------------Deployed Validation--------------------")
     try:
-        # time.sleep(60)
-        driver.refresh()
-        time.sleep(2)
-
-        to_check_deploy = WebDriverWait(driver, 5).until(
+        to_check_deploy = WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.XPATH, Locator.to_check_deploy)))
         print("Deploy_button is located")
         to_check_deploy.click()
