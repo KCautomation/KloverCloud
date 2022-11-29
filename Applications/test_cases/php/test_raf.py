@@ -27,7 +27,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         # pytest.skip("Skipping test...later I will implement...")
         action = ActionChains(self.driver)
         driver = self.driver
-        ApplicationName = "laravel-0135"
+        ApplicationName = "laravel-0141"
         print("****************** Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -40,6 +40,8 @@ class TestCreateAppPHP(EnvironmentSetup):
 
         print("****************** Go to Create Application Page *********************")
         try:
+            driver.refresh()
+            time.sleep(2)
             go_create_app_page(self)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
@@ -52,10 +54,8 @@ class TestCreateAppPHP(EnvironmentSetup):
 
         print("----try to choose Laravel from below--------")
         try:
-            driver.refresh()
-            time.sleep(2)
-            Laravel = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, Locator.Laravel)))
-            print("Laravel button is clickable")
+            Laravel = WebDriverWait(driver, 20).until(EC.visibility_of_element_located((By.XPATH, Locator.Laravel)))
+            # driver.refresh()
             Laravel.click()
             driver.implicitly_wait(10)
         except NoSuchElementException as e:
@@ -211,34 +211,26 @@ class TestCreateAppPHP(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException error", e)
 
-        ss = SS(driver)
-        file_name = ss_path + "create_test_Laravel_default_01" + time.asctime().replace(":", "_") + ".png"
-        ss.driver.save_screenshot(file_name)
-        ss.ScreenShot(file_name)
-
-        time.sleep(50)
+        time.sleep(30)
 
         # application created validation
         print("---------------Crated Application Validation--------------------")
         # close log
+        # try:
+        #     Live_Pipeline_Logs = WebDriverWait(driver, 60).until(
+        #         EC.presence_of_element_located((By.XPATH, Locator.Live_Pipeline_Logs)))
+        #     Live_Pipeline_Logs.click()
+        #     time.sleep(4)
+        # except NoSuchElementException as e:
+        #     print("NoSuchElementException error", e)
+        # except TimeoutException as e:
+        #     print("TimeoutException error", e)
+        # except InvalidSessionIdException as e:
+        #     print("InvalidSessionIdException error", e)
+        # time.sleep(20)
+        driver.refresh()
+        time.sleep(2)
         try:
-            Live_Pipeline_Logs = WebDriverWait(driver, 60).until(
-                EC.presence_of_element_located((By.XPATH, Locator.Live_Pipeline_Logs)))
-            Live_Pipeline_Logs.click()
-            time.sleep(4)
-        except NoSuchElementException as e:
-            print("NoSuchElementException error", e)
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        except InvalidSessionIdException as e:
-            print("InvalidSessionIdException error", e)
-        time.sleep(20)
-
-        try:
-            time.sleep(60)
-            driver.refresh()
-            time.sleep(2)
-
             check_create_app = WebDriverWait(driver, 5).until(
                 EC.presence_of_element_located((By.XPATH, Locator.check_create_app)))
             check_create_app.click()
@@ -246,8 +238,6 @@ class TestCreateAppPHP(EnvironmentSetup):
             action.send_keys(Keys.ENTER)
             action.perform()
             time.sleep(3)
-            pass
-
         except NoSuchElementException as e:
             print("NoSuchElementException error", e)
         except TimeoutException as e:
@@ -274,10 +264,10 @@ class TestCreateAppPHP(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException error", e)
         except AssertionError as e:
-            print("InvalidSessionIdException error", e)
+            print("AssertionError", e)
 
         # deploy application
-        print("******************************* Test Try to deploy application******************************")
+        # print("******************************* Test Try to deploy application******************************")
         try:
             driver.refresh()
             time.sleep(2)
@@ -291,103 +281,107 @@ class TestCreateAppPHP(EnvironmentSetup):
 
         time.sleep(20)
         print("******************************* Test Try to delete application******************************")
+        try:
+            test_delete_app(self, ApplicationName)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        except AssertionError as e:
+            print("AssertionError", e)
+
         # try:
-        #     test_delete_app(self)
+        #     application_Settings = WebDriverWait(driver, 20).until(
+        #         EC.element_to_be_clickable((By.XPATH, Locator.application_Settings)))
+        #     print("application_Settings is clickable")
+        #     application_Settings.click()
+        #     print("Welcome application_Settings ")
+        #     time.sleep(5)
         # except NoSuchElementException as e:
         #     print("NoSuchElementException error :\n", e, "\n")
         # except TimeoutException as e:
         #     print("TimeoutException error", e)
         # except InvalidSessionIdException as e:
         #     print("InvalidSessionIdException", e)
-
-        try:
-            application_Settings = WebDriverWait(driver, 20).until(
-                EC.element_to_be_clickable((By.XPATH, Locator.application_Settings)))
-            print("application_Settings is clickable")
-            application_Settings.click()
-            print("Welcome application_Settings ")
-            time.sleep(5)
-        except NoSuchElementException as e:
-            print("NoSuchElementException error :\n", e, "\n")
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        except InvalidSessionIdException as e:
-            print("InvalidSessionIdException", e)
-
-        # click on Delete button
-        try:
-            application_Delete = WebDriverWait(driver, 20).until(
-                EC.element_to_be_clickable((By.XPATH, Locator.application_Delete)))
-            print("application_Delete is clickable")
-            application_Delete.click()
-            print("successfully clicked application_Delete ")
-            time.sleep(5)
-        except NoSuchElementException as e:
-            print("NoSuchElementException error :\n", e, "\n")
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        except InvalidSessionIdException as e:
-            print("InvalidSessionIdException", e)
-
-        # input application name
-        try:
-            Application_namebox_D = WebDriverWait(driver, 20).until(
-                EC.element_to_be_clickable((By.XPATH, Locator.Application_namebox_D)))
-            print("application_Delete is clickable")
-            Application_namebox_D.send_keys(ApplicationName)
-            print("successfully inputted Application_name ")
-            time.sleep(5)
-        except NoSuchElementException as e:
-            print("NoSuchElementException error :\n", e, "\n")
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        except InvalidSessionIdException as e:
-            print("InvalidSessionIdException", e)
-
-        # scroll down
-        driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 20")
-        print("Scroll down")
-        time.sleep(3)
-
-        # input application name
-        try:
-            Delete_permanently_button = WebDriverWait(driver, 20).until(
-                EC.element_to_be_clickable((By.XPATH, Locator.Delete_permanently_button)))
-            print("application_Delete is clickable")
-            Delete_permanently_button.click()
-            print("successfully clicked on Delete_permanently_button ")
-            time.sleep(2)
-        except NoSuchElementException as e:
-            print("NoSuchElementException error :\n", e, "\n")
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        except InvalidSessionIdException as e:
-            print("InvalidSessionIdException", e)
-
-        # check msg
-        try:
-            Application_Deleted_Success_msg = WebDriverWait(driver, 120).until(
-                EC.presence_of_element_located((By.XPATH, Locator.Application_Deleted_Success_msg)))
-            if Application_Deleted_Success_msg.is_displayed():
-
-                print('Shown a message: ',
-                      simple_colors.green(Application_Deleted_Success_msg.text, ['bold', 'underlined']))
-                print("\n")
-                pass
-            else:
-                assert False
-            time.sleep(10)
-        except NoSuchElementException as e:
-            print("NoSuchElementException error :\n", e, "\n")
-        except TimeoutException as e:
-            print("TimeoutException error", e)
-        except InvalidSessionIdException as e:
-            print("InvalidSessionIdException", e)
+        #
+        # # click on Delete button
+        # try:
+        #     application_Delete = WebDriverWait(driver, 20).until(
+        #         EC.element_to_be_clickable((By.XPATH, Locator.application_Delete)))
+        #     print("application_Delete is clickable")
+        #     application_Delete.click()
+        #     print("successfully clicked application_Delete ")
+        #     time.sleep(5)
+        # except NoSuchElementException as e:
+        #     print("NoSuchElementException error :\n", e, "\n")
+        # except TimeoutException as e:
+        #     print("TimeoutException error", e)
+        # except InvalidSessionIdException as e:
+        #     print("InvalidSessionIdException", e)
+        #
+        # # input application name
+        # try:
+        #     Application_namebox_D = WebDriverWait(driver, 20).until(
+        #         EC.element_to_be_clickable((By.XPATH, Locator.Application_namebox_D)))
+        #     print("application_Delete is clickable")
+        #     Application_namebox_D.send_keys(ApplicationName)
+        #     print("successfully inputted Application_name ")
+        #     time.sleep(5)
+        # except NoSuchElementException as e:
+        #     print("NoSuchElementException error :\n", e, "\n")
+        # except TimeoutException as e:
+        #     print("TimeoutException error", e)
+        # except InvalidSessionIdException as e:
+        #     print("InvalidSessionIdException", e)
+        #
+        # # scroll down
+        # driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 20")
+        # print("Scroll down")
+        # time.sleep(3)
+        #
+        # # input application name
+        # try:
+        #     Delete_permanently_button = WebDriverWait(driver, 20).until(
+        #         EC.element_to_be_clickable((By.XPATH, Locator.Delete_permanently_button)))
+        #     print("application_Delete is clickable")
+        #     Delete_permanently_button.click()
+        #     print("successfully clicked on Delete_permanently_button ")
+        #     time.sleep(2)
+        # except NoSuchElementException as e:
+        #     print("NoSuchElementException error :\n", e, "\n")
+        # except TimeoutException as e:
+        #     print("TimeoutException error", e)
+        # except InvalidSessionIdException as e:
+        #     print("InvalidSessionIdException", e)
+        #
+        # # check msg
+        # try:
+        #     Application_Deleted_Success_msg = WebDriverWait(driver, 120).until(
+        #         EC.presence_of_element_located((By.XPATH, Locator.Application_Deleted_Success_msg)))
+        #     if Application_Deleted_Success_msg.is_displayed():
+        #
+        #         print('Shown a message: ',
+        #               simple_colors.green(Application_Deleted_Success_msg.text, ['bold', 'underlined']))
+        #         print("\n")
+        #         pass
+        #     else:
+        #         pass
+        #     time.sleep(10)
+        # except NoSuchElementException as e:
+        #     print("NoSuchElementException error :\n", e, "\n")
+        # except TimeoutException as e:
+        #     print("TimeoutException error", e)
+        # except InvalidSessionIdException as e:
+        #     print("InvalidSessionIdException", e)
+        # except AssertionError as e:
+        #     print("AssertionError", e)
 
         print("----------------------Application delete validation-----------------------")
 
         print("Application Delete Successfully")
 
-        file_name = ss_path + "delete_success_screenshot_" + time.asctime().replace(":", "_") + ".png"
-        ss.driver.save_screenshot(file_name)
-        ss.ScreenShot(file_name)
+        # file_name = ss_path + "delete_success_screenshot_" + time.asctime().replace(":", "_") + ".png"
+        # ss.driver.save_screenshot(file_name)
+        # ss.ScreenShot(file_name)

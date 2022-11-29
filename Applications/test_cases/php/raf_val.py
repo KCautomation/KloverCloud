@@ -49,7 +49,6 @@ class TestCreateAppPHP(EnvironmentSetup):
 
             check_create_app = WebDriverWait(driver, 5).until(
                 EC.presence_of_element_located((By.XPATH, Locator.check_create_app)))
-            print("Deploy_button is located")
             check_create_app.click()
             time.sleep(2)
             action.send_keys(Keys.ENTER)

@@ -7,7 +7,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from src.Locators.locators import Locator
-from selenium.common.exceptions import NoSuchElementException, TimeoutException, InvalidSessionIdException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException, InvalidSessionIdException, \
+    WebDriverException
 from urllib.request import urlopen
 from urllib.error import *
 from utilities.readProperties import ReadConfig
@@ -32,6 +33,9 @@ def test_cluster_login(self):
 
     except URLError as e:
         print(Fore.LIGHTRED_EX + "Opps ! Page not found!", e)
+
+    except WebDriverException as e:
+        print(Fore.LIGHTRED_EX + "WebDriverException", e)
 
     else:
         print(Fore.YELLOW + 'Yeah ! URL found ')

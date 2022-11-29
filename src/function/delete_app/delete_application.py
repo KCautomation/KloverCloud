@@ -17,7 +17,7 @@ ss_path = "/Applications/PHP/"
 
 # class DeleteApplication(EnvironmentSetup):
 
-def test_delete_app(self):
+def test_delete_app(self, ApplicationName):
     # pytest.skip("Skipping test...later I will implement...")
     driver = self.driver
     # ApplicationName = input("Enter Application Name: ")
@@ -98,7 +98,7 @@ def test_delete_app(self):
             print("\n")
             pass
         else:
-            assert False
+            pass
         time.sleep(10)
     except NoSuchElementException as e:
         print("NoSuchElementException error :\n", e, "\n")
@@ -106,6 +106,8 @@ def test_delete_app(self):
         print("TimeoutException error", e)
     except InvalidSessionIdException as e:
         print("InvalidSessionIdException", e)
+    except AssertionError as e:
+        print("AssertionError", e)
     ss = SS(driver)
     file_name = ss_path + "delete_success_screenshot_" + time.asctime().replace(":", "_") + ".png"
     ss.driver.save_screenshot(file_name)

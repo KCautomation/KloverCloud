@@ -34,6 +34,7 @@ def go_create_app_page(self):
         print("NewApplication_H button is clickable")
         NewApplication_H.click()
         time.sleep(5)
+        driver.implicitly_wait(20)
     except NoSuchElementException as e:
         print("NoSuchElementException error", e)
     except TimeoutException as e:
