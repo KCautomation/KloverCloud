@@ -319,7 +319,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         action = ActionChains(self.driver)
         driver = self.driver
         ss = SS(driver)
-        ApplicationName = "laravel-0167"
+        ApplicationName = "laravel-0169"
         print("****************** Try to Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -382,12 +382,9 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("NoSuchElementException error", e)
         except TimeoutException as e:
             print("TimeoutException error", e)
-        else:
-            print('Successfully clicked on Laravel_version_box')
 
         # choose laravel version
         print("-----------Try to choose Laravel version 6.0----------------")
-
         try:
             Laravel_version_6_0 = WebDriverWait(driver, 20).until(
                 EC.element_to_be_clickable((By.XPATH, Locator.Laravel_version_6_0)))
@@ -398,8 +395,6 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("NoSuchElementException error", e)
         except TimeoutException as e:
             print("TimeoutException error", e)
-        else:
-            print('Successfully chose on Laravel version 5.8')
 
         # scroll down
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
@@ -417,8 +412,6 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("NoSuchElementException error", e)
         except TimeoutException as e:
             print("TimeoutException error", e)
-        else:
-            print('Successfully clicked on TeamBox_A')
 
         print("----try to choose Team as Default--------")
         try:
@@ -446,8 +439,6 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("NoSuchElementException error", e)
         except TimeoutException as e:
             print("TimeoutException error", e)
-        else:
-            print('Successfully click on Next_button')
 
         print("----try to again click 'Next' button-------")
         try:
@@ -479,8 +470,6 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("NoSuchElementException error", e)
         except TimeoutException as e:
             print("TimeoutException error", e)
-        else:
-            print('Successfully Choose Namespace one')
 
         print("-----Scroll down to show Namespaces-----")
         # again scroll below
