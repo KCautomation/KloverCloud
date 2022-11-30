@@ -27,6 +27,7 @@ def test_deploy_validation(self):
 
     print("---------------Deployed Validation--------------------")
     try:
+        time.sleep(2)
         to_check_deploy = WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.XPATH, Locator.to_check_deploy)))
         print("Deploy_button is located")

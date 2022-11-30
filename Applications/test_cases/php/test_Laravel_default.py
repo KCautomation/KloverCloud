@@ -281,7 +281,7 @@ class TestCreateAppPHP(EnvironmentSetup):
             driver.refresh()
             time.sleep(3)
             test_deploy_validation(self)
-            time.sleep(2)
+            time.sleep(1)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
