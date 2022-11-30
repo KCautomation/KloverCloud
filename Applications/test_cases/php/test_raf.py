@@ -29,7 +29,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         action = ActionChains(self.driver)
         driver = self.driver
         ss = SS(driver)
-        ApplicationName = "laravel-0158"
+        ApplicationName = "laravel-0162"
         print("****************** Try to Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -262,10 +262,10 @@ class TestCreateAppPHP(EnvironmentSetup):
             driver.refresh()
             time.sleep(2)
             test_deploy(self)
-            time.sleep(140)
+            time.sleep(4)
 
             driver.refresh()
-            time.sleep(3)
+            time.sleep(4)
             test_deploy_validation(self)
             time.sleep(2)
         except NoSuchElementException as e:

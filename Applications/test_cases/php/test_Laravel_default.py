@@ -7,6 +7,7 @@ from selenium.common import NoSuchElementException, TimeoutException, InvalidSes
 from selenium.webdriver import ActionChains, Keys
 
 from src.Locators.locators import Locator
+from src.function.deploy_validation.deploy_validation import test_deploy_validation
 from src.function.go_application.go_to_application_page import go_create_app_page
 
 from src.screen_shots.screen_shots import SS
@@ -28,7 +29,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         action = ActionChains(self.driver)
         driver = self.driver
         ss = SS(driver)
-        ApplicationName = "laravel-0153"
+        ApplicationName = "laravel-0158"
         print("****************** Try to Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -261,7 +262,12 @@ class TestCreateAppPHP(EnvironmentSetup):
             driver.refresh()
             time.sleep(2)
             test_deploy(self)
-            time.sleep(40)
+            time.sleep(140)
+
+            driver.refresh()
+            time.sleep(3)
+            test_deploy_validation(self)
+            time.sleep(2)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
@@ -274,6 +280,8 @@ class TestCreateAppPHP(EnvironmentSetup):
 
         print("*******************************Try Test to delete application******************************")
         try:
+            driver.refresh()
+            time.sleep(3)
             test_delete_app(self, ApplicationName)
             time.sleep(5)
         except NoSuchElementException as e:

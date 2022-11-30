@@ -132,6 +132,9 @@ def test_deploy(self):
                   simple_colors.green(Application_Deployed.text, ['bold', 'underlined']))
             pass
         else:
+            # WebDriverWait(driver, 600).until(EC.visibility_of_element_located((By.XPATH, Locator.deployed_validation)))
+            # WebDriverWait(driver, 600).until(EC.presence_of_element_located((By.XPATH, Locator.deployed_validation)))
+            time.sleep(2)
             pass
 
     except NoSuchElementException as e:
@@ -141,46 +144,17 @@ def test_deploy(self):
     except InvalidSessionIdException as e:
         print("InvalidSessionIdException error", e)
 
-    time.sleep(30)
+    try:
+        deployed_validation = WebDriverWait(driver, 600).until(
+            EC.presence_of_element_located((By.XPATH, Locator.deployed_validation)))
+        if deployed_validation.is_displayed():
+            time.sleep(2)
+            pass
+    except NoSuchElementException as e:
+        print("NoSuchElementException error", e)
+    except TimeoutException as e:
+        print("TimeoutException error", e)
+    except InvalidSessionIdException as e:
+        print("InvalidSessionIdException error", e)
 
-
-    # print("---------------Deployed Validation--------------------")
-    # try:
-    #     to_check_deploy = WebDriverWait(driver, 20).until(
-    #         EC.presence_of_element_located((By.XPATH, Locator.to_check_deploy)))
-    #     print("Deploy_button is located")
-    #     to_check_deploy.click()
-    #     time.sleep(2)
-    #     action.send_keys(Keys.ENTER)
-    #     action.perform()
-    #     time.sleep(3)
-    #     pass
-    #
-    # except NoSuchElementException as e:
-    #     print("NoSuchElementException error", e)
-    # except TimeoutException as e:
-    #     print("TimeoutException error", e)
-    # except InvalidSessionIdException as e:
-    #     print("InvalidSessionIdException error", e)
-    # # validation
-    # try:
-    #     Deployed_status = WebDriverWait(driver, 20).until(
-    #         EC.presence_of_element_located((By.XPATH, Locator.Deployed_status)))
-    #
-    #     Accepted_status = "Success"
-    #     Actual_status = Deployed_status.text
-    #     self.assertEqual(Actual_status, Accepted_status)
-    #
-    #     print('Deployed status is: ',
-    #           simple_colors.green(Actual_status, ['bold', 'underlined']))
-    #     time.sleep(2)
-    #     pass
-    # except NoSuchElementException as e:
-    #     print("NoSuchElementException error", e)
-    # except TimeoutException as e:
-    #     print("TimeoutException error", e)
-    # except InvalidSessionIdException as e:
-    #     print("InvalidSessionIdException error", e)
-    # except AssertionError as e:
-    #     print("InvalidSessionIdException error", e)
-    #
+    time.sleep(4)

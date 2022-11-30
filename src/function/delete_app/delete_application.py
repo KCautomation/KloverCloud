@@ -23,7 +23,6 @@ def test_delete_app(self, ApplicationName):
     driver = self.driver
     # ApplicationName = input("Enter Application Name: ")
     # click on settings
-    print("******************************* Test Try to delete application******************************")
 
     print("-------Try to click on application Settings--------")
 
