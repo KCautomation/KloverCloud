@@ -29,7 +29,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         action = ActionChains(self.driver)
         driver = self.driver
         ss = SS(driver)
-        ApplicationName = "laravel-0167"
+        ApplicationName = "laravel-0170"
         print("****************** Try to Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -40,7 +40,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException", e)
 
-        print("****************** Go to Create Application Page *********************")
+        print("****************** Try to go Create Application Page *********************")
         try:
             driver.refresh()
             time.sleep(3)
@@ -54,6 +54,9 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("TimeoutException error", e)
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException", e)
+        else:
+            page = driver.title
+            print(page)
 
         print("***************Create PHP application with PHP Version: 7.3 &  Laravel version : 6.0***************")
 
@@ -67,6 +70,8 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("NoSuchElementException error", e)
         except TimeoutException as e:
             print("TimeoutException error", e)
+        else:
+            print("Successfully to chose Laravel")
 
         print("----Try to put application name--------")
         try:
@@ -79,6 +84,8 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("NoSuchElementException error", e)
         except TimeoutException as e:
             print("TimeoutException error", e)
+        else:
+            print("Successfully to put application name")
 
         # click on laravel version box
         print("-----------Try to click Laravel version box----------------")
@@ -109,7 +116,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         except TimeoutException as e:
             print("TimeoutException error", e)
         else:
-            print('Successfully chose on Laravel version 5.8')
+            print('Successfully chose on Laravel version 6.0')
 
         # scroll down
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
@@ -140,6 +147,8 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("NoSuchElementException error", e)
         except TimeoutException as e:
             print("TimeoutException error", e)
+        else:
+            print('Successfully chose Team as Default')
 
         # scroll below
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 400")
@@ -157,7 +166,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         except TimeoutException as e:
             print("TimeoutException error", e)
         else:
-            print('Successfully click on Next_button')
+            print('Successfully clicked on Next_button')
 
         print("----try to again click 'Next' button-------")
         try:
@@ -170,6 +179,8 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("NoSuchElementException error", e)
         except TimeoutException as e:
             print("TimeoutException error", e)
+        else:
+            print('Successfully clicked on Next_button')
 
         # again scroll below to show Namespaces
         print("Try Scroll down to show Namespaces")
@@ -190,7 +201,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         except TimeoutException as e:
             print("TimeoutException error", e)
         else:
-            print('Successfully Choose Namespace one')
+            print('Successfully Chose first Namespace')
 
         print("-----Scroll down to show Namespaces-----")
         # again scroll below
@@ -209,6 +220,8 @@ class TestCreateAppPHP(EnvironmentSetup):
 
         except TimeoutException as e:
             print("TimeoutException error", e)
+        else:
+            print('Successfully clicked save button')
 
         # click on Create application button
         print("----try to click 'Create application' button--------")
@@ -278,7 +291,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException error", e)
 
-        # validation
+        # checked validation message
         try:
             Created_status = WebDriverWait(driver, 20).until(
                 EC.presence_of_element_located((By.XPATH, Locator.check_app_status)))
@@ -307,8 +320,17 @@ class TestCreateAppPHP(EnvironmentSetup):
             time.sleep(3)
             test_deploy(self)
             time.sleep(3)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        except AssertionError as e:
+            print("AssertionError", e)
 
-            # message check
+        # check deployed status
+        try:
             driver.refresh()
             time.sleep(3)
             test_deploy_validation(self)
