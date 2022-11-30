@@ -145,7 +145,7 @@ def test_deploy(self):
         print("InvalidSessionIdException error", e)
 
     try:
-        deployed_validation = WebDriverWait(driver, 600).until(
+        deployed_validation = WebDriverWait(driver, 800).until(
             EC.presence_of_element_located((By.XPATH, Locator.deployed_validation)))
         if deployed_validation.is_displayed():
             time.sleep(2)
@@ -157,4 +157,4 @@ def test_deploy(self):
     except InvalidSessionIdException as e:
         print("InvalidSessionIdException error", e)
 
-    time.sleep(4)
+    time.sleep(3)

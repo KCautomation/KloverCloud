@@ -29,7 +29,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         action = ActionChains(self.driver)
         driver = self.driver
         ss = SS(driver)
-        ApplicationName = "laravel-0158"
+        ApplicationName = "laravel-0165"
         print("****************** Try to Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -213,7 +213,20 @@ class TestCreateAppPHP(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException error", e)
 
-        time.sleep(80)
+        # time.sleep(80)
+        # wait for confirmation
+        try:
+            wait_ToCreateApplication = WebDriverWait(driver, 800).until(
+                EC.visibility_of_element_located((By.XPATH, Locator.wait_ToCreateApplication)))
+            if wait_ToCreateApplication.is_displayed():
+                time.sleep(4)
+                pass
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException error", e)
 
         # application created validation
         print("---------------Try to Crated Application Validation--------------------")
@@ -260,10 +273,11 @@ class TestCreateAppPHP(EnvironmentSetup):
         print("*******************************Try to Test deploy application******************************")
         try:
             driver.refresh()
-            time.sleep(2)
+            time.sleep(3)
             test_deploy(self)
-            time.sleep(140)
+            time.sleep(3)
 
+            # message check
             driver.refresh()
             time.sleep(3)
             test_deploy_validation(self)
