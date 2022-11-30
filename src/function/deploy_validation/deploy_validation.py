@@ -55,7 +55,7 @@ def test_deploy_validation(self):
 
         print('Deployed status is: ',
               simple_colors.green(Actual_status, ['bold', 'underlined']))
-        time.sleep(1)
+        time.sleep(4)
         pass
     except NoSuchElementException as e:
         print("NoSuchElementException error", e)

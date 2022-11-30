@@ -24,12 +24,12 @@ ss_path = "/Applications/PHP/"
 
 class TestCreateAppPHP(EnvironmentSetup):
 
-    def test_Laravel_default_01(self):
+    def test_Laravel_default_02(self):
         # pytest.skip("Skipping test...later I will implement...")
         action = ActionChains(self.driver)
         driver = self.driver
         ss = SS(driver)
-        ApplicationName = "laravel-0164"
+        ApplicationName = "laravel-0167"
         print("****************** Try to Test Cluster Login *********************")
         try:
             test_cluster_login(self)
@@ -55,7 +55,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException", e)
 
-        print("***************Create PHP application with PHP Version: 7.3 &  Laravel version : 7.0***************")
+        print("***************Create PHP application with PHP Version: 7.3 &  Laravel version : 6.0***************")
 
         print("----try to choose Laravel from below--------")
         try:
@@ -79,6 +79,37 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("NoSuchElementException error", e)
         except TimeoutException as e:
             print("TimeoutException error", e)
+
+        # click on laravel version box
+        print("-----------Try to click Laravel version box----------------")
+        try:
+            Laravel_version_box = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.Laravel_version_box)))
+            print("Laravel_version_box button is clickable")
+            Laravel_version_box.click()
+            time.sleep(2)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        else:
+            print('Successfully clicked on Laravel_version_box')
+
+        # choose laravel version
+        print("-----------Try to choose Laravel version 6.0----------------")
+
+        try:
+            Laravel_version_6_0 = WebDriverWait(driver, 20).until(
+                EC.element_to_be_clickable((By.XPATH, Locator.Laravel_version_6_0)))
+            print("Laravel_version 6.0 button is clickable")
+            Laravel_version_6_0.click()
+            time.sleep(2)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        else:
+            print('Successfully chose on Laravel version 5.8')
 
         # scroll down
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
@@ -281,7 +312,7 @@ class TestCreateAppPHP(EnvironmentSetup):
             driver.refresh()
             time.sleep(3)
             test_deploy_validation(self)
-            time.sleep(2)
+            time.sleep(1)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
@@ -290,7 +321,6 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("InvalidSessionIdException", e)
         except AssertionError as e:
             print("AssertionError", e)
-        time.sleep(20)
 
         print("*******************************Try Test to delete application******************************")
         try:

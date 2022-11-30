@@ -290,7 +290,6 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("InvalidSessionIdException", e)
         except AssertionError as e:
             print("AssertionError", e)
-        time.sleep(20)
 
         print("*******************************Try Test to delete application******************************")
         try:
@@ -612,7 +611,6 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("InvalidSessionIdException", e)
         except AssertionError as e:
             print("AssertionError", e)
-        time.sleep(20)
 
         print("*******************************Try Test to delete application******************************")
         try:
