@@ -4,29 +4,21 @@ import pytest
 import simple_colors
 from selenium.common import NoSuchElementException, TimeoutException, InvalidSessionIdException, \
     ElementClickInterceptedException
-from selenium.webdriver import ActionChains, Keys
-
-from src.Locators.locators import Locator
-from src.function.go_application.go_to_application_page import go_create_app_page
-
-from src.screen_shots.screen_shots import SS
-from src.base.environment_setup import EnvironmentSetup
+from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+
 from src.function.logIn.login_fun import test_cluster_login
-from src.function.deploy_appication.deploy_app import test_deploy
-from src.function.delete_app.delete_application import test_delete_app
 
 ss_path = "/Applications/PHP/"
 
 
-class TestCreateAppPHP(EnvironmentSetup):
+class TestCreateAppPHP:
 
     def test_Laravel_default_01(self, setup):
+        self.driver = setup
         # pytest.skip("Skipping test...later I will implement...")
-        action = ActionChains(self.driver)
-        driver = self.driver
+        # action = ActionChains(self.driver)
+        # driver = self.driver
         ApplicationName = "laravel-0134"
         print("****************** Test Cluster Login *********************")
         try:
@@ -38,13 +30,8 @@ class TestCreateAppPHP(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException", e)
 
-        # driver.get("https://eks.alpha.klovercloud.io/namespace")
-        # driver.implicitly_wait(20)
-        # time.sleep(5)
-        #
-        # elem = driver.find_element(By.XPATH, "//span[contains(text(),'test-com-2')]")
-        # elem.send_keys(Keys.PAGE_DOWN)
+        self.driver.get("https://eks.alpha.klovercloud.io/namespace")
+        self.elem = self.driver.find_element(By.XPATH, "//body/div[@id='main']/div[3]/div[1]/div[1]/a[3]")
+        self.elem.send_keys(Keys.PAGE_DOWN)
 
-        # actions.moveToElement(element);
-        # ## actions.click();
-        # actions.perform();
+        time.sleep(10)

@@ -28,8 +28,8 @@ class TestCreateAppPHP(EnvironmentSetup):
         action = ActionChains(self.driver)
         driver = self.driver
         ss = SS(driver)
-        ApplicationName = "laravel-0147"
-        print("****************** Test Cluster Login *********************")
+        ApplicationName = "laravel-0153"
+        print("****************** Try to Test Cluster Login *********************")
         try:
             test_cluster_login(self)
         except NoSuchElementException as e:
@@ -67,7 +67,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         except TimeoutException as e:
             print("TimeoutException error", e)
 
-        print("----try to put application name--------")
+        print("----Try to put application name--------")
         try:
             ApplicationName_box = WebDriverWait(driver, 20).until(
                 EC.visibility_of_element_located((By.XPATH, Locator.ApplicationName_box)))
@@ -138,8 +138,6 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("NoSuchElementException error", e)
         except TimeoutException as e:
             print("TimeoutException error", e)
-        else:
-            print('Successfully click on Next_button_two')
 
         # again scroll below to show Namespaces
         print("Try Scroll down to show Namespaces")
@@ -162,10 +160,11 @@ class TestCreateAppPHP(EnvironmentSetup):
         else:
             print('Successfully Choose Namespace one')
 
+        print("-----Scroll down to show Namespaces-----")
         # again scroll below
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 1500")
         time.sleep(2)
-        print("Scroll down to show Namespaces")
+
         # click on save button
         print("----try to click save button--------")
         try:
@@ -178,8 +177,6 @@ class TestCreateAppPHP(EnvironmentSetup):
 
         except TimeoutException as e:
             print("TimeoutException error", e)
-        else:
-            print('Successfully clicked on Save button')
 
         # click on Create application button
         print("----try to click 'Create application' button--------")
@@ -215,10 +212,10 @@ class TestCreateAppPHP(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException error", e)
 
-        time.sleep(50)
+        time.sleep(80)
 
         # application created validation
-        print("---------------Crated Application Validation--------------------")
+        print("---------------Try to Crated Application Validation--------------------")
         try:
             driver.refresh()
             time.sleep(3)
@@ -228,13 +225,14 @@ class TestCreateAppPHP(EnvironmentSetup):
             time.sleep(2)
             action.send_keys(Keys.ENTER)
             action.perform()
-            time.sleep(3)
+            time.sleep(2)
         except NoSuchElementException as e:
             print("NoSuchElementException error", e)
         except TimeoutException as e:
             print("TimeoutException error", e)
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException error", e)
+
         # validation
         try:
             Created_status = WebDriverWait(driver, 20).until(
@@ -258,12 +256,12 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("AssertionError", e)
 
         # deploy application
-        print("******************************* Test Try to deploy application******************************")
+        print("*******************************Try to Test deploy application******************************")
         try:
             driver.refresh()
             time.sleep(2)
             test_deploy(self)
-            time.sleep(5)
+            time.sleep(40)
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
         except TimeoutException as e:
@@ -274,7 +272,7 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("AssertionError", e)
         time.sleep(20)
 
-        print("******************************* Test Try to delete application******************************")
+        print("*******************************Try Test to delete application******************************")
         try:
             test_delete_app(self, ApplicationName)
             time.sleep(5)
@@ -287,10 +285,9 @@ class TestCreateAppPHP(EnvironmentSetup):
         except AssertionError as e:
             print("AssertionError", e)
 
-        print("----------------------Application delete validation-----------------------")
+        print("---------------------- deleted Application validation-----------------------")
 
         print("Application Delete Successfully")
-
 
         file_name = ss_path + "delete_success_screenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)

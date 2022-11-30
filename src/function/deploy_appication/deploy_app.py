@@ -1,5 +1,6 @@
 import time
 from telnetlib import EC
+import pytest
 
 import simple_colors
 from selenium.common import NoSuchElementException, TimeoutException, InvalidSessionIdException, \
@@ -139,7 +140,7 @@ def test_deploy(self):
     except InvalidSessionIdException as e:
         print("InvalidSessionIdException error", e)
 
-    time.sleep(40)
+    time.sleep(140)
     driver.refresh()
 
     print("---------------Deployed Validation--------------------")

@@ -1,5 +1,6 @@
 import time
 from telnetlib import EC
+import pytest
 
 import simple_colors
 from selenium.common import NoSuchElementException, TimeoutException, InvalidSessionIdException

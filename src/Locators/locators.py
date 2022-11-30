@@ -1,3 +1,4 @@
+import pytest
 class Locator(object):
     # LogIn Page
     Email_box = "//input[@id='mat-input-0']"  # xpath
@@ -67,6 +68,7 @@ class Locator(object):
     Choose_Namespace_one = "//mat-tab-body/div[1]/div[1]/div[1]/button[1]/span[1]/div[1]/div[1]"
     Save_button_A = "//span[contains(text(),'Save')]"
     Create_Application = "//*[@id='msgContainer']/div/kc-horizontal-stepper/section/div/form/div[3]/button[2]"
+
     check_create_app = "/html[1]/body[1]/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-details[1]/div[1]/div[1]/kc-ci-cd-pipeline[1]/div[1]/div[1]/div[2]/div[1]/div[1]/ul[1]/li[1]"
     check_app_status = "/html[1]/body[1]/kc-root[1]/kc-layout[1]/div[1]/mat-sidenav-container[1]/mat-sidenav-content[1]/main[1]/kc-application-details[1]/div[1]/div[1]/kc-ci-cd-pipeline[1]/div[5]/div[2]/div[1]/div[1]/p[2]"
     Overview_button = "//span[contains(text(),'Overview')]"
