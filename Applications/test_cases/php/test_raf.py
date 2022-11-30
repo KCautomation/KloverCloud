@@ -5,8 +5,9 @@ import simple_colors
 from selenium.common import NoSuchElementException, TimeoutException, InvalidSessionIdException, \
     ElementClickInterceptedException
 from selenium.webdriver import ActionChains, Keys
-from src.screen_shots.screen_shots import SS
+
 from src.Locators.locators import Locator
+from src.function.deploy_validation.deploy_validation import test_deploy_validation
 from src.function.go_application.go_to_application_page import go_create_app_page
 
 from src.screen_shots.screen_shots import SS
@@ -26,10 +27,10 @@ class TestCreateAppPHP(EnvironmentSetup):
     def test_Laravel_default_01(self):
         # pytest.skip("Skipping test...later I will implement...")
         action = ActionChains(self.driver)
-        ss = SS(self.driver)
         driver = self.driver
-        ApplicationName = "laravel-0151"
-        print("****************** Test Cluster Login *********************")
+        ss = SS(driver)
+        ApplicationName = "laravel-0158"
+        print("****************** Try to Test Cluster Login *********************")
         try:
             test_cluster_login(self)
         except NoSuchElementException as e:
@@ -42,7 +43,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         print("****************** Go to Create Application Page *********************")
         try:
             driver.refresh()
-            time.sleep(4)
+            time.sleep(3)
             go_create_app_page(self)
 
             WebDriverWait(driver, 30).until(EC.visibility_of_element_located((By.XPATH, Locator.Laravel)))
@@ -67,7 +68,7 @@ class TestCreateAppPHP(EnvironmentSetup):
         except TimeoutException as e:
             print("TimeoutException error", e)
 
-        print("----try to put application name--------")
+        print("----Try to put application name--------")
         try:
             ApplicationName_box = WebDriverWait(driver, 20).until(
                 EC.visibility_of_element_located((By.XPATH, Locator.ApplicationName_box)))
@@ -138,8 +139,6 @@ class TestCreateAppPHP(EnvironmentSetup):
             print("NoSuchElementException error", e)
         except TimeoutException as e:
             print("TimeoutException error", e)
-        else:
-            print('Successfully click on Next_button_two')
 
         # again scroll below to show Namespaces
         print("Try Scroll down to show Namespaces")
@@ -162,10 +161,11 @@ class TestCreateAppPHP(EnvironmentSetup):
         else:
             print('Successfully Choose Namespace one')
 
+        print("-----Scroll down to show Namespaces-----")
         # again scroll below
         driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 1500")
         time.sleep(2)
-        print("Scroll down to show Namespaces")
+
         # click on save button
         print("----try to click save button--------")
         try:
@@ -178,8 +178,6 @@ class TestCreateAppPHP(EnvironmentSetup):
 
         except TimeoutException as e:
             print("TimeoutException error", e)
-        else:
-            print('Successfully clicked on Save button')
 
         # click on Create application button
         print("----try to click 'Create application' button--------")
@@ -215,10 +213,10 @@ class TestCreateAppPHP(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException error", e)
 
-        time.sleep(60)
+        time.sleep(80)
 
         # application created validation
-        print("---------------Crated Application Validation--------------------")
+        print("---------------Try to Crated Application Validation--------------------")
         try:
             driver.refresh()
             time.sleep(3)
@@ -258,39 +256,46 @@ class TestCreateAppPHP(EnvironmentSetup):
         except AssertionError as e:
             print("AssertionError", e)
 
-        # # deploy application
-        # print("******************************* Test Try to deploy application******************************")
-        # try:
-        #     driver.refresh()
-        #     time.sleep(2)
-        #     test_deploy(self)
-        #     time.sleep(5)
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error :\n", e, "\n")
-        # except TimeoutException as e:
-        #     print("TimeoutException error", e)
-        # except InvalidSessionIdException as e:
-        #     print("InvalidSessionIdException", e)
-        # except AssertionError as e:
-        #     print("AssertionError", e)
-        # time.sleep(20)
-        #
-        # print("******************************* Test Try to delete application******************************")
-        # try:
-        #     test_delete_app(self, ApplicationName)
-        #     time.sleep(5)
-        # except NoSuchElementException as e:
-        #     print("NoSuchElementException error :\n", e, "\n")
-        # except TimeoutException as e:
-        #     print("TimeoutException error", e)
-        # except InvalidSessionIdException as e:
-        #     print("InvalidSessionIdException", e)
-        # except AssertionError as e:
-        #     print("AssertionError", e)
-        #
-        # print("----------------------Application delete validation-----------------------")
-        #
-        # print("Application Delete Successfully")
+        # deploy application
+        print("*******************************Try to Test deploy application******************************")
+        try:
+            driver.refresh()
+            time.sleep(2)
+            test_deploy(self)
+            time.sleep(140)
+
+            driver.refresh()
+            time.sleep(3)
+            test_deploy_validation(self)
+            time.sleep(2)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        except AssertionError as e:
+            print("AssertionError", e)
+        time.sleep(20)
+
+        print("*******************************Try Test to delete application******************************")
+        try:
+            driver.refresh()
+            time.sleep(3)
+            test_delete_app(self, ApplicationName)
+            time.sleep(5)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        except AssertionError as e:
+            print("AssertionError", e)
+
+        print("---------------------- deleted Application validation-----------------------")
+
+        print("Application Delete Successfully")
 
         file_name = ss_path + "delete_success_screenshot_" + time.asctime().replace(":", "_") + ".png"
         ss.driver.save_screenshot(file_name)
