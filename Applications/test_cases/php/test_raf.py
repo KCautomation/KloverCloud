@@ -46,7 +46,7 @@ class TestCreateAppPHP(EnvironmentSetup):
             time.sleep(3)
             go_create_app_page(self)
 
-            WebDriverWait(driver, 30).until(EC.visibility_of_element_located((By.XPATH, Locator.Laravel)))
+            WebDriverWait(driver, 40).until(EC.visibility_of_element_located((By.XPATH, Locator.Laravel)))
             driver.refresh()
         except NoSuchElementException as e:
             print("NoSuchElementException error :\n", e, "\n")
@@ -77,9 +77,19 @@ class TestCreateAppPHP(EnvironmentSetup):
         try:
             ApplicationName_box = WebDriverWait(driver, 20).until(
                 EC.visibility_of_element_located((By.XPATH, Locator.ApplicationName_box)))
-            print("ApplicationName_box is visible")
-            ApplicationName_box.send_keys(ApplicationName)
-            time.sleep(2)
+            if ApplicationName_box.is_displayed():
+                print("ApplicationName_box is visible")
+                ApplicationName_box.send_keys(ApplicationName)
+                time.sleep(2)
+                file_name = ss_path + "ApplicationName_box_" + time.asctime().replace(":", "_") + ".png"
+                ApplicationName_box.screenshot(file_name)
+            else:
+                file_name = ss_path + "ApplicationName_box_" + time.asctime().replace(":", "_") + ".png"
+                ApplicationName_box.screenshot(file_name)
+
+                # # file_name = ss_path + "ApplicationName_box_" + time.asctime().replace(":", "_") + ".png"
+                # ss.driver.save_screenshot(file_name)
+                # ss.ScreenShot(file_name)
         except NoSuchElementException as e:
             print("NoSuchElementException error", e)
         except TimeoutException as e:

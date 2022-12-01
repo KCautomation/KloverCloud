@@ -40,9 +40,55 @@ class TestCreateAppPHP(EnvironmentSetup):
         except InvalidSessionIdException as e:
             print("InvalidSessionIdException", e)
 
-        self.driver.get("https://eks.alpha.klovercloud.io/namespace")
-        time.sleep(5)
-        self.elem = self.driver.find_element(By.XPATH, "/html/body/kc-root/kc-layout/div/mat-sidenav-container/mat-sidenav-content/main/kc-vpc-list/div/div[2]/div[2]/button[10]/span/div/div[1]/div[1]/div/span")
-        self.elem.send_keys(Keys.PAGE_DOWN)
+        print("****************** Try to go Create Application Page *********************")
+        try:
+            driver.refresh()
+            time.sleep(3)
+            go_create_app_page(self)
 
-        time.sleep(10)
+            WebDriverWait(driver, 40).until(EC.visibility_of_element_located((By.XPATH, Locator.Laravel)))
+            driver.refresh()
+        except NoSuchElementException as e:
+            print("NoSuchElementException error :\n", e, "\n")
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        except InvalidSessionIdException as e:
+            print("InvalidSessionIdException", e)
+        else:
+            page = driver.title
+            print(page)
+
+        print("***************Create PHP application with PHP Version: 7.3 &  Laravel version : 6.0***************")
+
+        print("----try to choose Laravel from below--------")
+        try:
+            Laravel = WebDriverWait(driver, 30).until(EC.visibility_of_element_located((By.XPATH, Locator.Laravel)))
+            # driver.refresh()
+            Laravel.click()
+            driver.implicitly_wait(10)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        else:
+            print("Successfully to chose Laravel")
+
+        print("----Try to put application name--------")
+        try:
+            ApplicationName_box = WebDriverWait(driver, 20).until(
+                EC.visibility_of_element_located((By.XPATH, Locator.ApplicationName_box)))
+            if ApplicationName_box.is_displayed():
+                print("ApplicationName_box is visible")
+                ApplicationName_box.send_keys(ApplicationName)
+                time.sleep(2)
+                file_name = ss_path + "ApplicationName_box_" + time.asctime().replace(":", "_") + ".png"
+                ApplicationName_box.screenshot('app.png')
+            else:
+                file_name = ss_path + "ApplicationName_box_" + time.asctime().replace(":", "_") + ".png"
+                ApplicationName_box.screenshot(file_name)
+        except NoSuchElementException as e:
+            print("NoSuchElementException error", e)
+        except TimeoutException as e:
+            print("TimeoutException error", e)
+        else:
+            print("Successfully to put application name")
